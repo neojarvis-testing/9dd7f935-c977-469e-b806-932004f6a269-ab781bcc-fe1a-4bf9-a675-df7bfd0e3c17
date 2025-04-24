@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.model.LoginDTO;
+import com.examly.springapp.model.RegisterDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserServiceImpl;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
     @Autowired
     UserServiceImpl service;
+    //Dummy Api
    @PostMapping("/register")
    public ResponseEntity<String> addUser(@RequestBody User user){
        user = service.createUser(user);
@@ -29,11 +33,10 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?>loginUser(@RequestBody User user){
         LoginDTO loginDTO  = service.loginUser(user);
-        user.setPassword(null);
         return ResponseEntity.status(200).body(loginDTO);
     }
-
-
+ 
+    //Real Api
     @GetMapping("/user")
     public ResponseEntity<List<User>> getAllUser(){
         List<User> user = service.findAllUsers();
@@ -46,8 +49,8 @@ public class UserController {
  }
  //Real API
  @PostMapping("/registers")
-   public ResponseEntity<User> addNewUser(@RequestBody User user){
-       user = service.createUser(user);
+   public ResponseEntity<User> addNewUser(@Valid @RequestBody RegisterDTO registerUser){
+       User user = service.addNewUser(registerUser);
        return ResponseEntity.status(201).body(user);
     }
  @PostMapping("/logins")
