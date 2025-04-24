@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService{
     //Dummy Service Methods
     public User createUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setUserRole("USER");
         return userRepo.save(user);
     }
     //Dummy Service Methods
