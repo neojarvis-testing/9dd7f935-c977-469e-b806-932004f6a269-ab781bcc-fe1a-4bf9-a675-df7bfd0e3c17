@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 // Marking this class as an Entity representing a database table.
 @Entity
-@Table(name ="feedback")
+@Table(name ="feedback")   //This class represents a table name feedback in database
 public class Feedback {
 
     // Primary key for the table, auto-generated.
@@ -22,10 +22,10 @@ public class Feedback {
     private Long feedbackId;
 
     // Mapping feedback to a specific user (Many-to-One relationship).
-    @ManyToOne
+    @ManyToOne   //many feedbacks can belong to one user
     // Column name in the database for the foreign key.
     @JoinColumn(name="userId")
-    private User user;
+    private User user;     
     private String message;
     private Integer rating;
 
