@@ -44,17 +44,13 @@ public class UserController {
        return ResponseEntity.status(201).body("registered");
     }
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user){
-        String data="";
-       if(user.getUsername()!=null)
-           data= user.getUsername();
-      else
-        if(user.getEmail()!=null)
-           data=user.getEmail();
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data, user.getPassword()));
+    public ResponseEntity<LoginDTO> loginUser(@RequestBody User user){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtUtlis.genrateToken(authentication);
-        return ResponseEntity.status(200).body(token);
+        LoginDTO login = service.loginUsers(user);
+        login.setToken(token);
+        return ResponseEntity.status(200).body(login);
     }
  
     //Real Api

@@ -16,8 +16,8 @@ private String email;
 private String password;
 @Column(unique=true)
 private String username;
-private String mobileNumber;
 private String userRole;
+private String mobileNumber;
 public long getUserId() {
     return userId;
 }
