@@ -1,8 +1,5 @@
 package com.examly.springapp.exception;
-
-import java.util.HashMap;
 import java.util.*;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
    @ExceptionHandler(MethodArgumentNotValidException.class)
-   public ResponseEntity<?> handleValidationErrors(MethodArgumentNotValidException e) {
+   public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidException e) {
        List<FieldError> errors = e.getBindingResult().getFieldErrors();
        Map<String, String> map = new HashMap<>();
        for(FieldError err: errors){
@@ -22,16 +19,17 @@ public class GlobalExceptionHandler {
    }
 
   @ExceptionHandler(NoUserFoundException.class)
- public ResponseEntity<?> NoUserFound(NoUserFoundException e){
+public ResponseEntity<String> noUserFound(NoUserFoundException e){
     return ResponseEntity.status(404).body(e.getMessage());
- }
- @ExceptionHandler(IncorrectEmailOrPasswordException.class)
- public ResponseEntity<?> IncorrectEmailOrPassword(IncorrectEmailOrPasswordException e){
-    return ResponseEntity.status(404).body(e.getMessage());
- }
+}
 
- @ExceptionHandler(NotFoundException.class)
- public ResponseEntity<?> NotFoundException(NotFoundException e){
-   return ResponseEntity.status(404).body(e.getMessage());
- }
+@ExceptionHandler(IncorrectEmailOrPasswordException.class)
+public ResponseEntity<String> incorrectEmailOrPassword(IncorrectEmailOrPasswordException e){
+    return ResponseEntity.status(404).body(e.getMessage());
+}
+
+@ExceptionHandler(NotFoundException.class)
+public ResponseEntity<String> notFoundException(NotFoundException e){
+    return ResponseEntity.status(404).body(e.getMessage());
+}
 }

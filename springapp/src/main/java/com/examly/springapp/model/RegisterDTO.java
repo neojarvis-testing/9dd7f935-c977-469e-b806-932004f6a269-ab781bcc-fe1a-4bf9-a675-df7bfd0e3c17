@@ -29,6 +29,7 @@ public class RegisterDTO {
     private String userRole;
 
     public RegisterDTO() {
+         // intentionally left empty to allow frameworks to instantiate the object
     }
 
     public long getUserId() {
