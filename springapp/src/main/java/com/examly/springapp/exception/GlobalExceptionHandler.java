@@ -29,4 +29,8 @@ public class GlobalExceptionHandler {
  public ResponseEntity<?> IncorrectEmailOrPassword(IncorrectEmailOrPasswordException e){
     return ResponseEntity.status(404).body(e.getMessage());
  }
+ @ExceptionHandler(DataNotFoundException.class)
+ public ResponseEntity<?> DataNotFoundException(DataNotFoundException e){
+    return ResponseEntity.status(404).body(e.getMessage());
+ }
 }
