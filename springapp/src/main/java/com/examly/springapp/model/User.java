@@ -63,5 +63,6 @@ public User(long userId, String email, String password, String username, String 
     this.userRole = userRole;
 }
 public User() {
+  // intentionally left empty to allow frameworks to instantiate the object
 }
 }
