@@ -23,16 +23,26 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/feedback")
 public class FeedbackController {
     private final FeedbackServiceImpl service;
-    // Constructor injection of the service
+    // Constructor injection of the service (instead of @Autowired)
     public FeedbackController(FeedbackServiceImpl service) {
         this.service = service;
     }
     // Endpoint to create a new feedback
+    //Dummy
     @PostMapping
-    public ResponseEntity<FeedbackDTO> createFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
-        feedbackDTO=service.createFeedback(feedbackDTO);
-        return ResponseEntity.status(201).body(feedbackDTO);
+    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
+      return ResponseEntity.status(201).body(service.createFeedback(feedback));
     }
+
+
+    //Original
+
+    // @PostMapping
+    // public ResponseEntity<FeedbackDTO> addFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
+    //     feedbackDTO=service.addFeedback(feedbackDTO);
+    //     return ResponseEntity.status(201).body(feedbackDTO);
+    // }
+
     // Endpoint to get a list of all feedback
     @GetMapping
     public ResponseEntity<List<Feedback>> getAllFeedback(){
