@@ -43,7 +43,7 @@ public AuthenticationManager authenticationManager(HttpSecurity http) throws Exc
     http.cors(cors->cors.disable())
     .csrf(csrf->csrf.disable())
     .authorizeHttpRequests(auth->auth
-    .requestMatchers("/api/register","/api/login").permitAll()
+    .requestMatchers("/api/register","/api/login","/api/registers","/api/logins").permitAll()
     .requestMatchers(HttpMethod.GET,"/api/products/{productId}","/api/products/category/{category}","/api/products").hasAnyRole("ADMIN","USER")
     .requestMatchers(HttpMethod.GET,"/api/user","/api/feedback","/api/orders").hasRole("ADMIN")
     .requestMatchers(HttpMethod.PUT,"/api/orders/{orderId}","/api/products/{productId}").hasRole("ADMIN")
