@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examly.springapp.config.JwtUtils;
 import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.RegisterDTO;
 import com.examly.springapp.model.User;
@@ -22,18 +27,30 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    @Autowired
-    UserServiceImpl service;
+    private final UserServiceImpl service;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtlis;
+   
+    // Constructor injection makes dependencies explicit and final.
+    public UserController(UserServiceImpl service,AuthenticationManager authenticationManager,JwtUtils jwtUtlis) {
+        this.service = service;
+        this.authenticationManager=authenticationManager;
+        this.jwtUtlis=jwtUtlis;
+    }
     //Dummy Api
    @PostMapping("/register")
    public ResponseEntity<String> addUser(@RequestBody User user){
-       user = service.createUser(user);
+       service.createUser(user);
        return ResponseEntity.status(201).body("registered");
     }
     @PostMapping("/login")
-    public ResponseEntity<?>loginUser(@RequestBody User user){
-        LoginDTO loginDTO  = service.loginUser(user);
-        return ResponseEntity.status(200).body(loginDTO);
+    public ResponseEntity<LoginDTO> loginUser(@RequestBody User user){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtUtlis.genrateToken(authentication);
+        LoginDTO login = service.loginUsers(user);
+        login.setToken(token);
+        return ResponseEntity.status(200).body(login);
     }
  
     //Real Api
@@ -42,11 +59,8 @@ public class UserController {
         List<User> user = service.findAllUsers();
         return ResponseEntity.status(200).body(user);
     }
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<String> userById(@PathVariable long userId){
-        service.deleteUser(userId);
-       return ResponseEntity.status(200).body(null);
- }
+
+
  //Real API
  @PostMapping("/registers")
    public ResponseEntity<User> addNewUser(@Valid @RequestBody RegisterDTO registerUser){
