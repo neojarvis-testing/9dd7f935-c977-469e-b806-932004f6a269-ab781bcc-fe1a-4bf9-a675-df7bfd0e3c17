@@ -1,17 +1,13 @@
 package com.examly.springapp.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.config.UserPrinciple;
-import com.examly.springapp.exception.IncorrectEmailOrPasswordException;
 import com.examly.springapp.exception.NoUserFoundException;
 import com.examly.springapp.mapper.UserMapper;
 import com.examly.springapp.model.LoginDTO;
@@ -66,9 +62,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
         // Find user by username
         User checkUser= userRepo.findByUsername(user.getUsername());
         if(checkUser==null)
-            throw new NoUserFoundException("User Not Found!!");
+            throw new BadCredentialsException("User Not Found!!");
         if(!encoder.matches(user.getPassword(),checkUser.getPassword()))
-            throw new IncorrectEmailOrPasswordException("Password is Incorrect!!");
+            throw new BadCredentialsException("Password is Incorrect!!");
         return new LoginDTO("Token",checkUser.getUsername(), checkUser.getUserRole(), checkUser.getUserId());
 
     }
