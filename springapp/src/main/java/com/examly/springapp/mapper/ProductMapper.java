@@ -20,15 +20,17 @@ public class ProductMapper {
         product.setStock(productDTO.getStock());
         product.setCategory(productDTO.getCategory());
         product.setPhotoImage(productDTO.getPhotoImage());
-        product.setCreatedAt(productDTO.getCreatedAt());
-        product.setUpdatedAt(productDTO.getUpdatedAt());
+
+        // product.setCreatedAt(productDTO.getCreatedAt());
+        // product.setUpdatedAt(productDTO.getUpdatedAt());
 
         // Map userId to User entity
-        if (productDTO.getUserId() != null) {
-            User user = new User(); // Create a User entity and set its ID
-            user.setUserId(productDTO.getUserId());
-            product.setUser(user);
-        }
+
+        // if (productDTO.getUserId() != null) {
+        //     User user = new User(); // Create a User entity and set its ID
+        //     user.setUserId(productDTO.getUserId());
+        //     product.setUser(user);
+        // }
 
         return product;
     }
@@ -43,13 +45,15 @@ public class ProductMapper {
         productDTO.setStock(product.getStock());
         productDTO.setCategory(product.getCategory());
         productDTO.setPhotoImage(product.getPhotoImage());
-        productDTO.setCreatedAt(product.getCreatedAt());
-        productDTO.setUpdatedAt(product.getUpdatedAt());
+
+        // productDTO.setCreatedAt(product.getCreatedAt());
+        // productDTO.setUpdatedAt(product.getUpdatedAt());
 
         // Map User entity to userId
-        if (product.getUser() != null) {
-            productDTO.setUserId(product.getUser().getUserId());
-        }
+
+        // if (product.getUser() != null) {
+        //     productDTO.setUserId(product.getUser().getUserId());
+        // }
 
         return productDTO;
     }

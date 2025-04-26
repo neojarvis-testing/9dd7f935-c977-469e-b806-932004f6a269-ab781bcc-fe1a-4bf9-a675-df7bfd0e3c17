@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +32,13 @@ public class ProductController {
     }
     // Handles POST requests to add a new product
     //@Valid Ensures validation of object fields
-    @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO) {
-        productDTO = service.addProduct(productDTO);
-        return ResponseEntity.status(201).body(productDTO);
-    }
+
+    // @PostMapping
+    // public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
+    //     productDTO = service.createProduct(productDTO);
+    //     return ResponseEntity.status(201).body(productDTO);
+    // }
+
     // Handles GET requests to fetch all products
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
@@ -61,16 +64,30 @@ public class ProductController {
         return ResponseEntity.status(200).body(list);
     }
     //Handles PUT requests to update product by its id
-    @PutMapping("/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO productDTO) {
-        productDTO = service.updateProduct(productId,productDTO);
-        return ResponseEntity.status(200).body(productDTO);
-    }
+
+    // @PutMapping("/{productId}")
+    // public ResponseEntity<ProductDTO> editProduct(@PathVariable Long productId, @RequestBody ProductDTO productDTO) {
+    //     productDTO = service.editProduct(productId,productDTO);
+    //     return ResponseEntity.status(200).body(productDTO);
+    // }
+
     // Handles DELETE requests to remove a product by its ID
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
         if(service.deleteProduct(productId))
             return ResponseEntity.status(200).body("Deleted Successfully!!");
         return ResponseEntity.status(200).body("Not deleted!!");
+    }
+
+    //Dummy controller...
+    @PostMapping
+    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+        Product createdProduct = service.addProduct(product);
+        return ResponseEntity.status(201).body(createdProduct);
+    }
+    @PutMapping("/{productId}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId,@RequestBody Product product) {
+        Product updatedProduct = service.updateProduct(productId, product);
+        return ResponseEntity.status(200).body(updatedProduct);
     }
 }
