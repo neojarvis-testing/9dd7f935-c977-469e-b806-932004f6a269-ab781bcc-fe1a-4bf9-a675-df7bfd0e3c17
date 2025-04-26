@@ -1,18 +1,15 @@
 package com.examly.springapp.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.dto.ProductDTO;
 import com.examly.springapp.mapper.ProductMapper;
 import com.examly.springapp.model.Product;
-import com.examly.springapp.model.User;
 import com.examly.springapp.repository.ProductRepo;
 import com.examly.springapp.repository.UserRepo;
 
@@ -22,30 +19,27 @@ import jakarta.validation.Valid;
 @Service
 public class ProductServiceImpl  {
     Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-    @Autowired
-    UserRepo userRepo;
-    private final ProductRepo productRepo;
 
+    private final ProductRepo productRepo;
     // Constructor injection of the Product Repository
     public ProductServiceImpl(ProductRepo productRepo) {
         this.productRepo = productRepo;
     }
 
     // Adds a new product to the database
-
-    // public @Valid ProductDTO createProduct(ProductDTO productDTO) {
-    //     logger.info("Method addProduct started...");
-    //     // Converts the incoming DTO to a Product entity using the mapper
-    //     Product product = ProductMapper.mapToProductEntity(productDTO);
-    //     // Saves the Product entity in the database
-    //     LocalDate currentDate = LocalDate.now();
-    //     product.setCreatedAt(currentDate);
-    //     product.setUpdatedAt(currentDate);
-    //     Product saved = productRepo.save(product);
-    //     logger.info("Method addProduct ended...");
-    //     // Converts the saved Product entity back to DTO and returns it
-    //     return ProductMapper.mapToProductDTO(saved);
-    // }
+    public @Valid ProductDTO createProduct(ProductDTO productDTO) {
+        logger.info("Method addProduct started...");
+        // Converts the incoming DTO to a Product entity using the mapper
+        Product product = ProductMapper.mapToProductEntity(productDTO);
+        // Saves the Product entity in the database
+        LocalDate currentDate = LocalDate.now();
+        product.setCreatedAt(currentDate);
+        product.setUpdatedAt(currentDate);
+        Product saved = productRepo.save(product);
+        logger.info("Method addProduct ended...");
+        // Converts the saved Product entity back to DTO and returns it
+        return ProductMapper.mapToProductDTO(saved);
+    }
 
     // Fetches all products from the database
     public List<ProductDTO> getAllProducts() {
@@ -96,48 +90,47 @@ public class ProductServiceImpl  {
     }
 
     // Updates a product by its ID
-    // public ProductDTO editProduct(Long productId, ProductDTO productDTO) {
-    //     logger.info("Method updateProduct started...");
-    //          Find the existing Product entity by ID
-    //         Product existingProduct = productRepo.findById(productId).orElse(null);
-    //         if (existingProduct == null) {
-    //             logger.error("Product with ID " + productId + " not found.");
-    //             return null;
-    //         }
-    //          Update fields only if DTO fields are not null
-    //         if (productDTO.getName() != null)
-    //             existingProduct.setName(productDTO.getName());
-    //         if (productDTO.getDescription() != null)
-    //             existingProduct.setDescription(productDTO.getDescription());
-    //         if (productDTO.getPrice() != null && productDTO.getPrice() > 0)
-    //             existingProduct.setPrice(productDTO.getPrice());
-    //         if (productDTO.getStock() != null)
-    //             existingProduct.setStock(productDTO.getStock());
-    //         if (productDTO.getCategory() != null)
-    //             existingProduct.setCategory(productDTO.getCategory());
-    //         if (productDTO.getPhotoImage() != null)
-    //             existingProduct.setPhotoImage(productDTO.getPhotoImage());
+    public ProductDTO editProduct(Long productId, ProductDTO productDTO) {
+        logger.info("Method updateProduct started...");
+            //Find the existing Product entity by ID
+            Product existingProduct = productRepo.findById(productId).orElse(null);
+            if (existingProduct == null) {
+                logger.error("Product with ID " + productId + " not found.");
+                return null;
+            }
+            //Update fields only if DTO fields are not null
+            if (productDTO.getName() != null)
+                existingProduct.setName(productDTO.getName());
+            if (productDTO.getDescription() != null)
+                existingProduct.setDescription(productDTO.getDescription());
+            if (productDTO.getPrice() != null && productDTO.getPrice() > 0)
+                existingProduct.setPrice(productDTO.getPrice());
+            if (productDTO.getStock() != null)
+                existingProduct.setStock(productDTO.getStock());
+            if (productDTO.getCategory() != null)
+                existingProduct.setCategory(productDTO.getCategory());
+            if (productDTO.getPhotoImage() != null)
+                existingProduct.setPhotoImage(productDTO.getPhotoImage());
         
-    //          Ensure createdAt is set only once during creation
-    //         if (existingProduct.getCreatedAt() == null) {
-    //             existingProduct.setCreatedAt(LocalDate.now());
-    //         }
+            //Ensure createdAt is set only once during creation
+            if (existingProduct.getCreatedAt() == null) {
+                existingProduct.setCreatedAt(LocalDate.now());
+            }
         
-    //         Always update updatedAt
-    //         existingProduct.setUpdatedAt(LocalDate.now());
+            //Always update updatedAt
+            existingProduct.setUpdatedAt(LocalDate.now());
         
-    //          Save the updated Product entity to the database
-    //         productRepo.save(existingProduct);
+            //Save the updated Product entity to the database
+            productRepo.save(existingProduct);
         
-    //          Populate and return the updated ProductDTO
-    //         productDTO.setProductId(existingProduct.getProductId());
-    //         productDTO.setCreatedAt(existingProduct.getCreatedAt());
-    //         productDTO.setUpdatedAt(existingProduct.getUpdatedAt());
+            //Populate and return the updated ProductDTO
+            productDTO.setProductId(existingProduct.getProductId());
+            productDTO.setCreatedAt(existingProduct.getCreatedAt());
+            productDTO.setUpdatedAt(existingProduct.getUpdatedAt());
         
-    //         logger.info("Method updateProduct ended...");
-    //         return productDTO;
-    // }
-
+            logger.info("Method updateProduct ended...");
+            return productDTO;
+    }
 
 
     //Dummy methods
@@ -145,7 +138,6 @@ public class ProductServiceImpl  {
         return productRepo.save(product);
     }
     public Product updateProduct(Long productId, Product product) {
-        Product existingProduct = productRepo.findById(productId).orElse(null);
         product.setProductId(productId);
         return productRepo.save(product);
     }
