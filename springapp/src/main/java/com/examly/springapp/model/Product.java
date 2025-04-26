@@ -1,11 +1,17 @@
 package com.examly.springapp.model;
 
+
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -23,10 +29,18 @@ public class Product {
     private Double price;
     private Integer stock;
     private String category;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String photoImage;
+    // @Column(name = "created_at", nullable = false)
+    // private LocalDate createdAt;
+
+    // @Column(name = "updated_at", nullable = false)
+    // private LocalDate updatedAt;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @ManyToOne
+    // @JoinColumn(name="userId")
     private User user;
     //Specifies the setters and getters
     public String getName() {
@@ -65,18 +79,18 @@ public class Product {
     public void setPhotoImage(String photoImage) {
         this.photoImage = photoImage;
     }
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    // public LocalDate getCreatedAt() {
+    //     return createdAt;
+    // }
+    // public void setCreatedAt(LocalDate createdAt) {
+    //     this.createdAt = createdAt;
+    // }
+    // public LocalDate getUpdatedAt() {
+    //     return updatedAt;
+    // }
+    // public void setUpdatedAt(LocalDate updatedAt) {
+    //     this.updatedAt = updatedAt;
+    // }
     public Long getProductId() {
         return productId;
     }
@@ -89,4 +103,17 @@ public class Product {
     public void setUser(User user) {
         this.user = user;
     }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    
 }
