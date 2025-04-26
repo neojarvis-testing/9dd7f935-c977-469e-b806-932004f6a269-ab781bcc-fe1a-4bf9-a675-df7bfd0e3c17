@@ -1,7 +1,7 @@
 package com.examly.springapp.controller;
-
+ 
 import java.util.List;
-
+ 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.examly.springapp.dto.FeedbackDTO;
 import com.examly.springapp.model.Feedback;
 import com.examly.springapp.service.FeedbackServiceImpl;
-
+ 
 import jakarta.validation.Valid;
-
+ 
 //REST controller to handle HTTP requests
 @RestController
 // Specifies the base URL for the API endpoints in this controller
@@ -28,21 +28,12 @@ public class FeedbackController {
         this.service = service;
     }
     // Endpoint to create a new feedback
-    //Dummy
-    @PostMapping
-    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
-      return ResponseEntity.status(201).body(service.createFeedback(feedback));
+    @PostMapping("/add-feedback")
+    public ResponseEntity<FeedbackDTO> addFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
+        feedbackDTO=service.addFeedback(feedbackDTO);
+        return ResponseEntity.status(201).body(feedbackDTO);
     }
-
-
-    //Original
-
-    // @PostMapping
-    // public ResponseEntity<FeedbackDTO> addFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
-    //     feedbackDTO=service.addFeedback(feedbackDTO);
-    //     return ResponseEntity.status(201).body(feedbackDTO);
-    // }
-
+ 
     // Endpoint to get a list of all feedback
     @GetMapping
     public ResponseEntity<List<Feedback>> getAllFeedback(){
@@ -69,5 +60,11 @@ public class FeedbackController {
         return ResponseEntity.status(200).body("Feedback Deleted Successfully");
     else
         return ResponseEntity.status(404).body("Not Deleted");
+    }
+
+    //Dummy
+    @PostMapping
+    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
+      return ResponseEntity.status(201).body(service.createFeedback(feedback));
     }
 }
