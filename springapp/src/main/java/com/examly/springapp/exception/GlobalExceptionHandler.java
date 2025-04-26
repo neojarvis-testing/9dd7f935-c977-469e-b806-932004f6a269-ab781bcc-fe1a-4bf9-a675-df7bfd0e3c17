@@ -31,5 +31,5 @@ public ResponseEntity<String> incorrectEmailOrPassword(IncorrectEmailOrPasswordE
 @ExceptionHandler(NotFoundException.class)
 public ResponseEntity<String> notFoundException(NotFoundException e){
     return ResponseEntity.status(404).body(e.getMessage());
-}
+ }
 }
