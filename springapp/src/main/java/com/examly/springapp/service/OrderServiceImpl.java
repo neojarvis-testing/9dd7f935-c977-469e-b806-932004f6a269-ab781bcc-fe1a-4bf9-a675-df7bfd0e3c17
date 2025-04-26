@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ import com.examly.springapp.model.User;
 
 import com.examly.springapp.dto.OrderDTO;
 import com.examly.springapp.exception.DataNotFoundException;
+import com.examly.springapp.repository.FeedbackRepo;
 import com.examly.springapp.repository.OrderRepo;
 import com.examly.springapp.repository.ProductRepo;
 import com.examly.springapp.repository.UserRepo;
@@ -29,6 +30,17 @@ public class OrderServiceImpl {
     ProductRepo productRepo;
     @Autowired
     UserRepo userRepo;
+
+     // Logger for tracking the application's flow
+    Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+
+    // Dependency injection for Feedback repository
+    
+
+    // Constructor for injecting dependencies
+    public OrderServiceImpl(OrderRepo orderRepo) {
+        this.orderRepo = orderRepo;
+    }
        // Adds a new order by traversing the map in OrderDTO
     // public Order createOrder(OrderDTO orderDTO) {
     //     Order order = new Order();
@@ -79,18 +91,24 @@ public class OrderServiceImpl {
     // }
 
     //dummy methods
+   
+
     public Order addOrder(Order order) {
+        logger.info("Method addOrder started...");
         return orderRepo.save(order);
     }
     public List<Order> getAllOrders() {
+        logger.info("Method getAllOrders started...");
         return orderRepo.findAll();  
     }
 
     public Order getOrderById(Long orderId) {
+        logger.info("Method getOrderById started...");
        return orderRepo.findById(orderId).orElse(null);
     }
 
     public boolean deleteOrder(Long orderId) {
+        logger.info("Method deleteOrder started...");
         Order order=orderRepo.findById(orderId).orElse(null);
         if(order==null){
             return false;
@@ -105,12 +123,14 @@ public class OrderServiceImpl {
     }
 
     public Order updateOrder(Long orderId, Order order) {
+        logger.info("Method UpdateOrder started...");
         order.setOrderId(orderId);
         //order.setStatus(OrderStatus.SHIPPED);
         return orderRepo.save(order);
 }
 
     public List<Order> getOrdersByUserId(Long userId) {
+        logger.info("Method getOrdersByUserId started...");
         return orderRepo.findByUserId(userId);
     }
     
