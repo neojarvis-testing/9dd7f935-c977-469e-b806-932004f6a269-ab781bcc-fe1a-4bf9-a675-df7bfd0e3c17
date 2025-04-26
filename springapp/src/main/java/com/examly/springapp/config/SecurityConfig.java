@@ -43,7 +43,6 @@ public AuthenticationManager authenticationManager(HttpSecurity http) throws Exc
     http.cors(cors->cors.disable())
     .csrf(csrf->csrf.disable())
     .authorizeHttpRequests(auth->auth
-    .requestMatchers("/swagger-ui/**","/v3/api-docs/**","/swagger-ui.html").permitAll()
     .requestMatchers("/api/register","/api/login").permitAll()
     .requestMatchers(HttpMethod.GET,"/api/products/{productId}","/api/products/category/{category}","/api/products").hasAnyRole("ADMIN","USER")
     .requestMatchers(HttpMethod.GET,"/api/user","/api/feedback","/api/orders").hasRole("ADMIN")
@@ -53,10 +52,10 @@ public AuthenticationManager authenticationManager(HttpSecurity http) throws Exc
     .requestMatchers(HttpMethod.GET,"/api/orders/user/{userId}","/api/orders/{orderId}","/api/feedback/user/{userId}","/api/products/user/{userId}").hasRole("USER")
     .requestMatchers(HttpMethod.POST,"/api/feedback","/api/orders").hasRole("USER")
     .requestMatchers(HttpMethod.DELETE,"/api/feedback/{id}").hasRole("USER")
-    .anyRequest().authenticated())
+    .anyRequest().permitAll())
     .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
     .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 
-        return http.build();
+    return http.build();
     }
 
 }
