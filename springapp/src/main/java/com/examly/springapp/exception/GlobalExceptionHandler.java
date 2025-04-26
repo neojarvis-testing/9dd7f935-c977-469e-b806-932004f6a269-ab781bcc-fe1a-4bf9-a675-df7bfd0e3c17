@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(),
                 errorMap,
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND.value(),
                 "User Not Found",
                 e.getMessage(),
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.FORBIDDEN.value(),
                 e.getMessage(),
                 "Password is Incorrect!!.",
-                 LocalDate.now()
+                LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.UNAUTHORIZED.value(),
                 "Incorrect Password",
                 e.getMessage(),
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND.value(),
                 "Not Found",
                 e.getMessage(),
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
