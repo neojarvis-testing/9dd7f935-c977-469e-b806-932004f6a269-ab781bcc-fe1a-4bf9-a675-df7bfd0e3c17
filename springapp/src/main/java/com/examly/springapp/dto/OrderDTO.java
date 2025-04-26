@@ -3,81 +3,47 @@ package com.examly.springapp.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * OrderDTO represents the data transfer object for orders.
+ * It carries order-related data between the client and server,
+ * including shipping address, product list, user ID, and system-managed timestamps.
+ */
+@Data
 public class OrderDTO {
+
+    // Unique identifier for the order.
+    // This field may be provided by the system rather than the client.
     private Long orderId;
 
+    // Shipping address for the order delivery.
+    // This field is required and must not exceed 255 characters.
     @NotBlank(message = "Shipping address cannot be blank")
     @Size(max = 255, message = "Shipping address cannot exceed 255 characters")
     private String shippingAddress;
 
-    @NotNull(message = "Product quantity map cannot be null")
+    // List of product IDs included in the order.
+    // This list must not be null.
+    @NotNull(message = "Product List cannot be null")
     private List<Long> productList;
 
-    @NotNull(message = "UserId cannot be null.") 
+    // Identifier for the user placing the order.
+    // This field is mandatory.
+    @NotNull(message = "UserId cannot be null.")
     private Long userId;
 
+    // The creation date managed by the system.
+    // Clients are not required to provide this value.
     @Null(message = "Date not required to give.")
     private LocalDate createdAt;
  
+    // The update date managed by the system.
+    // Clients should leave this field null.
     @Null(message = "Date not required to give.")
     private LocalDate updatedAt;
-
-    // Getters and Setters
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
-    
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public List<Long> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Long> productList) {
-        this.productList = productList;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    
 }
