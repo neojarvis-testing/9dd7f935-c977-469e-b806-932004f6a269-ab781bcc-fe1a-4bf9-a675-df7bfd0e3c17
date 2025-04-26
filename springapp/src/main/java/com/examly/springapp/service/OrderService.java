@@ -17,17 +17,17 @@ public interface OrderService {
 //      public List<Order>getOrdersByUser(Long userId);
 //      //public List<Order>getOrdersByStatus(Order.OrderStatus status);
 // }
- OrderDTO addOrder(OrderDTO orderDTO);
+ OrderDTO addOrder(Order order);
 
-    OrderDTO getOrderById(Long id);
+    Order getOrderById(Long orderId);
 
-    List<OrderDTO> getAllOrders();
+    List<Order> getAllOrders();
 
-    List<OrderDTO> getOrdersByUser(Long userId);
+    List<Order> getOrdersByUser(Long userId);
 
-    OrderDTO updateOrder(Long id, OrderDTO orderDTO);
+    Order updateOrder(Long id, Order order);
 
-    void deleteOrder(Long id);
+    boolean deleteOrder(Long orderId);
 }
 
 

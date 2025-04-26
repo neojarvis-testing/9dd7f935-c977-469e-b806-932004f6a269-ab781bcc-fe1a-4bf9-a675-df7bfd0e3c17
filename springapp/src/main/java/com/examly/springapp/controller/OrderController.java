@@ -23,7 +23,7 @@ import com.examly.springapp.dto.OrderDTO;
 
 import jakarta.validation.Valid;
 @RestController
-@RequestMapping("api/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
    @Autowired
    OrderServiceImpl service;
@@ -47,8 +47,6 @@ public class OrderController {
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderById(@PathVariable Long orderId) {
         Order order = service.getOrderById(orderId);
-        if(order==null)
-          return ResponseEntity.status(404).body("Not Found");
         return ResponseEntity.status(200).body(order);
     }
     // Handles DELETE requests to remove a order by its ID
@@ -59,16 +57,14 @@ public class OrderController {
         return ResponseEntity.status(404).body("Not deleted!!");
     }
     @PutMapping("/{orderId}")
-    public ResponseEntity<?>UpdateOrder(@PathVariable Long orderId,@RequestBody Order order){
+    public ResponseEntity<?>updateOrder(@PathVariable Long orderId, @RequestBody Order order){
         order=service.updateOrder(orderId,order);
         return ResponseEntity.status(200).body(order);
 
     }
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getOrdersByUser(@PathVariable Long userId) {
-        List<Order>list= service.getOrdersByUser(userId);
-        if(list.isEmpty())
-          return ResponseEntity.status(404).body("Not Data");
+    public ResponseEntity<?> getOrdersByUserId(@PathVariable Long userId) {
+        List<Order>list= service.getOrdersByUserId(userId);
         return ResponseEntity.status(200).body(list);
     }
 }

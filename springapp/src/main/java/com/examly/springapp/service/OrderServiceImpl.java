@@ -30,54 +30,55 @@ public class OrderServiceImpl {
     @Autowired
     UserRepo userRepo;
        // Adds a new order by traversing the map in OrderDTO
-    public Order createOrder(OrderDTO orderDTO) {
-        Order order = new Order();
-        order.setShippingAddress(orderDTO.getShippingAddress());
+    // public Order createOrder(OrderDTO orderDTO) {
+    //     Order order = new Order();
+    //     order.setShippingAddress(orderDTO.getShippingAddress());
 
-        List<Long> productIdList = orderDTO.getProductList();
-        double totalAmount = 0.0;
-        int totalQuantity = 0;
+    //     List<Long> productIdList = orderDTO.getProductList();
+    //     double totalAmount = 0.0;
+    //     int totalQuantity = 0;
 
-        List<Product> productList = new ArrayList<>();
+    //     List<Product> productList = new ArrayList<>();
 
-        // Consolidate quantities for duplicate product IDs
-        for(long prod:productIdList) {
-            Product product = productRepo.findById(prod).orElse(null);
-            if(product!=null){
-                int productQuantity=product.getStock()-1;
-                   if(productQuantity<0)
-                        return null;
-                product.setStock(productQuantity);
-                productRepo.save(product);
-                totalAmount+=product.getPrice();
-                totalQuantity+=1;
-                productList.add(product);
-            }
+    //     // Consolidate quantities for duplicate product IDs
+    //     for(long prod:productIdList) {
+    //         Product product = productRepo.findById(prod).orElse(null);
+    //         if(product!=null){
+    //             int productQuantity=product.getStock()-1;
+    //                if(productQuantity<0)
+    //                     return null;
+    //             product.setStock(productQuantity);
+    //             productRepo.save(product);
+    //             totalAmount+=product.getPrice();
+    //             totalQuantity+=1;
+    //             productList.add(product);
+    //         }
             
-        }
-        // Round total amount to 2 decimal places using Math.round()
-        totalAmount = Math.round(totalAmount * 100.0) / 100.0;
+    //     }
+    //     // Round total amount to 2 decimal places using Math.round()
+    //     totalAmount = Math.round(totalAmount * 100.0) / 100.0;
 
-        order.setTotalAmount(totalAmount);
-        order.setQuantity(totalQuantity);
-        order.setProducts(productList); // Set the retrieved products
+    //     order.setTotalAmount(totalAmount);
+    //     order.setQuantity(totalQuantity);
+    //     order.setProducts(productList); // Set the retrieved products
 
-        // Set createdAt and updatedAt with current timestamp
-        LocalDate currentDate = LocalDate.now();
-        order.setCreatedAt(currentDate);
-        order.setUpdatedAt(currentDate);
+    //     // Set createdAt and updatedAt with current timestamp
+    //     LocalDate currentDate = LocalDate.now();
+    //     order.setCreatedAt(currentDate);
+    //     order.setUpdatedAt(currentDate);
 
-        // Fetch and validate user
-        User user = userRepo.findById(orderDTO.getUserId())
-            .orElseThrow(() -> new DataNotFoundException("User with ID " + orderDTO.getUserId() + " not found"));
-        order.setUser(user);
+    //     // Fetch and validate user
+    //     User user = userRepo.findById(orderDTO.getUserId())
+    //         .orElseThrow(() -> new DataNotFoundException("User with ID " + orderDTO.getUserId() + " not found"));
+    //     order.setUser(user);
 
-        // Set default order status to PENDING
-        order.setStatus(Order.OrderStatus.PENDING);
+    //     // Set default order status to PENDING
+    //     order.setStatus(Order.OrderStatus.PENDING);
 
-        return orderRepo.save(order);
-    }
-    //dummy post 
+    //     return orderRepo.save(order);
+    // }
+
+    //dummy methods
     public Order addOrder(Order order) {
         return orderRepo.save(order);
     }
@@ -105,11 +106,11 @@ public class OrderServiceImpl {
 
     public Order updateOrder(Long orderId, Order order) {
         order.setOrderId(orderId);
-        order.setStatus(OrderStatus.SHIPPED);
+        //order.setStatus(OrderStatus.SHIPPED);
         return orderRepo.save(order);
 }
 
-    public List<Order> getOrdersByUser(Long userId) {
+    public List<Order> getOrdersByUserId(Long userId) {
         return orderRepo.findByUserId(userId);
     }
     

@@ -28,14 +28,14 @@ public class Order {
     private String shippingAddress ;
     private double totalAmount;
     private int quantity;
-    @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    // @Column(name = "created_at", nullable = false)
+    // private LocalDate createdAt;
  
-    @Column(name = "updated_at", nullable = false)
-    private LocalDate updatedAt;
+    // @Column(name = "updated_at", nullable = false)
+    // private LocalDate updatedAt;
     
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.PENDING;
+    private OrderStatus status;
     public enum OrderStatus{
         PENDING,
         SHIPPED
@@ -84,18 +84,18 @@ public class Order {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    // public LocalDate getCreatedAt() {
+    //     return createdAt;
+    // }
+    // public void setCreatedAt(LocalDate createdAt) {
+    //     this.createdAt = createdAt;
+    // }
+    // public LocalDate getUpdatedAt() {
+    //     return updatedAt;
+    // }
+    // public void setUpdatedAt(LocalDate updatedAt) {
+    //     this.updatedAt = updatedAt;
+    // }
 
 }
 
