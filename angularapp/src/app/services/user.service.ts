@@ -1,9 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from 'src/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor() { }
+   apiUrl:string=Api.apiUrlUser
+  constructor(private http:HttpClient) { }
 }
