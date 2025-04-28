@@ -5,7 +5,7 @@ import com.examly.springapp.model.Feedback;
 import com.examly.springapp.model.User;
 
 public class FeedbackMapper {
-    
+    FeedbackMapper() {}
   //  This is a method to convert data from FeedbackDTO (used in the API) to Feedback (used for database operations).
     public static Feedback mapToFeedbackEntity(FeedbackDTO feedbackDTO) {
         Feedback feedback = new Feedback();

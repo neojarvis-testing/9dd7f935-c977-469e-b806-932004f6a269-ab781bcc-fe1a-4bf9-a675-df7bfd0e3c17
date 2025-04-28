@@ -19,6 +19,8 @@ import com.examly.springapp.exception.DataNotFoundException;
 import com.examly.springapp.repository.OrderRepo;
 import com.examly.springapp.repository.ProductRepo;
 import com.examly.springapp.repository.UserRepo;
+
+import jakarta.validation.Valid;
 @Service
 public class OrderServiceImpl implements OrderService{
     private final ProductRepo productRepo;
@@ -35,7 +37,7 @@ public class OrderServiceImpl implements OrderService{
         this.userRepo = userRepo;
     }
     // Adds a new order by traversing the map in OrderDTO
-    public Order createOrder(OrderDTO orderDTO) {
+    public @Valid Order createOrder(OrderDTO orderDTO) {
         Order order = new Order();
         order.setShippingAddress(orderDTO.getShippingAddress());
 

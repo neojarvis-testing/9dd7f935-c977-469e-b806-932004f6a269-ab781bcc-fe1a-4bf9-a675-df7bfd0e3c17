@@ -5,6 +5,8 @@ import java.util.List;
 import com.examly.springapp.dto.OrderDTO;
 import com.examly.springapp.model.Order;
 
+import jakarta.validation.Valid;
+
 public interface OrderService {
 
     public Order addOrder(Order order);
@@ -19,7 +21,7 @@ public interface OrderService {
 
     public boolean deleteOrder(Long orderId);
 
-    public Order createOrder(OrderDTO orderDTO);
+    public @Valid Order createOrder(OrderDTO orderDTO);
 }
 
 
