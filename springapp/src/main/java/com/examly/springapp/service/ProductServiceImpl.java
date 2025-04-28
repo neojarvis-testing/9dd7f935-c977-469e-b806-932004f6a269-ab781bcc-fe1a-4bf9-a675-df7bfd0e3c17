@@ -2,22 +2,21 @@ package com.examly.springapp.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.dto.ProductDTO;
+import com.examly.springapp.exception.DataNotFoundException;
 import com.examly.springapp.mapper.ProductMapper;
 import com.examly.springapp.model.Product;
 import com.examly.springapp.repository.ProductRepo;
-import com.examly.springapp.repository.UserRepo;
 
 import jakarta.validation.Valid;
 
 // Marks this class as a Service component to define business logic for product operations
 @Service
-public class ProductServiceImpl  {
+public class ProductServiceImpl implements ProductService {
     Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepo productRepo;
@@ -48,7 +47,7 @@ public class ProductServiceImpl  {
         List<Product> products = productRepo.findAll();
         logger.info("Method getAllProducts ended...");
         // Converts each Product entity to a DTO and collects them into a list
-        return products.stream().map(ProductMapper::mapToProductDTO).collect(Collectors.toList());
+        return products.stream().map(ProductMapper::mapToProductDTO).toList();
     }
 
     // Fetches a product by its ID
@@ -74,7 +73,7 @@ public class ProductServiceImpl  {
         List<Product> saved = productRepo.findProductsByUserId(userId);
         logger.info("Method getProductsByUserId ended...");
         // Converts each Product entity to a DTO and collects them into a list
-        return saved.stream().map(ProductMapper::mapToProductDTO).collect(Collectors.toList());
+        return saved.stream().map(ProductMapper::mapToProductDTO).toList();
     }
 
     // Deletes a product by its ID
@@ -95,8 +94,7 @@ public class ProductServiceImpl  {
             //Find the existing Product entity by ID
             Product existingProduct = productRepo.findById(productId).orElse(null);
             if (existingProduct == null) {
-                logger.error("Product with ID " + productId + " not found.");
-                return null;
+                throw new DataNotFoundException("Product with ID"+ productId +"not found.");
             }
             //Update fields only if DTO fields are not null
             if (productDTO.getName() != null)

@@ -3,13 +3,11 @@ package com.examly.springapp.mapper;
 import com.examly.springapp.dto.ProductDTO;
 import com.examly.springapp.model.Product;
 import com.examly.springapp.model.User;
-import com.examly.springapp.repository.UserRepo;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
+    ProductMapper(){}
     // Maps ProductDTO to Product
     public static Product mapToProductEntity(ProductDTO productDTO) {
         Product product = new Product();
