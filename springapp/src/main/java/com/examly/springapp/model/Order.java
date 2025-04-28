@@ -1,8 +1,8 @@
 package com.examly.springapp.model;
-import java.time.LocalDate;
+
 import java.util.List;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,12 +35,6 @@ public class Order {
     private double totalAmount;
 
     private int quantity;
-
-    // @Column(name = "created_at", nullable = false)
-    // private LocalDate createdAt;
-
-    // @Column(name = "updated_at", nullable = false)
-    // private LocalDate updatedAt;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
