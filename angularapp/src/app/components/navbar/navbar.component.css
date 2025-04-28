@@ -1,0 +1,52 @@
+/* src/app/navbar/navbar.component.css */
+nav {
+  position: relative; 
+  z-index: 9999;    
+  background-color: #f8f9fa; /* or your preferred background */
+  transition: all 0.3s ease;
+}
+
+.home-icon {
+  width: 30px;    /* Adjust width as needed */
+  height: 30px;   /* Adjust height as needed */
+  margin-right: 8px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Animate the Home link (brand) on hover */
+.navbar-brand {
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.1);
+}
+
+/* Button animation: smooth lift and shadow effect on hover */
+.btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: a keyframe fade-in animation for buttons when the navbar loads */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply the animation to buttons */
+.btn {
+  animation: fadeInUp 0.5s ease-in-out;
+}

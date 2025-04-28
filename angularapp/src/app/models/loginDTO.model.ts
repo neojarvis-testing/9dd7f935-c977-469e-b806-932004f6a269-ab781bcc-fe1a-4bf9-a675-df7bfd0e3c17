@@ -1,4 +1,4 @@
-export interface loginDto{
+export interface LoginDto{
     token:string
     username:string
     userRole:string
