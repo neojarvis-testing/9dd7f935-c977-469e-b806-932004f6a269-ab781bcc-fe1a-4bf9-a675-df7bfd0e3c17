@@ -1,7 +1,7 @@
 package com.examly.springapp.model;
 
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,8 +32,8 @@ public class Product {
     @Column(columnDefinition = "LONGTEXT")
     private String photoImage;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
     @ManyToOne
     private User user;
