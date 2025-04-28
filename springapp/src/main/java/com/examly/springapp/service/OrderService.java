@@ -5,29 +5,21 @@ import java.util.List;
 import com.examly.springapp.dto.OrderDTO;
 import com.examly.springapp.model.Order;
 
-
-
-
-
 public interface OrderService {
-//      public Order addOrder(OrderDTO orderDTO);
-//      public List<Order> getAllOrders();
-//      public Order getOrderById(Long orderId);
-//      public boolean deleteOrder(Long orderId);
-//      public List<Order>getOrdersByUser(Long userId);
-//      //public List<Order>getOrdersByStatus(Order.OrderStatus status);
-// }
- OrderDTO addOrder(Order order);
 
-    Order getOrderById(Long orderId);
+    public Order addOrder(Order order);
 
-    List<Order> getAllOrders();
+    public Order getOrderById(Long orderId);
 
-    List<Order> getOrdersByUser(Long userId);
+    public List<Order> getAllOrders();
 
-    Order updateOrder(Long id, Order order);
+    public List<Order> getOrdersByUserId(Long userId);
 
-    boolean deleteOrder(Long orderId);
+    public Order updateOrder(Long id, Order order);
+
+    public boolean deleteOrder(Long orderId);
+
+    public Order createOrder(OrderDTO orderDTO);
 }
 
 
