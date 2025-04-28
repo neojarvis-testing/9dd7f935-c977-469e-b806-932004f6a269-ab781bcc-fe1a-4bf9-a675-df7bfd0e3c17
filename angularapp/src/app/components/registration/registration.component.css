@@ -1,0 +1,37 @@
+/* register.component.css */
+
+/* Full-screen background with dynamic image */
+.register-page {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  /* Overlay to improve form readability */
+  .register-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  /* Ensure the content appears above the overlay */
+  .container, .row, .card {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Style for the registration card */
+  .register-card {
+    margin-top: 10vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  

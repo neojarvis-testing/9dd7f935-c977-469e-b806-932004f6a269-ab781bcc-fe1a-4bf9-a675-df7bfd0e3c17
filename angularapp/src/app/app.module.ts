@@ -23,6 +23,7 @@ import { UsernavbarComponent } from './components/usernavbar/usernavbar.componen
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
     UsernavbarComponent,
     UserviewfeedbackComponent,
     UserviewordersComponent,
-    UserviewproductComponent
+    UserviewproductComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
