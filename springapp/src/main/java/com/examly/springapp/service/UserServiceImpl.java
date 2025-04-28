@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService,UserDetailsService{
  
     public UserDetails loadUserByUsername(String username){
         logger.info("Method loadUserByUsername started...");
-        System.out.println("User name is "+username);
+
       User user = userRepo.findByUsername(username);
       if(user==null){
         logger.error("Error occures");
