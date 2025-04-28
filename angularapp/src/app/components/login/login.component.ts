@@ -11,8 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm!: FormGroup;
-  submitted: boolean = false;
+  loginForm!: FormGroup
+  submitted: boolean = false
+   // Popup properties
+   showPopup: boolean = false
+   popupTitle: string = ''
+   popupMessage: string = ''
 
   // Use a single, static background image URL (customize as needed)
   backgroundUrl: string = 'https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg?t=st=1745824723~exp=1745828323~hmac=52082271ee07d43fbefa9c91f1c5d142c9317583b3b72227bece9c63f8d5b5f6&w=2000';
@@ -41,21 +45,36 @@ export class LoginComponent implements OnInit {
     //Check if form is valid
     if (this.loginForm.valid) {
       this.service.loginUser(this.loginForm.value).subscribe((data)=>{
+        // Show popup for successful login
+         this.showPopupMsg("Success", "Login Successful!!!");
          let user:LoginDto=data
-         alert("Login Successfull!!!")
          localStorage.setItem("userId",user.userId+"")
          localStorage.setItem("userRole",user.userRole)
          localStorage.setItem("token",user.token)
          localStorage.setItem("username",user.username)
-         this.router.navigate(['/'])
       },(error)=>{
-        alert("Login Failed!!!")
+        // Show popup for login failure
+        this.showPopupMsg("Error", "Login Failed!!!");
         console.log("Error: "+JSON.stringify(error))
       })
     }
     else
-     alert("Invalid Form Input")
+      this.showPopupMsg("Error", "Invalid Form Input");
 }
+  // Helper method to show the custom popup
+  showPopupMsg(title: string, message: string): void {
+    this.popupTitle = title;
+    this.popupMessage = message;
+    this.showPopup = true;
+  }
 
+  // Call this method when the user closes the popup
+  closePopup(): void {
+    this.showPopup = false;
+    // If login was successful, navigate to the home page
+    if (this.popupTitle === "Success") {
+      this.router.navigate(['/']);
+    }
+  }
 
 }

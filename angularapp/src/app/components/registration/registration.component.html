@@ -106,3 +106,13 @@
     </div>
   </div>
 </div>
+
+
+ <!-- Custom Popup Overlay -->
+ <div class="custom-popup" *ngIf="showPopup">
+  <div class="popup-content">
+    <h4>{{ popupTitle }}</h4>
+    <p>{{ popupMessage }}</p>
+    <button type="button" class="btn btn-primary" (click)="closePopup()">OK</button>
+  </div>
+</div>
