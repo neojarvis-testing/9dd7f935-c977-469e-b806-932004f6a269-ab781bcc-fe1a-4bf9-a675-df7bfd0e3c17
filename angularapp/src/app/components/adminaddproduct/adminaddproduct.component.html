@@ -1,7 +1,9 @@
-
-<div class="container mt-5 p-4 bg-light rounded shadow-sm" style="width: 50%; margin: auto;">
-    <h2 class="text-center mb-4" style="color: rgb(255, 123, 0);">Add Product</h2>
-    <form [formGroup]="addProductForm" (ngSubmit)="createProduct()" class="p-4 border rounded">
+<!-- Full-page background wrapper -->
+<div class="background-wrapper">
+    <!-- Centered form container -->
+    <div class="form-container">
+      <h2 class="text-center mb-4" style="color: rgb(255, 123, 0);">Add Product</h2>
+      <form [formGroup]="addProductForm" (ngSubmit)="createProduct()">
         <div class="mb-3">
             <label for="name" class="form-label">Product Name<span style="color: red;">*</span></label>
             <input type="text" id="name" name="name" formControlName="name" class="form-control">
@@ -10,16 +12,16 @@
                 <small *ngIf="addProductForm.controls.name.errors?.pattern">Product Name can contain only alphabets and digits.</small>
             </div>
         </div>
-
+  
         <div class="mb-3">
-            <label for="description" class="form-label">Description<span style="color: RED;">*</span></label>
+            <label for="description" class="form-label">Description<span style="color: red;">*</span></label>
             <textarea id="description" name="description" formControlName="description" class="form-control"></textarea>
             <div *ngIf="addProductForm.controls.description?.invalid && (addProductForm.controls.description?.touched || addProductForm.controls.description?.dirty)" class="text-danger">
                 <small *ngIf="addProductForm.controls.description.errors?.required">Description is required.</small>
                 <small *ngIf="addProductForm.controls.description.errors?.pattern">Description limit cannot exceed 100 characters.</small>
             </div>
         </div>
-
+  
         <div class="mb-3">
             <label for="price" class="form-label">Price<span style="color: red;">*</span></label>
             <input type="number" id="price" name="price" formControlName="price" class="form-control">
@@ -28,7 +30,7 @@
                 <small *ngIf="addProductForm.controls.price.errors?.min">Price should be positive.</small>
             </div>
         </div>
-
+  
         <div class="mb-3">
             <label for="stock" class="form-label">Stock<span style="color: red;">*</span></label>
             <input type="number" id="stock" name="stock" formControlName="stock" class="form-control">
@@ -37,7 +39,7 @@
                 <small *ngIf="addProductForm.controls.stock.errors?.min">Stock cannot be negative.</small>
             </div>
         </div>
-
+  
         <div class="mb-3">
             <label for="category" class="form-label">Category<span style="color: red;">*</span></label>
             <select id="category" name="category" formControlName="category" class="form-select">
@@ -51,22 +53,25 @@
                 <small *ngIf="addProductForm.controls.category.errors?.required">Category is required.</small>
             </div>
         </div>
-
+  
         <div class="mb-3">
             <label for="photoImage" class="form-label">Product Photo</label>
             <input type="file" id="photoImage" name="photoImage" (change)="handleFileChange($event)" class="form-control">
         </div>
-
-        <button type="submit" [disabled]="addProductForm.invalid" class="btn w-100" style="background-color: rgb(255, 123, 0); color: white;">Add Product</button>
-    </form>
-</div>
-
-
- <!-- Custom Popup Overlay -->
- <div class="custom-popup" *ngIf="showPopup">
+  
+        <button type="submit" [disabled]="addProductForm.invalid" class="btn w-100" style="background-color: rgb(255, 123, 0); color: white;">
+            Add Product
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Custom Popup Overlay -->
+  <div class="custom-popup" *ngIf="showPopup">
     <div class="popup-content">
       <h4>{{ popupTitle }}</h4>
       <p>{{ popupMessage }}</p>
       <button type="button" class="btn btn-primary" (click)="closePopup()">OK</button>
     </div>
   </div>
+  

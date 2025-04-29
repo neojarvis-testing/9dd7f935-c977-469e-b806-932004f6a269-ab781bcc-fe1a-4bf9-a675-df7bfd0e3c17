@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
         ApiResponse response = new ApiResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                e.getMessage(),
+                ExceptionMessage.VALIDATION_ERROR.getMessage(),
                 errorMap,
                 LocalDateTime.now()
         );
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> noUserFound(NoUserFoundException e) {
         ApiResponse response = new ApiResponse(
                 HttpStatus.NOT_FOUND.value(),
-                "User Not Found",
+                ExceptionMessage.USER_NOT_FOUND.getMessage(),
                 e.getMessage(),
                 LocalDateTime.now()
         );
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
         ApiResponse response = new ApiResponse(
                 HttpStatus.FORBIDDEN.value(),
                 e.getMessage(),
-                "Password is Incorrect!!.",
+                ExceptionMessage.PASSWORD_INCORRECT.getMessage(),
                 LocalDateTime.now()
         );
 
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> incorrectEmailOrPassword(IncorrectEmailOrPasswordException e) {
         ApiResponse response = new ApiResponse(
                 HttpStatus.UNAUTHORIZED.value(),
-                "Incorrect Password",
+                ExceptionMessage.INCORRECT_PASSWORD.getMessage(),
                 e.getMessage(),
                 LocalDateTime.now()
         );
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse> notFoundException(NotFoundException e) {
         ApiResponse response = new ApiResponse(
                 HttpStatus.NOT_FOUND.value(),
-                "Not Found",
+                ExceptionMessage.NOT_FOUND.getMessage(),
                 e.getMessage(),
                 LocalDateTime.now()
         );
