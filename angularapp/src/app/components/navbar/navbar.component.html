@@ -1,5 +1,5 @@
 <!-- src/app/navbar/navbar.component.html -->
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent custom-navbar">
     <div class="container-fluid">
       <!-- Home link (brand) -->
       <a class="navbar-brand" routerLink="/">
@@ -20,6 +20,38 @@
   
       <!-- Navbar content -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+         <!-- New navigation links for product management -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="authService.isAdmin()">
+          <a class="nav-link animated-link" routerLink="/addproduct">Add Product</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedUser()">
+          <a class="nav-link animated-link" routerLink="/viewproduct">View Product</a>
+        </li>
+         <!-- New feedback routes -->
+
+        <!-- For logged-in users: Add Feedback -->
+        <li class="nav-item" *ngIf="authService.isUser()">
+          <a class="nav-link green-link animated-link" routerLink="/add-feedback">
+            Add Feedback
+          </a>
+        </li>
+        <!-- For logged-in users: My Feedbacks -->
+        <li class="nav-item" *ngIf="authService.isUser()">
+          <a class="nav-link green-link animated-link" routerLink="/my-feedbacks">
+            My Feedbacks
+          </a>
+        </li>
+        <!-- For admin users: View Feedbacks -->
+        <li class="nav-item" *ngIf="authService.isAdmin()">
+          <a class="nav-link green-link animated-link" routerLink="/view-feedbacks">
+            View Feedbacks
+          </a>
+        </li>
+
+      </ul>
+
         <div class="d-flex">
           <!-- When user is not logged in, show Login and Register buttons -->
           <button *ngIf="!authService.isLoggedUser()" class="btn btn-outline-primary me-2" routerLink="/login">

@@ -1,30 +1,54 @@
-/* src/app/navbar/navbar.component.css */
+/* Remove any conflicting background-color from Bootstrap */
 nav {
-  position: relative; 
-  z-index: 9999;    
-  background-color: #f8f9fa; /* or your preferred background */
+  position: relative;
+  z-index: 9999;
+  /* Remove the default background color */
+  background-color: transparent;
   transition: all 0.3s ease;
 }
 
+/* Custom class for our modified navbar */
+.custom-navbar {
+  /* Make the navbar smaller and set a nice gradient with transparency */
+  padding: 0.3rem 1rem;          /* Reduced vertical padding for a compact look */
+  font-size: 0.85rem;            /* Slightly smaller font size */
+  /* Add a custom gradient background that shows the underlying page */
+  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(0,0,0,0.15));
+  /* Optional subtle border for separation */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  transform-origin: center;
+}
+
+/* Magnify / scale effect on hover for the whole navbar */
+.custom-navbar:hover {
+  transform: scale(1.02);        /* A very slight magnification effect */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);  /* A subtle shadow as it magnifies */
+}
+
+/* Existing home-icon styles remain as-is */
 .home-icon {
-  width: 30px;    /* Adjust width as needed */
-  height: 30px;   /* Adjust height as needed */
+  width: 30px;    
+  height: 30px;
   margin-right: 8px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-/* Animate the Home link (brand) on hover */
+/* Animate the Home link (brand) on hover with blue color */
 .navbar-brand {
   font-weight: bold;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* You can set the default color here if desired */
+  color: inherit;
 }
 
 .navbar-brand:hover {
   transform: scale(1.1);
+  color: rgb(0, 123, 255);  /* Blue color on hover for the Home link */
 }
 
-/* Button animation: smooth lift and shadow effect on hover */
+/* Button animations */
 .btn {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -34,7 +58,6 @@ nav {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Optional: a keyframe fade-in animation for buttons when the navbar loads */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -46,7 +69,28 @@ nav {
   }
 }
 
-/* Apply the animation to buttons */
 .btn {
   animation: fadeInUp 0.5s ease-in-out;
+}
+
+/* Animated navigation links styling */
+.animated-link {
+  transition: transform 0.3s ease, color 0.3s ease;
+  animation: fadeInUp 0.5s ease-in-out;
+  margin-left: 15px;
+}
+
+.animated-link:hover {
+  transform: translateY(-3px);
+  color: rgb(255, 166, 0);
+}
+
+/* New styling for green-themed hover on feedback links */
+.green-link {
+  /* Optionally set default color if desired */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.green-link:hover {
+  transform: translateY(-2px);
+  color: rgb(0, 244, 57);  /* Green color on hover */
 }

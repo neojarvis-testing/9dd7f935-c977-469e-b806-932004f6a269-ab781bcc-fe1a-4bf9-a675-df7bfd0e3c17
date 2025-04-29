@@ -40,7 +40,7 @@ export class AdminaddproductComponent implements OnInit {
     this.service.createProduct(this.addProductForm.value).subscribe(()=>{
       console.log(this.addProductForm.value)
       this.showPopupMsg("Success", "Product added Successfully!!!");
-      this.router.navigate(['/viewproduct']);
+      
     }, (error)=>{
         console.log(JSON.stringify(error))
         this.showPopupMsg("Error", "Product Failed to add!!!");
@@ -69,7 +69,7 @@ export class AdminaddproductComponent implements OnInit {
       this.showPopup = false;
       // If login was successful, navigate to the home page
       if (this.popupTitle === "Success") {
-        this.router.navigate(['/']);
+        this.router.navigate(['/viewproduct']);
       }
     }
 }
