@@ -25,6 +25,10 @@ import { UserviewordersComponent } from './components/uservieworders/uservieword
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +59,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
