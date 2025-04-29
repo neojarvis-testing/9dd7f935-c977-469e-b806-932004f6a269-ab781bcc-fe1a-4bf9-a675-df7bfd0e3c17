@@ -1,1 +1,153 @@
-<p>home works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Mart - Buy Smart, Be Smart!</title>
+  <!-- External CSS File -->
+  <link rel="stylesheet" href="home.component.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-left">
+      <img src="https://img.freepik.com/free-vector/shopping-cart-supermarket-logo-template_23-2148470295.jpg?t=st=1745903084~exp=1745906684~hmac=211b4a951d681c70dabc8325c302955126258484fe5f3b172f30b095137c02e1&w=900" 
+           alt="Smart Mart Logo" class="header-logo">
+      <div class="header-text">
+        <h1>Smart Mart</h1>
+        <h2>Buy smart, be smart!</h2>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-getstarted" (click)="viewAll()">Get Started</button>
+    </div>
+  </header>
+  `
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Promo Section: Why Choose Us -->
+    <section class="promo">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 promo-item">
+            <h3>Cheap Groceries</h3>
+            <p>Enjoy unbeatable prices on your daily essentials.</p>
+          </div>
+          <div class="col-md-4 promo-item">
+            <h3>Faster Delivery</h3>
+            <p>Order now and experience super-fast doorstep delivery.</p>
+          </div>
+          <div class="col-md-4 promo-item">
+            <h3>Vast Variety</h3>
+            <p>Explore a wide selection ranging from fresh produce to pantry staples.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Products</h2>
+          <button class="btn btn-getstarted" (click)="view()">View All products</button>
+        </div>
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <img src="https://as2.ftcdn.net/v2/jpg/05/37/04/61/1000_F_537046123_s8JVn2NrClPQDOryhSm8jonYZPfIzPRX.webp" class="card-img-top" alt="Fresh Vegetables">
+              <div class="card-body text-center">
+                <p class="card-text">Fresh Vegetables</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <img src="https://as2.ftcdn.net/v2/jpg/00/70/94/63/1000_F_70946377_VJXdpJqld6XOsOTO6lt95ieZSxGO0faM.jpg" class="card-img-top" alt="Organic Fruits">
+              <div class="card-body text-center">
+                <p class="card-text">Organic Fruits</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <img src="https://as1.ftcdn.net/v2/jpg/01/57/03/60/1000_F_157036026_9tMnjyVOQ3kjAoQtx8wStEHZVuii1Tq1.jpg" class="card-img-top" alt="Dairy Products">
+              <div class="card-body text-center">
+                <p class="card-text">Dairy Products</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card">
+              <img src="https://as1.ftcdn.net/v2/jpg/01/94/67/46/1000_F_194674604_ljLHejiSLubzErvpKQleLptz8RTAspIT.jpg" class="card-img-top" alt="Bakery Items">
+              <div class="card-body text-center">
+                <p class="card-text">Bakery Items</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Guides Section as Accordion Dropdowns -->
+    <section class="guides">
+      <div class="container">
+        <div class="section-header">
+          <h2>Helpful Guides</h2>
+        </div>
+        <div class="accordion" id="guidesAccordion">
+          <!-- Guide 1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFreshProduce">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFreshProduce" aria-expanded="true" aria-controls="collapseFreshProduce">
+                Guide to Fresh Produce
+              </button>
+            </h2>
+            <div id="collapseFreshProduce" class="accordion-collapse collapse show" aria-labelledby="headingFreshProduce" data-bs-parent="#guidesAccordion">
+              <div class="accordion-body">
+                <p>Learn how to select the freshest produce by checking for vibrant colors, firmness, and aroma. Discover seasonal tips and storage techniques to maximize shelf life and nutrition.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Guide 2 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingBudgetShopping">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBudgetShopping" aria-expanded="false" aria-controls="collapseBudgetShopping">
+                Budget Shopping
+              </button>
+            </h2>
+            <div id="collapseBudgetShopping" class="accordion-collapse collapse" aria-labelledby="headingBudgetShopping" data-bs-parent="#guidesAccordion">
+              <div class="accordion-body">
+                <p>Discover savvy tips for saving money on groceries. Learn how to compare prices, shop seasonal items, and make the most of bulk buying to stick to your budget.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Guide 3 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingHealthyEating">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthyEating" aria-expanded="false" aria-controls="collapseHealthyEating">
+                Healthy Eating
+              </button>
+            </h2>
+            <div id="collapseHealthyEating" class="accordion-collapse collapse" aria-labelledby="headingHealthyEating" data-bs-parent="#guidesAccordion">
+              <div class="accordion-body">
+                <p>Explore nutritional insights and meal planning advice for a balanced lifestyle. Learn how to incorporate a variety of food groups and maintain healthy eating habits with Smart Mart's offerings.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  </main>
+  
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Smart Mart. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS (including Popper.js) -->
+</body>
+</html>
