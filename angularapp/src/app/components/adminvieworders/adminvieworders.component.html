@@ -1,1 +1,28 @@
-<p>adminvieworders works!</p>
+<div class="container">
+    <h2>Admin View Orders</h2>
+  
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Customer Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.itemName }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.price }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>
+            <button (click)="updateOrderStatus(order.id, order)">Update Status</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

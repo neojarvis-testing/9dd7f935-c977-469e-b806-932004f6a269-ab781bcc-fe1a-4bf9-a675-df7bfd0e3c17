@@ -1,9 +1,33 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Api } from 'src/api';
+import { Order } from '../models/order.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
+  apiUrl:string=Api.apiUrlUser
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+  
+  placeOrder(order:Order):Observable<Order>{
+      return this.http.post<Order>(`${this.apiUrl}/orders`,order)
+    }
+    deleteOrder(id:number):Observable<void>{
+      return this.http.delete<void>(`${this.apiUrl}/orders/${id}`)
+    }
+    getOrderDetails(orderId:number):Observable<Order>{
+      return this.http.get<Order>(`${this.apiUrl}/orders/${orderId}`)
+    }
+    getOrderByUserId(userId:number):Observable<Order>{
+      return this.http.get<Order>(`${this.apiUrl}/orders/${userId}`)
+    }
+    getOrders():Observable<Order[]>{
+      return this.http.get<Order[]>(`${this.apiUrl}/orders`)
+    }
+    updateOrderStatus(id:number,order:any):Observable<Order>{
+      return this.http.put<Order>(`${this.apiUrl}/orders/${id}`,order)
+    }
 }

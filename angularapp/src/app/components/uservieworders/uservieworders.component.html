@@ -1,1 +1,38 @@
-<p>uservieworders works!</p>
+<div class="container">
+    <h2>User Orders</h2>
+  
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Customer Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.itemName }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.price }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>
+            <button (click)="getOrderDetails(order.id)">View Details</button>
+            <button (click)="deleteOrder(order.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h2>Order Details</h2>
+    <div *ngIf="order">
+      <p><strong>ID:</strong> {{ order.id }}</p>
+      <p><strong>Item Name:</strong> {{ order.itemName }}</p>
+      <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+      <p><strong>Price:</strong> {{ order.price }}</p>
+      <p><strong>Customer Name:</strong> {{ order.customerName }}</p>
+    </div>
+  </div>

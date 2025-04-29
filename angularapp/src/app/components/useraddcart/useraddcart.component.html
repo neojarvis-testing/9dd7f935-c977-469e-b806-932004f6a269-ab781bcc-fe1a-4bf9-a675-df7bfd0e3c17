@@ -1,1 +1,41 @@
-<p>useraddcart works!</p>
+<!-- Full-page background wrapper -->
+<div class="background-wrapper">
+  <!-- Centered form container -->
+  <div class="form-container">
+    <h2 class="text-center mb-4" style="color: #6a1b9a;">Place Order</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
+      <div class="mb-3">
+        <label for="address" class="form-label">
+          Shipping Address <span style="color: red;">*</span>
+        </label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          formControlName="address"
+          class="form-control"
+          placeholder="Enter your shipping address"
+        />
+        <div *ngIf="orderForm.controls.address.invalid && (orderForm.controls.address.touched || orderForm.controls.address.dirty)" class="text-danger">
+          <small *ngIf="orderForm.controls.address.errors?.required">Shipping address is required.</small>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="orderForm.invalid" class="btn w-100">
+        Place Order
+      </button>
+      <button (click)="clearCart()" class="btn w-100">
+        Clear cart
+      </button>
+    </form>
+  </div>
+</div>
+  
+<!-- Custom Popup Overlay -->
+<div class="custom-popup" *ngIf="showPopup">
+  <div class="popup-content">
+    <h4>{{ popupTitle }}</h4>
+    <p>{{ popupMessage }}</p>
+    <button type="button" class="btn" (click)="closePopup()">OK</button>
+  </div>
+</div>
