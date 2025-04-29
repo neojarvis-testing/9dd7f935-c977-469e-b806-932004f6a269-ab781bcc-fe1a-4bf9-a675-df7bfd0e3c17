@@ -47,7 +47,7 @@ public AuthenticationManager authenticationManager(HttpSecurity http) throws Exc
     .requestMatchers(HttpMethod.GET,"/api/products/{productId}","/api/products/category/{category}","/api/products").hasAnyRole("ADMIN","USER")
     .requestMatchers(HttpMethod.GET,"/api/user","/api/feedback","/api/orders").hasRole("ADMIN")
     .requestMatchers(HttpMethod.PUT,"/api/orders/{orderId}","/api/products/{productId}").hasRole("ADMIN")
-    .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
+    .requestMatchers(HttpMethod.POST,"/api/products","/api/products/add-product").hasRole("ADMIN")
     .requestMatchers(HttpMethod.DELETE,"/api/user/{userId}","/api/orders/{orderId}","/api/products/{productId}").hasRole("ADMIN")
     .requestMatchers(HttpMethod.GET,"/api/orders/user/{userId}","/api/orders/{orderId}","/api/feedback/user/{userId}","/api/products/user/{userId}").hasRole("USER")
     .requestMatchers(HttpMethod.POST,"/api/feedback","/api/orders").hasRole("USER")

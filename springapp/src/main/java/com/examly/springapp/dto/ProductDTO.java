@@ -36,9 +36,6 @@ public class ProductDTO {
     @NotNull(message = "UserId cannot be null.")
     private Long userId;
 
-    @Null(message = "Date not required to give.")
     private LocalDate createdAt;
-
-    @Null(message = "Date not required to give.")
     private LocalDate updatedAt;
 }
