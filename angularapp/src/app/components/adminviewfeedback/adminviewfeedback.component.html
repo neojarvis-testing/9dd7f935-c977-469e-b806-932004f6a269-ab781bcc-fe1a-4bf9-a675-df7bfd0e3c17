@@ -1,1 +1,32 @@
-<p>adminviewfeedback works!</p>
+<div class="admin-feedback-container">
+  <h2>All User Feedbacks</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="feedbacks.length > 0" class="feedback-table">
+    <thead>
+      <tr>
+        <th>Feedback ID</th>
+        <th>User ID</th>
+        <th>User Email</th>
+        <th>Message</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feedback of feedbacks">
+        <td>{{ feedback.feedbackId }}</td>
+        <td>{{ feedback.user.userId }}</td>
+        <td>{{ feedback.user.email }}</td>
+        <td>{{ feedback.message }}</td>
+        <td>{{ feedback.rating }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="feedbacks.length === 0" class="no-feedback-message">
+    No feedbacks available.
+  </div>
+</div>
