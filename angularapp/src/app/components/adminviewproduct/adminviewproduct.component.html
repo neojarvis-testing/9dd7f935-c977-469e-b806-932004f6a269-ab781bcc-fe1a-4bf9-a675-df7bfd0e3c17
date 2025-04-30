@@ -1,27 +1,28 @@
+<!-- Full-page background wrapper -->
 <div class="background-wrapper">
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-3 mb-3" *ngFor="let product of products">
-        <div class="card h-100">
-          <img [src]="product.photoImage" class="card-img-top" alt="{{ product.name }}">
-          <div class="card-body">
-            <h6 class="card-title">{{ product.name }}</h6>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
-            <p class="card-text"><strong>Price:</strong> {{ product.price | currency : 'INR' }}</p>
-            <p class="card-text"><strong>Stock:</strong> {{ product.stock }}</p>
+        <div class="card h-70" style="width: 250px; height: 350px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.8);">
+          <img [src]="product.photoImage" class="card-img-top" alt="{{ product.name }}" style="height: 150px;">
+          <div class="card-body p-2" style="text-align: center;">
+            <h6 class="card-title mb-1">{{ product.name }}</h6>
+            <p class="card-text mb-1">{{ product.description }}</p>
+            <p class="card-text mb-1"><strong>Category:</strong> {{ product.category }}</p>
+            <p class="card-text mb-1"><strong>Price:</strong> {{ product.price | currency : 'INR' }}</p>
+            <p class="card-text mb-1"><strong>Stock:</strong> {{ product.stock }}</p>
           </div>
-          <div class="card-footer d-flex justify-content-between" *ngIf="authService.isAdmin()">
+          <div class="card-footer d-flex justify-content-between p-2" *ngIf="authService.isAdmin()">
             <button class="btn btn-primary btn-sm" (click)="editProduct(product.productId)" style="background-color: rgb(255, 123, 0); color: white;">Edit</button>
-            <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.productId)">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="confirmDeleteProduct(product.productId)">Delete</button>
           </div>
-          <div *ngIf="authService.isUser()">
+          <div class="card-footer d-flex justify-content-center p-2" *ngIf="authService.isUser()">
             <button 
               class="btn btn-primary btn-sm"  
-              style="background-color: rgb(5, 100, 11); color: white;" 
+              style="background-color: rgb(5, 100, 11); color: white;"  
               (click)="addToCart(product.productId)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0  0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
               </svg>
               Add To Cart
             </button>
@@ -29,21 +30,29 @@
         </div>
       </div>
     </div>
-    <div *ngIf="authService.isUser()">
+    <div *ngIf="products.length === 0" class="alert alert-info no-products-alert" role="alert">
+      No products available.
+    </div>
+    <div *ngIf="products.length > 0 && authService.isUser() && !isCartEmpty" class="place-order-container">
       <button 
-        class="btn btn-sm" 
-        style="background-color: #FF8C00; color: white; border: none; font-weight: bold; padding: 10px 20px;" 
+        class="btn btn-sm place-order-btn" 
         (click)="redirectToCart()">
         Place Order
-      </button> 
-        <!-- Custom Popup Overlay -->
-    <div class="custom-popup" *ngIf="showPopup">
-    <div class="popup-content">
-      <h4>{{ popupTitle }}</h4>
-      <p>{{ popupMessage }}</p>
-      <button type="button" class="btn btn-primary" (click)="closePopup()">OK</button>
+      </button>
     </div>
-  </div>
-    </div>    
+    <!-- Custom Popup Overlay -->
+    <div class="custom-popup" *ngIf="showPopup">
+      <div class="popup-content">
+        <h4>{{ popupTitle }}</h4>
+        <p>{{ popupMessage }}</p>
+        <div *ngIf="confirmDelete">
+          <button type="button" class="btn btn-danger" (click)="closePopup(true)">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="closePopup(false)">No</button>
+        </div>
+        <div *ngIf="!confirmDelete">
+          <button type="button" class="btn btn-primary" (click)="closePopup()">OK</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -11,6 +11,7 @@
   justify-content: center;
   /* Ensures that the background covers the entire viewport */
   width: 100%;
+  padding-top: 50px; /* Reduced margin space above */
 }
 
 /* Centered form container */
@@ -20,6 +21,31 @@
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   width: 50%;
+  max-width: 600px; /* Adjust the width as needed */
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out, slideIn 0.5s ease-in-out;
+}
+
+/* Animation for form appearance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Ensure headings and labels are clearly visible against the form background */
