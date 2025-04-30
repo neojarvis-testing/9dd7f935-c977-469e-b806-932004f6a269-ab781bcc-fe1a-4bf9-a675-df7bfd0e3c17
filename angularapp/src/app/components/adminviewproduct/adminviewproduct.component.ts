@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -12,53 +11,74 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminviewproductComponent implements OnInit {
   products: any[] = [];
-  showPopup: boolean = false
-   popupTitle: string = '';
-   popupMessage: string = '';
-  constructor(private productService: ProductService, private router : Router, public authService : AuthService,private cartService:CartService) { }
+  showPopup: boolean = false;
+  popupTitle: string = '';
+  popupMessage: string = '';
+  confirmDelete: boolean = false;
+  productIdToDelete: number | null = null;
+  isCartEmpty: boolean = true;
+
+  constructor(private productService: ProductService, private router: Router, public authService: AuthService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.checkCartStatus();
   }
-  backgroundUrl:string;
+
   getAllProducts(): void {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
     });
   }
+
+  checkCartStatus(): void {
+    this.isCartEmpty = this.cartService.getCartItems().length === 0;
+  }
+
   editProduct(productId: number): void {
-    this.router.navigate(['/addproduct',productId]);
+    this.router.navigate(['/addproduct', productId]);
   }
-  deleteProduct(productId: number): void {
-    this.productService.deleteProduct(productId).subscribe(() => {
-      this.products = this.products.filter(product => product.productId !== productId);
-      // Optionally fetch the updated product list from the server
-      this.getAllProducts();
-    });
+
+  confirmDeleteProduct(productId: number): void {
+    this.productIdToDelete = productId;
+    this.showPopupMsg('Confirm Deletion', 'Are you sure you want to delete this product?');
+    this.confirmDelete = true;
   }
-  addToCart(id:number){
-    this.showPopupMsg("Success",'Product added to Cart..!!');
-      this.cartService.addProductToCart(id)
+
+  deleteProduct(): void {
+    if (this.productIdToDelete !== null) {
+      this.productService.deleteProduct(this.productIdToDelete).subscribe(() => {
+        this.products = this.products.filter(product => product.productId !== this.productIdToDelete);
+        this.showPopupMsg('Success', 'Product deleted successfully!');
+        this.getAllProducts();
+      }, error => {
+        this.showPopupMsg('Error', 'Failed to delete the product. Please try again.');
+      });
+    }
+    this.confirmDelete = false;
   }
-  redirectToCart() {
+
+  addToCart(id: number): void {
+    this.showPopupMsg('Success', 'Product added to Cart..!!');
+    this.cartService.addProductToCart(id);
+    this.checkCartStatus();
+  }
+
+  redirectToCart(): void {
     this.router.navigate(['/gotocart']);
   }
-  // Helper method to show the custom popup
+
   showPopupMsg(title: string, message: string): void {
     this.popupTitle = title;
     this.popupMessage = message;
     this.showPopup = true;
   }
 
-  // Call this method when the user closes the popup
-  closePopup(): void {
+  closePopup(confirm: boolean = false): void {
     this.showPopup = false;
-    // If login was successful, navigate to the home page
-    if (this.popupTitle === "Success") {
-      this.router.navigate(['/viewproduct']);
+    if (confirm && this.confirmDelete) {
+      this.deleteProduct();
     }
+    this.confirmDelete = false;
   }
-
 }
-
-
