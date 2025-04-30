@@ -31,6 +31,7 @@ export class UseraddcartComponent implements OnInit {
   clearCart(): void {
     this.cartServive.clearCart();
     this.orderForm.reset();
+    localStorage.setItem('cart','')
     this.showPopupMsg("Clear", "Cart cleared successfully!!!");
   }
 
@@ -56,7 +57,7 @@ export class UseraddcartComponent implements OnInit {
       this.orderService.placeOrder(this.orderForm.value).subscribe(
         data => {
           console.log('Order placed successfully:', data);
-          this.cartServive.clearCart();
+          this.clearCart();
           this.showPopupMsg("Success", "Order placed successfully!!!");
         },
         error => {
