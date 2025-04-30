@@ -1,82 +1,49 @@
-/* Remove any conflicting background-color from Bootstrap */
+/* navbar.component.css */
+
+/* Navbar Base Styles */
 nav {
   position: relative;
   z-index: 9999;
-  /* Remove the default background color */
   background-color: transparent;
   transition: all 0.3s ease;
 }
 
-/* Custom class for our modified navbar */
 .custom-navbar {
-  /* Make the navbar smaller and set a nice gradient with transparency */
-  padding: 0.3rem 1rem;          /* Reduced vertical padding for a compact look */
-  font-size: 0.85rem;            /* Slightly smaller font size */
-  /* Add a custom gradient background that shows the underlying page */
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
   background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(0,0,0,0.15));
-  /* Optional subtle border for separation */
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-  transform-origin: center;
 }
 
-/* Magnify / scale effect on hover for the whole navbar */
 .custom-navbar:hover {
-  transform: scale(1.02);        /* A very slight magnification effect */
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);  /* A subtle shadow as it magnifies */
+  transform: scale(1.02);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Existing home-icon styles remain as-is */
+/* Home Icon & Brand */
 .home-icon {
-  width: 30px;    
+  width: 30px;
   height: 30px;
   margin-right: 8px;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-/* Animate the Home link (brand) on hover with blue color */
 .navbar-brand {
   font-weight: bold;
   transition: transform 0.3s ease, color 0.3s ease;
-  /* You can set the default color here if desired */
   color: inherit;
 }
 
 .navbar-brand:hover {
   transform: scale(1.1);
-  color: rgb(0, 123, 255);  /* Blue color on hover for the Home link */
+  color: rgb(0, 123, 255);
 }
 
-/* Button animations */
-.btn {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.btn {
-  animation: fadeInUp 0.5s ease-in-out;
-}
-
-/* Animated navigation links styling */
+/* Animated Links */
 .animated-link {
   transition: transform 0.3s ease, color 0.3s ease;
-  animation: fadeInUp 0.5s ease-in-out;
   margin-left: 15px;
 }
 
@@ -85,19 +52,108 @@ nav {
   color: rgb(255, 166, 0);
 }
 
-/* New styling for green-themed hover on feedback links */
-.green-link {
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-.green-link:hover {
-  transform: translateY(-2px);
-  color: rgb(0, 244, 57);  /* Green color on hover */
-}
-
+/* Green and Light-Purple Links */
+.green-link,
 .light-purple {
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
+.green-link:hover {
+  transform: translateY(-2px);
+  color: rgb(0, 244, 57);
+}
+
 .light-purple:hover {
-  color: #c36bc3; /* Slightly darker shade on hover */
+  color: #c36bc3;
+}
+
+/* --- User Profile Section --- */
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.profile-info {
+  margin-right: 8px;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #000000;
+  font-size: 0.9rem;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.user-name:hover {
+  color: #c3a3e8;
+  transform: scale(1.05);
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ba68c8;
+  object-fit: cover;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-pic:focus,
+.profile-pic:hover {
+  transform: scale(1.1);
+  border-color: #ab47bc;
+}
+
+/* --- Profile Selector Modal --- */
+.profile-selector-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11000;
+  animation: fadeInOverlay 0.5s ease-in-out;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.profile-selector-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  width: 90%;
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.profile-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.3s, border-color 0.3s;
+  margin: 5px;
+}
+
+.profile-option:hover {
+  transform: scale(1.1);
+  border-color: #ba68c8;
 }
