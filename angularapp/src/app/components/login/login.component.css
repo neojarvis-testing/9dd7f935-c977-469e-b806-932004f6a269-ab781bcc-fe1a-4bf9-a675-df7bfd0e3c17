@@ -1,50 +1,97 @@
+/* KEYFRAME ANIMATIONS */
+
+/* Fade in entire background content */
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide in the login card from above */
+@keyframes slideInCard {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Bounce in effect for popup overlay */
+@keyframes bounceInPopup {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* Full-screen container with static background image */
 .login-page {
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-  }
-  
-  /* Overlay to enhance form readability */
-  .login-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-  
-  /* Make sure content is above the overlay */
-  .container, .row, .card {
-    position: relative;
-    z-index: 2;
-  }
-  
-  /* Styling the login card */
-  .login-card {
-    margin-top: 20vh;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 8px;
-    padding: 20px;
-  }
-  
-  /* Custom Popup Overlay Styles */
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  animation: fadeInContent 1s ease-out;
+}
+
+/* Overlay to enhance form readability */
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Ensure content is above the overlay */
+.container, 
+.row, 
+.card {
+  position: relative;
+  z-index: 2;
+}
+
+/* Styling the login card with slide-in animation */
+.login-card {
+  margin-top: 20vh;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 8px;
+  padding: 20px;
+  animation: slideInCard 0.8s ease-out;
+}
+
+/* Custom Popup Overlay Styles with Bounce Animation */
 .custom-popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);  /* Dark overlay */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10000;
+  animation: fadeInContent 0.5s ease-out;
 }
 
 .popup-content {
@@ -55,4 +102,12 @@
   max-width: 400px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: bounceInPopup 0.7s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .login-card {
+    padding: 15px;
+  }
 }

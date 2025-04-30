@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminaddproductComponent } from './components/adminaddproduct/adminaddproduct.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { AdminviewfeedbackComponent } from './components/adminviewfeedback/adminviewfeedback.component';
 import { AdminviewordersComponent } from './components/adminvieworders/adminvieworders.component';
@@ -24,8 +24,6 @@ import { UserviewfeedbackComponent } from './components/userviewfeedback/uservie
 import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { LogoutComponent } from './components/logout/logout.component';
-
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 
 

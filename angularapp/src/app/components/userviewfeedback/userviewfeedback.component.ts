@@ -9,32 +9,76 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 })
 export class UserviewfeedbackComponent implements OnInit {
   feedbacks: Feedback[] = [];
-  userId:number
+  userId: any;
   errorMessage: any;
-  constructor(private feedbackService: FeedbackService) {}
+
+  // Modal state variables
+  showDeleteModal: boolean = false;
+  showResultModal: boolean = false;
+  selectedFeedbackId: number | null = null;
+  resultModalTitle: string = '';
+  resultModalMessage: string = '';
+
+  constructor(private readonly feedbackService: FeedbackService) {}
 
   ngOnInit() {
-    this.userId=+ localStorage.getItem('userId')
-    // console.log('User ID:', this.userId);
+    this.userId = localStorage.getItem('userId');
     this.loadFeedbacks();
   }
 
   loadFeedbacks() {
-    this.feedbackService.getFeedbackByUserId(this.userId).subscribe(data => {
-      this.feedbacks = data;
-    });
+    this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
+      (data) => {
+        this.feedbacks = data;
+      },
+      (error) => {
+        // Check for the 404 error or other specifics in the error response
+        if (error.status === 404 || (error.error && error.error.data === "No feedback found")) {
+          this.feedbacks = [];
+          this.errorMessage = "No feedbacks available.";
+        } else {
+          this.errorMessage = "Error loading feedbacks.";
+        }
+      }
+    );
   }
 
-  deleteFeedback(feedbackId: number) {
-    console.log(feedbackId)
-    if (confirm('Are you sure you want to delete?')) {
-      this.feedbackService.deleteFeedback(feedbackId).subscribe((data)=>{
-        alert("Feedback Deleted")
-        this.loadFeedbacks()
-      },(error)=>{
-        console.log("Error: "+ JSON.stringify(error))
-      })
+  // Open the custom delete confirmation modal
+  openDeleteModal(feedbackId: number) {
+    this.selectedFeedbackId = feedbackId;
+    this.showDeleteModal = true;
+  }
+
+  // Close the delete modal
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.selectedFeedbackId = null;
+  }
+
+  // On confirming deletion, attempt to delete and show result modal.
+  confirmDelete() {
+    if (this.selectedFeedbackId !== null) {
+      this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe(
+        (data) => {
+          this.resultModalTitle = "Success";
+          this.resultModalMessage = "Feedback Deleted Successfully.";
+          this.showResultModal = true;
+          this.loadFeedbacks();
+        },
+        (error) => {
+          this.resultModalTitle = "Error";
+          this.resultModalMessage =
+            "There was an error deleting the feedback.";
+          this.showResultModal = true;
+        }
+      );
     }
+    this.closeDeleteModal();
+  }
+
+  // Close the results modal
+  closeResultModal() {
+    this.showResultModal = false;
   }
 
 }

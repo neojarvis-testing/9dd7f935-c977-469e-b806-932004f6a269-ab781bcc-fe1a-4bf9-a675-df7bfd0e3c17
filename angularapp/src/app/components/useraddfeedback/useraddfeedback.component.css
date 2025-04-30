@@ -1,114 +1,131 @@
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
-  margin: 0;
-  padding: 0;
+/* Main container with background image and overlay */
+.user-feedback-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 40px;
+  background: url('https://img.freepik.com/free-photo/education-concept-still-life-flat-lay_23-2149001218.jpg?t=st=1745992410~exp=1745996010~hmac=e3620139b898ebd53b01b737adab9e57805022b807574694e686e8687d2b6568&w=1380')
+    no-repeat center center;
+  background-size: cover;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-}
-
-/* Feedback Form Container */
-form {
-  background-color: #fff;
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  width: 100%;
-}
-
-/* Form Header */
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #4CAF50;
-}
-
-/* Feedback Textarea */
-textarea {
-  width: calc(100% - 10px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-  font-size: 14px;
-}
-
-textarea:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-/* Label Styling */
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* Star Rating */
-.stars {
-  display: flex;
-  gap: 5px;
   justify-content: center;
-  cursor: pointer;
-  margin-bottom: 10px;
+  overflow: auto;
 }
 
+/* Overlay to darken the background image for improved readability */
+.user-feedback-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Form wrapper with a slide-in animation */
+.form-wrapper {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 500px;
+  animation: slideInDown 0.6s ease-out;
+}
+
+/* Keyframes for the slide in effect */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Star rating styles */
 .stars span {
   font-size: 24px;
-  color: lightgray;
-  transition: color 0.2s ease;
+  cursor: pointer;
+  color: #ccc;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-right: 5px;
+}
+
+.stars span:hover {
+  transform: scale(1.2);
 }
 
 .stars span.selected {
-  color: gold;
+  color: #ffc107;
+  animation: bounce 0.3s ease;
 }
 
-/* Buttons */
-button {
-  display: block;
+/* Bounce animation on star selection */
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+/* Button hover animation for submit button */
+.btn.btn-success:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Custom modal for success and error popups with fade-in effect */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 10px 0;
-  border: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModal 0.5s ease-in-out;
+  z-index: 1000;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-button:hover:not(:disabled) {
-  background-color: #45a049;
-}
-
-/* Success and Error Messages */
-div[ngIf] {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
+/* Modal content with a light-green theme */
+.modal-content {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
-  font-weight: bold;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-div[ngIf]:nth-of-type(1) {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-div[ngIf]:nth-of-type(2) {
-  background-color: #f8d7da;
-  color: #721c24;
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .form-wrapper {
+    padding: 20px;
+  }
+  .stars span {
+    font-size: 20px;
+  }
 }

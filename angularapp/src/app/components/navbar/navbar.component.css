@@ -87,10 +87,17 @@ nav {
 
 /* New styling for green-themed hover on feedback links */
 .green-link {
-  /* Optionally set default color if desired */
   transition: transform 0.3s ease, color 0.3s ease;
 }
 .green-link:hover {
   transform: translateY(-2px);
   color: rgb(0, 244, 57);  /* Green color on hover */
+}
+
+.light-purple {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.light-purple:hover {
+  color: #c36bc3; /* Slightly darker shade on hover */
 }

@@ -1,119 +1,158 @@
-.table th, .table td {
-    text-align: center;
-    vertical-align: middle;
-  }
-  
-  .table th {
-    background-color: #343a40;
-    color: #ffffff;
-  }
-  
-  .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-  }
-  
-  .table-striped tbody tr:nth-of-type(even) {
-    background-color: #ffffff;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  
-  .mt-4 {
-    margin-top: 1.5rem;
-  }
+/* --- KEYFRAME ANIMATIONS --- */
 
-/* Full-page background wrapper using your original background image URL */
+/* Fade in the whole content */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animated {
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+}
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+/* Slide in upward animation for the table */
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.slideInUp {
+  animation-name: slideInUp;
+}
+
+/* Bounce in animation for popup */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.bounceIn {
+  animation-name: bounceIn;
+}
+
+/* --- BACKGROUND & PAGE LAYOUT --- */
+
+/* Full-page background wrapper using the provided URL and light purple overlay */
 .background-wrapper {
-  background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-    url('https://img.freepik.com/free-psd/shopping-vertical-background_23-2150409471.jpg?t=st=1745916056~exp=1745919656~hmac=b28c28bbad55cfcce16e374be6914fd46d10658b128606b8fd287bda640355b8&w=740')
+  background: 
+    linear-gradient(rgba(106,27,154,0.4), rgba(106,27,154,0.4)),
+    url('https://img.freepik.com/premium-vector/free-delivery-neon-icon-elements-cyber-monday-set-simple-icon-websites-web-design-mobile-app-info-graphics_549897-2510.jpg?w=1380') 
     no-repeat center center;
   background-size: cover;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  position: relative;
 }
 
-/* Centered form container */
-.form-container {
-  background-color: rgba(255, 255, 255, 0.85);
+/* --- ORDERS CONTAINER & TABLE --- */
+
+/* Container for orders with a light, semi-transparent background */
+.orders-container {
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 50%;
+  width: 80%;
+  max-width: 1200px;
 }
 
-/* Form headings and labels */
-.form-container h2,
-.form-container label {
-  color: #000;
+/* Table styling */
+.table {
+  margin-top: 1rem;
 }
-
-/* Button for placing the order, updated to light purple theme */
-.btn {
-  background-color: #ba68c8;   /* Light purple background */
-  border: none;
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.table th {
+  background-color: #6a1b9a; /* Dark purple header */
   color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
-.btn:hover {
-  background-color: #ab47bc;   /* Darker shade on hover */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f3e5f5;  /* Light purple tone for odd rows */
+}
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #fff;
 }
 
-/* Custom Popup Overlay Styles with Light Purple Theme */
-.custom-popup {
+/* --- NO DATA MESSAGE --- */
+.no-data {
+  padding: 2rem;
+  color: #6a1b9a;
+}
+
+/* --- ORDER DETAILS SECTION --- */
+.order-details {
+  background-color: #f9fbe7; /* Soft light background */
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Product image styling */
+.product-img {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+/* --- CUSTOM POPUP OVERLAY --- */
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);  /* Dark overlay for focus */
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10000;
 }
-
 .popup-content {
-  background-color: #f3e5f5;  /* Light purple background */
-  border: 2px solid #ba68c8;  /* Light purple border */
+  background-color: #f3e5f5;   /* Light purple background */
+  border: 2px solid #ba68c8;   /* Light purple border */
   border-radius: 5px;
   padding: 20px;
   min-width: 300px;
   max-width: 400px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
-
-.popup-content h4 {
-  color: #6a1b9a;  /* Dark purple heading text */
+.popup-content h3 {
+  color: #6a1b9a; /* Dark purple heading */
   margin-bottom: 10px;
 }
-
 .popup-content p {
-  color: #000;    /* Black text */
+  color: #000;
   margin-bottom: 20px;
 }
-
-/* Popup button updated to light purple */
-.popup-content button {
-  background-color: #ba68c8;   /* Light purple button background */
-  border: 1px solid #ba68c8;
-  color: #fff;                /* White text */
-  padding: 8px 16px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.popup-content button:hover {
-  background-color: #ab47bc;   /* Slightly darker on hover */
+.popup-actions button {
+  margin: 5px;
 }
