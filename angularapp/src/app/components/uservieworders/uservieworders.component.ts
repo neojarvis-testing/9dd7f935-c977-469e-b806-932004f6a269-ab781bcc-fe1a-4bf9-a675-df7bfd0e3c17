@@ -11,16 +11,16 @@ import { OrderService } from 'src/app/services/order.service';
 export class UserviewordersComponent implements OnInit {
   orders: Order[] = [];
   selectedOrder: Order;
-  userId:number;
+  userId:any;
   showPopup: boolean = false;
    popupTitle: string = '';
    popupMessage: string = '';
    popupOnConfirm: () => void;
    popupOnCancel: () => void;
-  constructor(private orderService:OrderService, private router : Router) { }
+  constructor(private readonly orderService:OrderService, private readonly router : Router) { }
 
   ngOnInit(): void {
-    this.userId=+ localStorage.getItem('userId')
+    this.userId= localStorage.getItem('userId')
     this.getOrderByUserId(this.userId)
   }
   deleteOrder(orderId: number): void {

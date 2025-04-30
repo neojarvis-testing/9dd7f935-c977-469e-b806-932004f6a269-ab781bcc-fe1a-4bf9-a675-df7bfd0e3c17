@@ -16,11 +16,17 @@ export class UseraddfeedbackComponent implements OnInit {
   userid: number;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private feedbackService: FeedbackService,
-    private router: Router
+    private readonly formBuilder: FormBuilder,
+    private readonly feedbackService: FeedbackService,
+    private readonly router: Router
   ) {}
-
+  handleKeyDown(event: KeyboardEvent, index: number): void {
+    // Check for Enter or Space keys
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // Prevent default behavior (such as scrolling)
+      this.setRating(index + 1);
+    }
+  }  
   ngOnInit(): void {
     this.feedbackForm = this.formBuilder.group({
       userId: [null],
@@ -41,8 +47,9 @@ export class UseraddfeedbackComponent implements OnInit {
       this.feedbackForm.patchValue({ userId: this.userid });
       this.feedbackService.createFeedback(this.feedbackForm.value).subscribe({
         next: () => {
-          alert('Feedback added successfully');
-          this.router.navigateByUrl('/my-feedbacks');
+          // Instead of using alert, we set the success message,
+          // which then shows the custom success modal.
+          this.successMessage = 'Feedback added successfully.';
         },
         error: (error) => {
           this.errorMessage = 'Error submitting feedback. Please try again.';
@@ -56,7 +63,14 @@ export class UseraddfeedbackComponent implements OnInit {
     this.feedbackForm.patchValue({ rating });
   }
 
-  resetForm(): void {
-    this.feedbackForm.reset({ message: '', rating: 0 }, { emitEvent: false });
+  // Closes the success modal and navigates to the feedback list.
+  finishSuccess(): void {
+    this.successMessage = '';
+    this.router.navigateByUrl('/my-feedbacks');
+  }
+
+  // Closes the error modal.
+  closeErrorModal(): void {
+    this.errorMessage = '';
   }
 }

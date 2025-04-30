@@ -17,15 +17,22 @@
           placeholder="Enter your shipping address"
         />
         <div *ngIf="orderForm.controls.shippingAddress.invalid && (orderForm.controls.shippingAddress.touched || orderForm.controls.shippingAddress.dirty)" class="text-danger">
-          <small *ngIf="orderForm.controls.shippingAddress.errors?.required">Shipping address is required.</small>
+          <small *ngIf="orderForm.controls.shippingAddress.errors?.required">
+            Shipping address is required.
+          </small>
         </div>
       </div>
+
+      <!-- Error message for empty cart -->
+      <div *ngIf="cartItems.length === 0" class="text-danger mb-3">
+        <small>Your cart is empty. Please add items before placing an order.</small>
+      </div>
   
-      <button type="submit" [disabled]="orderForm.invalid" class="btn w-100">
+      <button type="submit" [disabled]="orderForm.invalid || cartItems.length === 0" class="btn w-100">
         Place Order
       </button>
-      <button (click)="clearCart()" class="btn w-100">
-        Clear cart
+      <button type="button" (click)="clearCart()" class="btn w-100 mt-2">
+        Clear Cart
       </button>
     </form>
   </div>

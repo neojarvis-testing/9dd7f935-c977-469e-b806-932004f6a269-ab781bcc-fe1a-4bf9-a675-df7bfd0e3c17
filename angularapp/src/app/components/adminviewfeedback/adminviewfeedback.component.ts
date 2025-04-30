@@ -8,9 +8,8 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./adminviewfeedback.component.css']
 })
 export class AdminviewfeedbackComponent implements OnInit {
-  feedbacks: Feedback[] = [];
   errorMessage: string = ''; // For handling errors
-
+  feedbacks: Feedback[] = [];
   constructor(private feedbackService: FeedbackService) {}
 
   ngOnInit(): void {
@@ -22,10 +21,15 @@ export class AdminviewfeedbackComponent implements OnInit {
       next: (data) => {
         this.feedbacks = data; // Assign the data to the feedback array
       },
-      error: (err) => {
-        console.error('Error loading feedbacks:', err);
-        this.errorMessage = 'Failed to load feedbacks. Please try again later.';
-      }
-    });
+      error: (error) => {
+        // Check if error status is 404 or the error payload contains "No feedback found."
+      if ( error.status === 404 || (error.error && (error.error.data === "No feedback found." || error.error.message === "Not Found"))){
+        this.feedbacks = [];
+        this.errorMessage = "No feedback found.";
+      } else 
+        this.errorMessage = "Error loading feedbacks.";
+      
+    }
+      });
   }
 }

@@ -1,39 +1,78 @@
-<h2>Add Feedback</h2>
+<div class="user-feedback-container">
+  <div class="form-wrapper">
+    <h2 class="mb-4">Add Feedback</h2>
+    <form [formGroup]="feedbackForm" (ngSubmit)="addFeedback()" novalidate>
+      <!-- Feedback Message -->
+      <div class="form-group mb-3">
+        <label for="message">Feedback Message:</label>
+        <textarea
+          id="message"
+          formControlName="message"
+          rows="3"
+          class="form-control"
+          placeholder="Enter your feedback here..."
+        ></textarea>
+        <div
+          *ngIf="feedbackForm.get('message')?.touched && feedbackForm.get('message')?.errors"
+          class="text-danger mt-1"
+        >
+          <small *ngIf="feedbackForm.get('message')?.errors?.required">
+            Message is required.
+          </small>
+          <small *ngIf="feedbackForm.get('message')?.errors?.minlength">
+            Message must be at least 10 characters long.
+          </small>
+        </div>
+      </div>
 
-<form [formGroup]="feedbackForm" (ngSubmit)="addFeedback()">
-  <!-- Feedback Textarea -->
-  <div>
-    <label for="message">Feedback Message:</label>
-    <textarea id="message" formControlName="message" rows="2" cols="8"></textarea>
-    <div *ngIf="feedbackForm.get('message')?.errors?.required && feedbackForm.get('message')?.touched">
-      Message is required.
-    </div>
-    <div *ngIf="feedbackForm.get('message')?.errors?.minlength && feedbackForm.get('message')?.touched">
-      Message must be at least 10 characters long.
+      <!-- Star Rating -->
+      <div class="form-group mb-3">
+        <label for="rating">Rating:</label>
+        <div class="stars">
+          <span
+            *ngFor="let star of stars; let i = index"
+            tabindex="0"
+            (click)="setRating(i + 1)"
+            (keydown)="handleKeyDown($event, i)"
+            [class.selected]="i < feedbackForm.get('rating')?.value"
+          >
+            ★
+          </span>
+        </div>
+        <div
+          *ngIf="feedbackForm.get('rating')?.touched && feedbackForm.get('rating')?.errors"
+          class="text-danger mt-1"
+        >
+          <small *ngIf="feedbackForm.get('rating')?.errors?.required">
+            Rating is required.
+          </small>
+          <small *ngIf="feedbackForm.get('rating')?.errors?.min">
+            Rating must be at least 1.
+          </small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100" [disabled]="feedbackForm.invalid">
+        Submit Feedback
+      </button>
+    </form>
+  </div>
+
+  <!-- Custom Success Popup Modal -->
+  <div *ngIf="successMessage" class="custom-modal">
+    <div class="modal-content">
+      <h3>Success</h3>
+      <p>{{ successMessage }}</p>
+      <button class="btn btn-primary" (click)="finishSuccess()">OK</button>
     </div>
   </div>
 
-  <!-- Star Rating -->
-  <div>
-    <label for="rating">Rating:</label>
-    <div class="stars">
-      <span 
-        *ngFor="let star of stars; let i = index" 
-        (click)="setRating(i + 1)" 
-        [class.selected]="i < feedbackForm.get('rating')?.value">
-        ★
-      </span>
-    </div>
-    <div *ngIf="feedbackForm.get('rating')?.errors?.required && feedbackForm.get('rating')?.touched">
-      Rating is required.
-    </div>
-    <div *ngIf="feedbackForm.get('rating')?.errors?.min && feedbackForm.get('rating')?.touched">
-      Rating must be at least 1.
+  <!-- Custom Error Popup Modal -->
+  <div *ngIf="errorMessage" class="custom-modal">
+    <div class="modal-content">
+      <h3>Error</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="btn btn-danger" (click)="closeErrorModal()">Close</button>
     </div>
   </div>
-
-  <button type="submit" [disabled]="feedbackForm.invalid">Submit Feedback</button>
-</form>
-
-<div *ngIf="successMessage">{{ successMessage }}</div>
-<div *ngIf="errorMessage">{{ errorMessage }}</div>
+</div>
