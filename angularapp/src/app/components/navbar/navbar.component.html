@@ -1,5 +1,6 @@
-<!-- navbar.component.html -->
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent custom-navbar">
+<nav
+  class="navbar navbar-expand-lg custom-navbar animate__animated animate__fadeInDown"
+>
   <div class="container-fluid">
     <!-- Home link (brand) -->
     <a class="navbar-brand" routerLink="/">
@@ -25,44 +26,55 @@
     </button>
 
     <!-- Navbar content -->
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarSupportedContent"
+    >
       <!-- Navigation Links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" *ngIf="authService.isAdmin()">
-          <a class="nav-link animated-link" routerLink="/addproduct">Add Product</a>
+          <a class="nav-link animated-link" routerLink="/addproduct"
+            >Add Product</a
+          >
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedUser()">
-          <a class="nav-link animated-link" routerLink="/viewproduct">View Product</a>
+          <a class="nav-link animated-link" routerLink="/viewproduct"
+            >View Product</a
+          >
         </li>
         <!-- For logged-in users: View Orders -->
         <li class="nav-item" *ngIf="authService.isUser()">
-            <a class="nav-link light-purple animated-link" routerLink="/viewuserorders">
-              My Orders
-            </a>
-        </li> 
-        <!-- For logged-in users: View Orders -->
-        <li class="nav-item" *ngIf="authService.isAdmin()">
-          <a class="nav-link light-purple animated-link" routerLink="/adminvieworders">
-            All Orders
-          </a>
-      </li> 
-      
-        <!-- For logged-in users: Add Feedback -->
-        <li class="nav-item" *ngIf="authService.isUser()">
-          <a class="nav-link green-link animated-link" routerLink="/add-feedback">Add Feedback</a>
+          <a class="nav-link animated-link" routerLink="/viewuserorders"
+            >My Orders</a
+          >
         </li>
-        <!-- For logged-in users: My Feedbacks -->
-        <li class="nav-item" *ngIf="authService.isUser()">
-          <a class="nav-link green-link animated-link" routerLink="/my-feedbacks">My Feedbacks</a>
-        </li>
-        <!-- For admin users: View Feedbacks -->
+        <!-- For admin users: View All Orders -->
         <li class="nav-item" *ngIf="authService.isAdmin()">
-          <a class="nav-link green-link animated-link" routerLink="/view-feedbacks">View Feedbacks</a>
+          <a class="nav-link animated-link" routerLink="/adminvieworders"
+            >All Orders</a
+          >
+        </li>
+        <!-- For logged-in users: Feedback -->
+        <li class="nav-item" *ngIf="authService.isUser()">
+          <a class="nav-link animated-link" routerLink="/add-feedback"
+            >Add Feedback</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="authService.isUser()">
+          <a class="nav-link animated-link" routerLink="/my-feedbacks"
+            >My Feedbacks</a
+          >
+        </li>
+        <!-- For Admin: View Feedbacks -->
+        <li class="nav-item" *ngIf="authService.isAdmin()">
+          <a class="nav-link animated-link" routerLink="/view-feedbacks"
+            >View Feedbacks</a
+          >
         </li>
       </ul>
 
       <!-- User Profile Section -->
-      <div 
+      <div
         class="user-profile"
         tabindex="0"
         role="button"
@@ -72,9 +84,9 @@
         <div class="profile-info">
           <span class="user-name">{{ userName || 'User' }}</span>
         </div>
-        <img 
-          [src]="profilePic" 
-          alt="Profile Picture" 
+        <img
+          [src]="profilePic"
+          alt="Profile Picture"
           class="profile-pic"
           tabindex="0"
           role="button"
@@ -82,16 +94,28 @@
           (keydown)="handleProfileKeydown($event)"
         />
       </div>
-      
+
       <!-- Login/Register/Logout Buttons -->
       <div class="d-flex">
-        <button *ngIf="!authService.isLoggedUser()" class="btn btn-outline-primary me-2" routerLink="/login">
+        <button
+          *ngIf="!authService.isLoggedUser()"
+          class="btn btn-outline-light me-2"
+          routerLink="/login"
+        >
           Login
         </button>
-        <button *ngIf="!authService.isLoggedUser()" class="btn btn-outline-success me-2" routerLink="/register">
+        <button
+          *ngIf="!authService.isLoggedUser()"
+          class="btn btn-outline-success me-2"
+          routerLink="/register"
+        >
           Register
         </button>
-        <button *ngIf="authService.isLoggedUser()" class="btn btn-danger" (click)="logout()">
+        <button
+          *ngIf="authService.isLoggedUser()"
+          class="btn btn-danger"
+          (click)="logout()"
+        >
           Logout
         </button>
       </div>
@@ -100,8 +124,15 @@
 </nav>
 
 <!-- Profile Selector Modal -->
-<div *ngIf="showProfileSelector" class="profile-selector-overlay" (click)="closeProfileSelector()">
-  <div class="profile-selector-content" (click)="$event.stopPropagation()">
+<div
+  *ngIf="showProfileSelector"
+  class="profile-selector-overlay"
+  (click)="closeProfileSelector()"
+>
+  <div
+    class="profile-selector-content animate__animated animate__zoomIn"
+    (click)="$event.stopPropagation()"
+  >
     <h5 class="mb-3">Select Profile Picture</h5>
     <div class="d-flex flex-wrap justify-content-center">
       <img
@@ -115,6 +146,8 @@
         (keydown)="handleProfileKeydown($event)"
       />
     </div>
-    <button class="btn btn-secondary mt-2" (click)="closeProfileSelector()">Cancel</button>
+    <button class="btn btn-secondary mt-2" (click)="closeProfileSelector()">
+      Cancel
+    </button>
   </div>
 </div>

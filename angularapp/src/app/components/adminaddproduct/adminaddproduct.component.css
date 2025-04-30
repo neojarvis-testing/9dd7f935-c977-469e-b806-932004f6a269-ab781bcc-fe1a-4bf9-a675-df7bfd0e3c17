@@ -1,67 +1,40 @@
 /* Full-page background wrapper */
 .background-wrapper {
-  background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
     url('https://img.freepik.com/premium-photo/mobile-app-ecommerce-shopping-online-shopping-fashion-buying-groceries-online-shopping-cart-groceries-smartphone-online-shopping-technology-digital-payment-from-mobile-phone_771426-8344.jpg?w=1380')
-    no-repeat center center;
+      no-repeat center center;
   background-size: cover;
   min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Ensures that the background covers the entire viewport */
-  width: 100%;
   padding-top: 50px; /* Reduced margin space above */
 }
 
-/* Centered form container */
+/* Centered form container with custom styling */
 .form-container {
-  background-color: rgba(255,255,255,0.85);
+  background-color: rgba(255, 255, 255, 0.85);
   padding: 2rem;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
   width: 50%;
-  max-width: 600px; /* Adjust the width as needed */
+  max-width: 600px;
   margin: auto;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out, slideIn 0.5s ease-in-out;
+  /* The animate.css classes now handle the animation so custom keyframes are optional */
 }
 
-/* Animation for form appearance */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-20px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* Ensure headings and labels are clearly visible against the form background */
-.form-container h2,
-.form-container label {
-  color: #000;
-}
-
-/* Custom Popup Overlay Styles with Orange & White Color Scheme */
+/* Custom Popup Overlay Styles */
 .custom-popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);  /* Dark overlay to focus on popup */
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay to focus on popup */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,8 +42,8 @@
 }
 
 .popup-content {
-  background-color: #fff;              /* White popup background */
-  border: 2px solid rgb(255, 123, 0);    /* Orange border */
+  background-color: #fff; /* White popup background */
+  border: 2px solid rgb(255, 123, 0); /* Orange border */
   border-radius: 5px;
   padding: 20px;
   min-width: 300px;
@@ -79,23 +52,20 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Optional: style the header inside the popup */
 .popup-content h4 {
-  color: rgb(255, 123, 0);              /* Orange heading text */
+  color: rgb(255, 123, 0); /* Orange heading text */
   margin-bottom: 10px;
 }
 
-/* Style the paragraph text as needed */
 .popup-content p {
-  color: #000;                        /* Black text */
+  color: #000;
   margin-bottom: 20px;
 }
 
-/* Style the popup button with matching colors */
 .popup-content button {
-  background-color: rgb(255, 123, 0);   /* Orange background */
+  background-color: rgb(255, 123, 0);
   border: 1px solid rgb(255, 123, 0);
-  color: #fff;                        /* White text */
+  color: #fff;
   padding: 8px 16px;
   border-radius: 3px;
   cursor: pointer;
@@ -103,5 +73,5 @@
 }
 
 .popup-content button:hover {
-  background-color: rgb(230, 110, 0);   /* Slightly darker on hover */
+  background-color: rgb(230, 110, 0);
 }
