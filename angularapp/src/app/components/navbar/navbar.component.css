@@ -1,159 +1,160 @@
-/* navbar.component.css */
-
-/* Navbar Base Styles */
-nav {
-  position: relative;
-  z-index: 9999;
-  background-color: transparent;
-  transition: all 0.3s ease;
-}
-
+/* Navbar Container with a gradient background and blur effect */
 .custom-navbar {
-  padding: 0.3rem 1rem;
-  font-size: 0.85rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(0,0,0,0.15));
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.5)
+  );
+  backdrop-filter: blur(8px);
+  padding: 10px 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.custom-navbar:hover {
-  transform: scale(1.02);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+/* Brand styling */
+.custom-navbar .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+.custom-navbar .navbar-brand:hover {
+  color: #ff5733;
 }
 
-/* Home Icon & Brand */
+/* Home icon */
 .home-icon {
-  width: 30px;
-  height: 30px;
+  height: 40px;
+  width: 40px;
   margin-right: 8px;
-  object-fit: contain;
   transition: transform 0.3s ease;
 }
-
-.navbar-brand {
-  font-weight: bold;
-  transition: transform 0.3s ease, color 0.3s ease;
-  color: inherit;
-}
-
-.navbar-brand:hover {
+.home-icon:hover {
   transform: scale(1.1);
-  color: rgb(0, 123, 255);
 }
 
-/* Animated Links */
-.animated-link {
-  transition: transform 0.3s ease, color 0.3s ease;
-  margin-left: 15px;
+/* Toggler & Icon - Use a custom white icon */
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+.navbar-toggler-icon {
+  background-image: url(
+    "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"
+  );
 }
 
-.animated-link:hover {
-  transform: translateY(-3px);
-  color: rgb(255, 166, 0);
+/* Navigation Link styling with animated underline & hover lift */
+.nav-link {
+  position: relative;
+  color: #ffffff;
+  font-size: 1rem;
+  margin-right: 15px;
+  transition: color 0.3s, transform 0.3s;
 }
-
-/* Green and Light-Purple Links */
-.green-link,
-.light-purple {
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.green-link:hover {
+.nav-link:hover {
+  color: #ff5733;
   transform: translateY(-2px);
-  color: rgb(0, 244, 57);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%) scaleX(0);
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5733, #8a2be2);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
 }
 
-.light-purple:hover {
-  color: #c36bc3;
-}
-
-/* --- User Profile Section --- */
+/* Profile Styling */
 .user-profile {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
+  margin-right: 15px;
   cursor: pointer;
+  transition: transform 0.3s;
 }
-
-.profile-info {
-  margin-right: 8px;
-}
-
-.user-name {
-  font-weight: bold;
-  color: #000000;
-  font-size: 0.9rem;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.user-name:hover {
-  color: #c3a3e8;
+.user-profile:hover {
   transform: scale(1.05);
 }
-
+.profile-info {
+  margin-right: 8px;
+  color: #ffffff;
+  font-weight: 500;
+}
 .profile-pic {
-  width: 40px;
   height: 40px;
+  width: 40px;
   border-radius: 50%;
-  border: 2px solid #ba68c8;
+  border: 2px solid #ffffff;
   object-fit: cover;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: border-color 0.3s, transform 0.3s;
 }
-
-.profile-pic:focus,
 .profile-pic:hover {
+  border-color: #ff5733;
   transform: scale(1.1);
-  border-color: #ab47bc;
 }
 
-/* --- Profile Selector Modal --- */
+/* Profile Selector Modal */
 .profile-selector-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 11000;
-  animation: fadeInOverlay 0.5s ease-in-out;
+  align-items: center;
+  z-index: 1100;
 }
-
-@keyframes fadeInOverlay {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
 .profile-selector-content {
-  background-color: #fff;
-  border-radius: 8px;
+  background: #fff;
   padding: 20px;
-  max-width: 500px;
+  border-radius: 8px;
   width: 90%;
-  animation: bounceIn 0.5s ease;
+  max-width: 500px;
+  animation-duration: 0.5s;
 }
-
-@keyframes bounceIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  60% { transform: scale(1.1); opacity: 1; }
-  80% { transform: scale(0.95); }
-  100% { transform: scale(1); }
-}
-
 .profile-option {
-  width: 60px;
   height: 60px;
+  width: 60px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.3s, border-color 0.3s;
-  margin: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .profile-option:hover {
   transform: scale(1.1);
-  border-color: #ba68c8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Button Styling */
+.btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-outline-light:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Custom Slide-In Animation for Links if desired */
+.animated-link {
+  animation: slideIn 0.7s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
