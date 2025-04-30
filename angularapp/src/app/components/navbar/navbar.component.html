@@ -36,8 +36,17 @@
         </li>
         <!-- For logged-in users: View Orders -->
         <li class="nav-item" *ngIf="authService.isUser()">
-          <a class="nav-link light-purple animated-link" routerLink="/viewuserorders">My Orders</a>
-        </li>
+            <a class="nav-link light-purple animated-link" routerLink="/viewuserorders">
+              My Orders
+            </a>
+        </li> 
+        <!-- For logged-in users: View Orders -->
+        <li class="nav-item" *ngIf="authService.isAdmin()">
+          <a class="nav-link light-purple animated-link" routerLink="/adminvieworders">
+            All Orders
+          </a>
+      </li> 
+      
         <!-- For logged-in users: Add Feedback -->
         <li class="nav-item" *ngIf="authService.isUser()">
           <a class="nav-link green-link animated-link" routerLink="/add-feedback">Add Feedback</a>

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Order;
+import com.examly.springapp.model.Order.OrderStatus;
 import com.examly.springapp.model.Product;
 import com.examly.springapp.model.User;
 
@@ -110,10 +111,16 @@ public class OrderServiceImpl implements OrderService{
         return true;
     }
 
-    public Order updateOrder(Long orderId, Order order) {
+    public Order updateOrderStatus(Long orderId, String order) {
        logger.info("Method UpdateOrder started...");
-        order.setOrderId(orderId);
-        return orderRepo.save(order);
+        Order existingOrder = orderRepo.findById(orderId).orElse(null);
+        if(existingOrder != null && order.equals("ACCEPTED")) {
+            existingOrder.setStatus(OrderStatus.SHIPPED);
+        } else {
+            existingOrder.setStatus(OrderStatus.REJECTED);
+        }
+        existingOrder.setOrderId(orderId);
+        return orderRepo.save(existingOrder);
     }
 
     public List<Order> getOrdersByUserId(Long userId) {
