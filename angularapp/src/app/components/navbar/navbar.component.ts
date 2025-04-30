@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   constructor(public readonly authService: AuthService, private readonly router: Router) {}
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('username') || '';
+    this.userName = localStorage.getItem('username') || 'User';
     this.profilePic = localStorage.getItem('profilePic') || this.availablePics[0];
   }
 
