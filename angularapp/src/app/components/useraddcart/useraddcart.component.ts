@@ -18,6 +18,8 @@ export class UseraddcartComponent implements OnInit {
    showPopup: boolean = false;
    popupTitle: string = '';
    popupMessage: string = '';
+   userId:number
+   products:any[]=[]
 
   constructor(private orderService: OrderService,private fb:FormBuilder,private cartServive:CartService,private router:Router) { 
   }
@@ -29,18 +31,20 @@ export class UseraddcartComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderForm=this.fb.group({
-      address: ['', [Validators.required]],
+      shippingAddress: ['', [Validators.required]],
       userId: [null],
-      product: [[]]
+      productList: [[]]
       })
-    this.orderForm.value.product=this.cartServive.getCartItems()
-    this.orderForm.value.userId=+ localStorage.getItem('userId')
+      this.userId=+ localStorage.getItem('userId')
   }
 
   placeOrder(): void {
     if(this.orderForm.valid){
+      this.orderForm.value.productList=this.cartServive.getCartItems()
+    this.orderForm.value.userId= this.userId
     this.orderService.placeOrder(this.orderForm.value).subscribe(data => {
           console.log('Order placed successfully:', data);
+          this.cartServive.clearCart()
           this.showPopupMsg("Success", "Order placed successfully!!!");
         },
         error => {
@@ -71,5 +75,5 @@ closePopup(): void {
   else if(this.popupTitle == "Clear") {
     this.router.navigate(['/']);
   }
-}
+  }
 }

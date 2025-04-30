@@ -5,10 +5,12 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AdminaddproductComponent } from './components/adminaddproduct/adminaddproduct.component';
-import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AdminviewfeedbackComponent } from './components/adminviewfeedback/adminviewfeedback.component';
 import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfeedback.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
+import { AdminviewproductComponent } from './components/adminviewproduct/adminviewproduct.component';
+import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
+import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -16,10 +18,13 @@ const routes: Routes = [
   {path:'register',component:RegistrationComponent},
   {path:'logout',component:LogoutComponent},
   {path:'addproduct',component:AdminaddproductComponent},
-  {path:'viewproduct',component:UserviewproductComponent},
+  {path:'addproduct/:id',component:AdminaddproductComponent},
+  {path:'viewproduct',component:AdminviewproductComponent},
   {path:'add-feedback',component:UseraddfeedbackComponent},
   {path:'my-feedbacks',component:UserviewfeedbackComponent},
-  {path:'view-feedbacks',component:AdminviewfeedbackComponent} 
+  {path:'view-feedbacks',component:AdminviewfeedbackComponent},
+  {path:'viewuserorders',component:UserviewordersComponent},
+  {path:'gotocart',component:UseraddcartComponent} 
 ];
 
 @NgModule({

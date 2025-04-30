@@ -1,38 +1,59 @@
-<div class="container">
-    <h2>User Orders</h2>
-  
-    <table border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Customer Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>{{ order.id }}</td>
-          <td>{{ order.itemName }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.price }}</td>
-          <td>{{ order.customerName }}</td>
-          <td>
-            <button (click)="getOrderDetails(order.id)">View Details</button>
-            <button (click)="deleteOrder(order.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <h2>Order Details</h2>
-    <div *ngIf="order">
-      <p><strong>ID:</strong> {{ order.id }}</p>
-      <p><strong>Item Name:</strong> {{ order.itemName }}</p>
-      <p><strong>Quantity:</strong> {{ order.quantity }}</p>
-      <p><strong>Price:</strong> {{ order.price }}</p>
-      <p><strong>Customer Name:</strong> {{ order.customerName }}</p>
+<div class="container mt-4">
+  <h2 class="text-center">User Orders</h2>
+
+  <!-- Table showing basic information -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Order ID</th>
+        <th>Shipping Address</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.orderId }}</td>
+        <td>{{ order.shippingAddress }}</td>
+        <td>{{ order.status }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="getOrderDetails(order.orderId)">View Details</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.orderId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Section to show order details -->
+  <div *ngIf="selectedOrder" class="mt-3">
+    <h2 class="text-center">Order Details</h2>
+    <p><strong>Order ID:</strong> {{ selectedOrder.orderId }}</p>
+    <p><strong>Shipping Address:</strong> {{ selectedOrder.shippingAddress }}</p>
+    <p><strong>Total Amount:</strong> {{ selectedOrder.totalAmount | currency: 'INR' }}</p>
+    <p><strong>Quantity:</strong> {{ selectedOrder.quantity }}</p>
+    <p><strong>Status:</strong> {{ selectedOrder.status }}</p>
+    <p><strong>Products:</strong></p>
+    <ul>
+      <li *ngFor="let product of selectedOrder.products">
+        <b>{{ product.name }}   {{ product.description }} | 
+          <img [src]="product.photoImage" alt="{{ product.name }}" height="20%" width="20%"></b>
+        (Price: {{ product.price | currency: 'INR' }}, Category: {{ product.category }})
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="showPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h3>{{ popupTitle }}</h3>
+    <p>{{ popupMessage }}</p>
+    <div class="popup-actions">
+      <!-- Buttons for Confirmation Popup -->
+      <button *ngIf="popupTitle === 'Confirm Delete'" class="btn btn-primary" (click)="popupOnConfirm()">Yes</button>
+      <button *ngIf="popupTitle === 'Confirm Delete'" class="btn btn-secondary" (click)="popupOnCancel()">No</button>
+
+      <!-- Button for Success Popup -->
+      <button *ngIf="popupTitle === 'Success'" class="btn btn-success" (click)="closePopup()">OK</button>
     </div>
   </div>
+</div>

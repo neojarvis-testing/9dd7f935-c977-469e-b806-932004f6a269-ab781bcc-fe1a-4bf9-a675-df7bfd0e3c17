@@ -1,6 +1,9 @@
 package com.examly.springapp.dto;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -30,10 +33,9 @@ public class ProductDTO {
     private String category;
 
     @NotNull(message = "Photo URL cannot be blank.")
-    @Size(max = 255, message = "Photo URL must not exceed 255 characters.")
+   // @Lob
     private String photoImage;
 
-    @NotNull(message = "UserId cannot be null.")
     private Long userId;
 
     private LocalDate createdAt;

@@ -13,16 +13,16 @@ export class OrderService {
   constructor(private http:HttpClient) { }
   
   placeOrder(order:Order):Observable<Order>{
-      return this.http.post<Order>(`${this.apiUrl}/orders`,order)
+      return this.http.post<Order>(`${this.apiUrl}/orders/add`,order)
     }
-    deleteOrder(id:number):Observable<void>{
-      return this.http.delete<void>(`${this.apiUrl}/orders/${id}`)
+    deleteOrder(orderId:number):Observable<void>{
+      return this.http.delete<void>(`${this.apiUrl}/orders/${orderId}`)
     }
     getOrderDetails(orderId:number):Observable<Order>{
       return this.http.get<Order>(`${this.apiUrl}/orders/${orderId}`)
     }
-    getOrderByUserId(userId:number):Observable<Order>{
-      return this.http.get<Order>(`${this.apiUrl}/orders/${userId}`)
+    getOrderByUserId(userId:number):Observable<Order[]>{
+      return this.http.get<Order[]>(`${this.apiUrl}/orders/user/${userId}`)
     }
     getOrders():Observable<Order[]>{
       return this.http.get<Order[]>(`${this.apiUrl}/orders`)

@@ -46,10 +46,9 @@ public class OrderController {
     }
     // Handles DELETE requests to remove a order by its ID
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<String> deleteOrder(@PathVariable Long orderId) {
-        if(service.deleteOrder(orderId))
-            return ResponseEntity.status(200).body("Deleted Successfully!!");
-        return ResponseEntity.status(404).body("Not deleted!!");
+    public ResponseEntity<?> deleteOrder(@PathVariable Long orderId) {
+        boolean result = service.deleteOrder(orderId);
+        return ResponseEntity.status(200).body(null);
     }
     @PutMapping("/{orderId}")
     public ResponseEntity<?>updateOrder(@PathVariable Long orderId, @RequestBody Order order){
