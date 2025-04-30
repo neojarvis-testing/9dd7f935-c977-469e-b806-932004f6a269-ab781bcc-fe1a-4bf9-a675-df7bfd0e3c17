@@ -16,55 +16,91 @@ import com.examly.springapp.model.Feedback;
 import com.examly.springapp.service.FeedbackServiceImpl;
  
 import jakarta.validation.Valid;
- 
-//REST controller to handle HTTP requests
+
+// Defines a REST API controller that handles feedback-related HTTP requests.
 @RestController
-// Specifies the base URL for the API endpoints in this controller
+// Specifies the base URL for all API endpoints in this controller.
 @RequestMapping("/api/feedback")
 public class FeedbackController {
+
+    // The service layer that contains the business logic for feedback operations.
     private final FeedbackServiceImpl service;
-    // Constructor injection of the service (instead of @Autowired)
+
+    // Constructor to initialize the feedback service using dependency injection.
     public FeedbackController(FeedbackServiceImpl service) {
         this.service = service;
     }
-    // Endpoint to create a new feedback
+
+    /**
+     * Handles POST requests to create new feedback.
+     * Takes a FeedbackDTO object from the request body, validates it,
+     * and calls the service layer to add the feedback.
+     * Returns the newly created feedback with a 201 status.
+     */
     @PostMapping("/add-feedback")
-    public ResponseEntity<FeedbackDTO> addFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO){
-        feedbackDTO=service.addFeedback(feedbackDTO);
+    public ResponseEntity<FeedbackDTO> addFeedback(@Valid @RequestBody FeedbackDTO feedbackDTO) {
+        feedbackDTO = service.addFeedback(feedbackDTO);
         return ResponseEntity.status(201).body(feedbackDTO);
     }
- 
-    // Endpoint to get a list of all feedback
+
+    /**
+     * Handles GET requests to retrieve all feedback entries.
+     * Calls the service layer to fetch the list of feedback.
+     * Returns the feedback list with a 200 status.
+     */
     @GetMapping
-    public ResponseEntity<List<Feedback>> getAllFeedback(){
-        List<Feedback> list=service.getAllFeedback();
+    public ResponseEntity<List<Feedback>> getAllFeedback() {
+        List<Feedback> list = service.getAllFeedback();
         return ResponseEntity.status(200).body(list);
-    }
-    // Endpoint to get feedback by a specific user's ID
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Feedback>> getFeedbackByUserId(@PathVariable Long userId){
-        List<Feedback> list=service.getFeedbackByUserId(userId);
-        return ResponseEntity.status(200).body(list);
-    }
-    // Endpoint to get feedback by its unique ID
-    @GetMapping("/{feedbackId}")
-    public ResponseEntity<Feedback> getFeedbackById(@PathVariable Long feedbackId){
-        Feedback feedback=service.getFeedbackById(feedbackId);
-        return ResponseEntity.status(200).body(feedback);
-    }
-    // Endpoint to delete feedback by its ID
-    @DeleteMapping("/{feedbackId}")
-    public ResponseEntity<String> deleteFeedback(@PathVariable Long feedbackId){
-    boolean result=service.deleteFeedback(feedbackId);
-    if(result)
-        return ResponseEntity.status(200).body("Feedback Deleted Successfully");
-    else
-        return ResponseEntity.status(404).body("Not Deleted");
     }
 
-    //Dummy
+    /**
+     * Handles GET requests to retrieve feedback submitted by a specific user.
+     * The user ID is provided as a path variable.
+     * Calls the service layer to fetch feedback entries for the user.
+     * Returns the feedback list with a 200 status.
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Feedback>> getFeedbackByUserId(@PathVariable Long userId) {
+        List<Feedback> list = service.getFeedbackByUserId(userId);
+        return ResponseEntity.status(200).body(list);
+    }
+
+    /**
+     * Handles GET requests to retrieve feedback by its unique feedback ID.
+     * The feedback ID is provided as a path variable.
+     * Calls the service layer to fetch the specific feedback entry.
+     * Returns the feedback with a 200 status.
+     */
+    @GetMapping("/{feedbackId}")
+    public ResponseEntity<Feedback> getFeedbackById(@PathVariable Long feedbackId) {
+        Feedback feedback = service.getFeedbackById(feedbackId);
+        return ResponseEntity.status(200).body(feedback);
+    }
+
+    /**
+     * Handles DELETE requests to delete a feedback entry by its ID.
+     * The feedback ID is provided as a path variable.
+     * Calls the service layer to delete the specific feedback entry.
+     * Returns a success message with a 200 status if the deletion is successful,
+     * otherwise returns an error message with a 404 status.
+     */
+    @DeleteMapping("/{feedbackId}")
+    public ResponseEntity<?> deleteFeedback(@PathVariable Long feedbackId) {
+        boolean result = service.deleteFeedback(feedbackId);
+        if (result)
+            return ResponseEntity.status(200).body(null);
+        else
+            return ResponseEntity.status(404).body("Not Deleted");
+    }
+
+    /**
+     * A dummy endpoint for testing feedback creation.
+     * Takes a Feedback object from the request body and saves it using the service layer.
+     * Returns the saved feedback with a 201 status.
+     */
     @PostMapping
-    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback){
-      return ResponseEntity.status(201).body(service.createFeedback(feedback));
+    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback) {
+        return ResponseEntity.status(201).body(service.createFeedback(feedback));
     }
 }

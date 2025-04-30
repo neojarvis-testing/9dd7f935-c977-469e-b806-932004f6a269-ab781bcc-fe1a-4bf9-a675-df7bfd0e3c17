@@ -9,7 +9,6 @@ public class FeedbackMapper {
   //  This is a method to convert data from FeedbackDTO (used in the API) to Feedback (used for database operations).
     public static Feedback mapToFeedbackEntity(FeedbackDTO feedbackDTO) {
         Feedback feedback = new Feedback();
-        feedback.setFeedbackId(feedbackDTO.getFeedbackId());
         feedback.setMessage(feedbackDTO.getMessage());
         feedback.setRating(feedbackDTO.getRating());
         // Map userId to User entity
