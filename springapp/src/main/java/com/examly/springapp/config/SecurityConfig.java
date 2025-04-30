@@ -48,10 +48,10 @@ public AuthenticationManager authenticationManager(HttpSecurity http) throws Exc
     .requestMatchers(HttpMethod.GET,"/api/user","/api/feedback","/api/orders").hasRole("ADMIN")
     .requestMatchers(HttpMethod.PUT,"/api/orders/{orderId}","/api/products/{productId}").hasRole("ADMIN")
     .requestMatchers(HttpMethod.POST,"/api/products","/api/products/add-product").hasRole("ADMIN")
-    .requestMatchers(HttpMethod.DELETE,"/api/user/{userId}","/api/orders/{orderId}","/api/products/{productId}").hasRole("ADMIN")
+    .requestMatchers(HttpMethod.DELETE,"/api/user/{userId}","/api/products/{productId}").hasRole("ADMIN")
     .requestMatchers(HttpMethod.GET,"/api/orders/user/{userId}","/api/orders/{orderId}","/api/feedback/user/{userId}","/api/products/user/{userId}").hasRole("USER")
     .requestMatchers(HttpMethod.POST,"/api/feedback","/api/orders").hasRole("USER")
-    .requestMatchers(HttpMethod.DELETE,"/api/feedback/{id}").hasRole("USER")
+    .requestMatchers(HttpMethod.DELETE,"/api/feedback/{id}","/api/orders/{orderId}").hasRole("USER")
     .anyRequest().permitAll())
     .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
     .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/models/product.model';
+
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,21 +12,22 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminaddproductComponent implements OnInit {
   addProductForm:FormGroup;
+  isEdited:boolean=false;
   userId:number
   submitted: boolean = false
-   // Popup properties
    showPopup: boolean = false
    popupTitle: string = ''
    popupMessage: string = ''
-
-  constructor(private service : ProductService, private fb : FormBuilder, private router : Router) {
+  selectedId:number;
+  editedProduct:Product;
+  constructor(private service : ProductService, private fb : FormBuilder, private router : Router, private route : ActivatedRoute) {
     this.addProductForm = this.fb.group({
       name : ['',[Validators.required, Validators.pattern('^[a-zA-Z0-9 ]{3,20}$')]],
       description : ['',[Validators.required, Validators.pattern('[a-zA-Z0-9. ]{3,100}$')]],
       price : ['',[Validators.required, Validators.min(1)]],
       stock : ['',[Validators.required, Validators.min(0)]],
       category : ['',[Validators.required]],
-      photoImage : ['',[Validators.required]],
+      photoImage : [''],
       userId : [0]
     });
    }
@@ -32,28 +35,75 @@ export class AdminaddproductComponent implements OnInit {
   backgroundUrl:string;
   ngOnInit(): void {
     this.userId=+ localStorage.getItem('userId')
+    this.selectedId=this.route.snapshot.params['id'];
+    this.service.getProductById(this.selectedId).subscribe((data)=>{
+      this.isEdited=true;
+      this.editedProduct=data;
+      this.addProductForm.patchValue(this.editedProduct); // Populate form with product
+    })
   }
 
   createProduct() {
-    this.addProductForm.value.userId=this.userId
-    console.log(this.addProductForm.value.userId)
-    this.service.createProduct(this.addProductForm.value).subscribe(()=>{
-      console.log(this.addProductForm.value)
-      this.showPopupMsg("Success", "Product added Successfully!!!");
-      
-    }, (error)=>{
-        console.log(JSON.stringify(error))
-        this.showPopupMsg("Error", "Product Failed to add!!!");
-    })
+    // Attach the userId to the form value
+    this.addProductForm.value.userId = this.userId;
+  
+    if (!this.selectedId) {
+      // Add Product Logic
+      if (this.addProductForm.valid) {
+        this.service.createProduct(this.addProductForm.value).subscribe(
+          () => {
+            console.log('Product added:', this.addProductForm.value);
+            this.showPopupMsg("Success", "Product added successfully!!!");
+            this.addProductForm.reset(); // Clear the form after successful submission
+          },
+          (error) => {
+            console.log('Error adding product:', JSON.stringify(error));
+            this.showPopupMsg("Error", "Product failed to add!!!");
+          }
+        );
+      } else {
+        this.addProductForm.markAllAsTouched(); // Trigger validation messages if the form is invalid
+      }
+    } else {
+      // Edit Product Logic
+      this.addProductForm.value.id = this.selectedId; // Set the ID for update
+  
+      if (this.addProductForm.valid) {
+        this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
+          () => {
+            console.log('Product updated:', this.addProductForm.value);
+            this.showPopupMsg("Success", "Product updated successfully!!!");
+            this.isEdited = false; // Reset edit mode
+            this.addProductForm.reset(); // Clear the form
+            this.router.navigate(['/viewproduct']); // Navigate back to the product list
+          },
+          (error) => {
+            console.log('Error updating product:', JSON.stringify(error));
+            this.showPopupMsg("Error", "Product failed to update!!!");
+          }
+        );
+      } else {
+        this.addProductForm.markAllAsTouched(); // Trigger validation messages if the form is invalid
+      }
+    }
   }
   
-  // Store the selected file (if needed for further processing/upload)
-  handleFileChange(event: any) {
-    const file = event.target.files[0]; // Get the file from input
-    if (file) {
-      const formData = new FormData();
-      formData.append('photoImage', file); // Attach file directly
-      this.addProductForm.patchValue({ photoImage: file.name }); // Optional: store file name if needed
+  onFileChange(event: Event, fileType: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0]; // Get the selected file
+      const reader = new FileReader();
+      
+      reader.onload = () => {
+        if (fileType === 'photoImage') {
+          console.log('Photo added');
+          // Update the FormControl value with the base64 string
+          this.addProductForm.get('photoImage')?.setValue(reader.result as string);
+          console.log(this.addProductForm.get('photoImage').value)
+        }
+      };
+  
+      reader.readAsDataURL(file); // Convert the file to Base64 format
     }
   }
 

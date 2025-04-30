@@ -29,7 +29,7 @@ public class Product {
     private String category;
 
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(length = 1000000000)
     private String photoImage;
 
     private LocalDate createdAt;

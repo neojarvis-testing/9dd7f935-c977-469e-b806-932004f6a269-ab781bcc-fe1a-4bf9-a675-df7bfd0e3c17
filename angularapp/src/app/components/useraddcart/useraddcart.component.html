@@ -5,19 +5,19 @@
     <h2 class="text-center mb-4" style="color: #6a1b9a;">Place Order</h2>
     <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
       <div class="mb-3">
-        <label for="address" class="form-label">
+        <label for="shippingAddress" class="form-label">
           Shipping Address <span style="color: red;">*</span>
         </label>
         <input
           type="text"
-          id="address"
-          name="address"
-          formControlName="address"
+          id="shippingAddress"
+          name="shippingAddress"
+          formControlName="shippingAddress"
           class="form-control"
           placeholder="Enter your shipping address"
         />
-        <div *ngIf="orderForm.controls.address.invalid && (orderForm.controls.address.touched || orderForm.controls.address.dirty)" class="text-danger">
-          <small *ngIf="orderForm.controls.address.errors?.required">Shipping address is required.</small>
+        <div *ngIf="orderForm.controls.shippingAddress.invalid && (orderForm.controls.shippingAddress.touched || orderForm.controls.shippingAddress.dirty)" class="text-danger">
+          <small *ngIf="orderForm.controls.shippingAddress.errors?.required">Shipping address is required.</small>
         </div>
       </div>
   

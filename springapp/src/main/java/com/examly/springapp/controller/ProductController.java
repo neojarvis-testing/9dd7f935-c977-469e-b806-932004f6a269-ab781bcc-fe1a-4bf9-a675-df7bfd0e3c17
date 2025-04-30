@@ -69,9 +69,8 @@ public class ProductController {
     // Handles DELETE requests to remove a product by its ID
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
-        if(service.deleteProduct(productId))
-            return ResponseEntity.status(200).body("Deleted Successfully!!");
-        return ResponseEntity.status(200).body("Not deleted!!");
+        boolean result = service.deleteProduct(productId);
+        return ResponseEntity.status(200).body(null);
     }
 
 
