@@ -2,13 +2,18 @@ package com.examly.springapp.model;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -34,6 +39,9 @@ public class Product {
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    @ManyToMany(mappedBy = "products",cascade=CascadeType.ALL)
+    @JsonBackReference
+    List<Order>orders;
 
     @ManyToOne
     private User user;

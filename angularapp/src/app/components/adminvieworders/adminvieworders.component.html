@@ -1,28 +1,55 @@
-<div class="container">
-    <h2>Admin View Orders</h2>
-  
-    <table border="1">
-      <thead>
+<div class="container mt-4">
+  <h2 class="text-center text-primary">Admin Order Management</h2>
+
+  <!-- Orders Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark text-center">
         <tr>
-          <th>ID</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Customer Name</th>
+          <th>Order ID</th>
+          <th>User ID</th>
+          <th>Shipping Address</th>
+          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of orders">
-          <td>{{ order.id }}</td>
-          <td>{{ order.itemName }}</td>
-          <td>{{ order.quantity }}</td>
-          <td>{{ order.price }}</td>
-          <td>{{ order.customerName }}</td>
-          <td>
-            <button (click)="updateOrderStatus(order.id, order)">Update Status</button>
+          <td class="text-center">{{ order.orderId }}</td>
+          <td class="text-center">{{ order.user.userId }}</td>
+          <td>{{ order.shippingAddress }}</td>
+          <td class="fw-bold text-success">{{ order.status }}</td>
+          <td class="text-center">
+            <button [disabled]="order.status !== 'PENDING'" class="btn btn-success btn-sm" (click)="updateOrderStatus(order.orderId,'ACCEPTED')">ACCEPTED</button>
+            <button [disabled]="order.status !== 'PENDING'" class="btn btn-success btn-sm" (click)="updateOrderStatus(order.orderId,'REJECTED')">REJECTED</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Order Details Section -->
+  <div *ngIf="selectedOrder" class="mt-4 p-3 border rounded shadow bg-light">
+    <h3 class="text-center text-primary">Order Details</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Order ID:</strong> {{ selectedOrder.orderId }}</p>
+        <p><strong>User ID:</strong> {{ selectedOrder.userId }}</p>
+        <p><strong>Shipping Address:</strong> {{ selectedOrder.shippingAddress }}</p>
+        <p><strong>Total Amount:</strong> {{ selectedOrder.totalAmount | currency: 'INR' }}</p>
+        <p><strong>Quantity:</strong> {{ selectedOrder.quantity }}</p>
+        <p><strong>Status:</strong> <span class="fw-bold text-success">{{ selectedOrder.status }}</span></p>
+      </div>
+      <div class="col-md-6">
+        <h5>Products:</h5>
+        <ul class="list-unstyled">
+          <li *ngFor="let product of selectedOrder.products">
+            <b>{{ product.name }} - {{ product.description }}</b> 
+            <img [src]="product.photoImage" alt="{{ product.name }}" class="img-thumbnail" height="100px" width="100px">
+            <p class="mb-1">(Price: {{ product.price | currency: 'INR' }}, Category: {{ product.category }})</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

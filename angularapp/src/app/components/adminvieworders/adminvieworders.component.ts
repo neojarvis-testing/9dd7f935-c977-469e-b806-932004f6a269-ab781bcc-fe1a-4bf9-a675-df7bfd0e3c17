@@ -8,24 +8,58 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./adminvieworders.component.css']
 })
 export class AdminviewordersComponent implements OnInit {
-  orders: Order[] = [];
-  order!: Order;
-
-  constructor(private orderService:OrderService) { }
+ orders: Order[] = [];
+  selectedOrder: Order;
+  userId: number;
+  showPopup: boolean = false;
+  popupTitle: string = '';
+  popupMessage: string = '';
+  constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.getOrders()
+    this.getAllOrders();
   }
-  updateOrderStatus(id: number, updatedOrder: Order): void {
-    this.orderService.updateOrderStatus(id, updatedOrder).subscribe(data => {
-      console.log('Order updated:', data);
-      this.getOrders(); 
-    });
+
+  // Get orders by user ID when admin searches
+  getOrdersByUserId(): void {
+    if (this.userId) {
+      this.orderService.getOrderByUserId(this.userId).subscribe(data => {
+        this.orders = data;
+        console.log(`Orders for user ${this.userId}:`, this.orders);
+      });
+    } else {
+      this.getAllOrders(); // If no user ID is entered, show all orders
+    }
   }
-  getOrders(): void {
+
+  // Get all orders (Admin can see all orders)
+  getAllOrders(): void {
     this.orderService.getOrders().subscribe(data => {
       this.orders = data;
-      console.log('All orders:', data);
+      console.log('All Orders:', JSON.stringify(data));
     });
   }
+
+  // View order details
+  getOrderDetails(orderId: number): void {
+   
+    this.orderService.getOrderDetails(orderId).subscribe(data => {
+      this.selectedOrder = data;
+      console.log("works")
+      console.log('Full Order Details:', JSON.stringify(this.selectedOrder, null, 2));
+    });
+  }
+  updateOrderStatus(orderId: number, status: string) {
+    this.orderService.updateOrderStatus(orderId, status).subscribe((updatedOrder) => {
+      // Update the status in the frontend with the value from backend
+      const orderIndex = this.orders.findIndex(order => order.orderId === orderId);
+      if (orderIndex !== -1) {
+        this.orders[orderIndex].status = updatedOrder.status; // Update the displayed order status
+      }
+    });
+  }
+  
+
 }
+
+

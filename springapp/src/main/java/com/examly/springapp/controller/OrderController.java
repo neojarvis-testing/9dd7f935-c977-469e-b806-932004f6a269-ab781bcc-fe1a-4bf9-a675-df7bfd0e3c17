@@ -51,8 +51,8 @@ public class OrderController {
         return ResponseEntity.status(200).body(null);
     }
     @PutMapping("/{orderId}")
-    public ResponseEntity<?>updateOrder(@PathVariable Long orderId, @RequestBody Order order){
-        order=service.updateOrder(orderId,order);
+    public ResponseEntity<?>updateOrder(@PathVariable Long orderId, @RequestBody String status){
+        Order order=service.updateOrderStatus(orderId,status);
         return ResponseEntity.status(200).body(order);
 
     }
