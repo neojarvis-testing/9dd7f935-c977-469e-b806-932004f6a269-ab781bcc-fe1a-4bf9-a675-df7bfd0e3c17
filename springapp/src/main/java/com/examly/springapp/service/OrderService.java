@@ -17,7 +17,7 @@ public interface OrderService {
 
     public List<Order> getOrdersByUserId(Long userId);
 
-    public Order updateOrder(Long id, Order order);
+    public Order updateOrderStatus(Long id, String order);
 
     public boolean deleteOrder(Long orderId);
 
