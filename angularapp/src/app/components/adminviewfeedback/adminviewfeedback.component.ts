@@ -10,26 +10,45 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 export class AdminviewfeedbackComponent implements OnInit {
   errorMessage: string = ''; // For handling errors
   feedbacks: Feedback[] = [];
-  constructor(private feedbackService: FeedbackService) {}
 
+  // Refactored constructor
+  constructor(private readonly feedbackService: FeedbackService) {}
+
+  // Refactored ngOnInit method
   ngOnInit(): void {
-    this.loadAllFeedbacks(); // Load feedbacks when the component is initialized
+    this.loadFeedbacks();
   }
 
-  loadAllFeedbacks(): void {
+  private loadFeedbacks(): void {
     this.feedbackService.getAllFeedbacks().subscribe({
-      next: (data) => {
-        this.feedbacks = data; // Assign the data to the feedback array
-      },
-      error: (error) => {
-        // Check if error status is 404 or the error payload contains "No feedback found."
-      if ( error.status === 404 || (error.error && (error.error.data === "No feedback found." || error.error.message === "Not Found"))){
-        this.feedbacks = [];
-        this.errorMessage = "No feedback found.";
-      } else 
-        this.errorMessage = "Error loading feedbacks.";
-      
+      next: (data) => this.handleFeedbackSuccess(data),
+      error: (error) => this.handleFeedbackError(error)
+    });
+  }
+
+  // Refactored method to handle successful API responses
+  private handleFeedbackSuccess(data: Feedback[]): void {
+    this.feedbacks = data;
+    this.errorMessage = ''; // Clear any previous error message
+  }
+
+  // Refactored method to handle errors
+  private handleFeedbackError(error: any): void {
+    if (this.isFeedbackNotFoundError(error)) {
+      this.feedbacks = [];
+      this.errorMessage = "No feedback found.";
+    } else {
+      this.errorMessage = "Error loading feedbacks.";
     }
-      });
+  }
+
+  // Utility method to check if the error is a "Not Found" error
+  private isFeedbackNotFoundError(error: any): boolean {
+    return (
+      error.status === 404 ||
+      (error.error &&
+        (error.error.data === "No feedback found." ||
+         error.error.message === "Not Found"))
+    );
   }
 }

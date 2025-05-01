@@ -73,4 +73,19 @@ export class UseraddfeedbackComponent implements OnInit {
   closeErrorModal(): void {
     this.errorMessage = '';
   }
+  onStarClick(index: number): void {
+    this.setRating(index + 1);
+  }
+  
+  onStarKeyDown(event: KeyboardEvent, index: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // Prevent unintended default actions like scrolling
+      this.setRating(index + 1);
+    }
+  }
+  
+  isStarActive(index: number): boolean {
+    return index < (this.feedbackForm.get('rating')?.value || 0);
+  }
+  
 }

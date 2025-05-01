@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class FeedbackService {
 
   apiUrl:string=Api.apiUrlUser
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
   createFeedback(feedback: Feedback): Observable<Feedback> {
     return this.http.post<Feedback>(`${this.apiUrl}/feedback/add-feedback`, feedback);
   }
