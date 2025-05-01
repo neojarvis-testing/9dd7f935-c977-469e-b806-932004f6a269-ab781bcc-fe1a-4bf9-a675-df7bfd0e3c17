@@ -3,6 +3,7 @@
     <h2 class="text-center mb-4">User Orders</h2>
 
     <!-- If there are orders, display the table; else, show a friendly no-data message -->
+  
     <div *ngIf="orders?.length > 0; else noOrders">
       <table class="table table-bordered table-striped animated slideInUp">
         <thead class="table-dark">
@@ -17,14 +18,24 @@
           <tr *ngFor="let order of orders">
             <td>{{ order.orderId }}</td>
             <td>{{ order.shippingAddress }}</td>
-            <td>{{ order.status }}</td>
+            <td [ngClass]="{
+              'text-success': order.status === 'SHIPPED',
+              'text-danger': order.status === 'REJECTED',
+              'text-primary': order.status === 'PENDING'
+
+            }">
+              {{ order.status }}
+            </td>
+           
             <td>
               <button class="btn btn-primary btn-sm" (click)="getOrderDetails(order.orderId)">
                 View Details
               </button>
-              <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.orderId)">
-                Delete
-              </button>
+             <button class="btn btn-danger btn-sm" 
+  (click)="deleteOrder(order.orderId)" 
+  [disabled]="order.status === 'SHIPPED' || order.status === 'REJECTED'">
+  Delete
+</button>
             </td>
           </tr>
         </tbody>
@@ -78,3 +89,4 @@
     </div>
   </div>
 </div>
+

@@ -156,3 +156,16 @@
 .popup-actions button {
   margin: 5px;
 }
+.text-success {
+  color: green;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: red;
+  font-weight: bold;
+}
+.text-primary {
+  color: blue;
+  font-weight: bold;
+}
