@@ -20,32 +20,45 @@ export class AdminviewproductComponent implements OnInit {
   confirmDelete: boolean = false;
   productIdToDelete: number | null = null;
   isCartEmpty: boolean = true;
+  isLoading: boolean = true;
 
-  constructor(private productService: ProductService, private router: Router, public authService: AuthService, private cartService: CartService) { }
+  constructor(
+    private productService: ProductService, 
+    private router: Router, 
+    public authService: AuthService, 
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
     this.getAllProducts();
-    this.setCart()
+    this.setCart();
     this.checkCartStatus();
-    console.log(this.isCartEmpty)
-    
   }
-  setCart(){
-    if(this.cartService.getCartItems().length===0){
-        this.cartService.addMultipleProductsToCart(JSON.parse(localStorage.getItem('cart') || '[]'))
+
+  setCart() {
+    if (this.cartService.getCartItems().length === 0) {
+      this.cartService.addMultipleProductsToCart(JSON.parse(localStorage.getItem('cart') || '[]'));
     }
-       
   }
 
   getAllProducts(): void {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      this.filteredProducts = data;
-    });
+    this.isLoading = true;
+    this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data;
+        this.filteredProducts = data;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+        this.isLoading = false;
+        this.showPopupMsg('Error', 'Failed to load products. Please try again later.');
+      }
+    );
   }
 
   checkCartStatus(): void {
-    this.isCartEmpty = this.cartService.getCartItems().length === 0 ? true:false;
+    this.isCartEmpty = this.cartService.getCartItems().length === 0;
   }
 
   filterProducts(): void {
@@ -67,32 +80,42 @@ export class AdminviewproductComponent implements OnInit {
 
   deleteProduct(): void {
     if (this.productIdToDelete !== null) {
-      this.productService.deleteProduct(this.productIdToDelete).subscribe(() => {
-        this.products = this.products.filter(product => product.productId !== this.productIdToDelete);
-        this.filteredProducts = this.filteredProducts.filter(product => product.productId !== this.productIdToDelete);
-        this.showPopupMsg('Success', 'Product deleted successfully!');
-        this.getAllProducts();
-      }, error => {
-        this.showPopupMsg('Error', 'Failed to delete the product. Please try again.');
-      });
+      this.productService.deleteProduct(this.productIdToDelete).subscribe(
+        () => {
+          this.products = this.products.filter(product => product.productId !== this.productIdToDelete);
+          this.filteredProducts = this.filteredProducts.filter(product => product.productId !== this.productIdToDelete);
+          this.showPopupMsg('Success', 'Product deleted successfully!');
+          this.getAllProducts();
+        }, 
+        error => {
+          this.showPopupMsg('Error', 'Failed to delete the product. Please try again.');
+        }
+      );
     }
     this.confirmDelete = false;
   }
 
   addToCart(id: number): void {
-    this.showPopupMsg('Success', 'Product added to Cart..!!');
+    this.showPopupMsg('Success', 'Product added to Cart!');
     this.cartService.addProductToCart(id);
     this.checkCartStatus();
   }
 
   redirectToCart(): void {
-    this.router.navigate(['/gotocart']);
+    this.router.navigate(['/viewusercart']);
   }
 
   showPopupMsg(title: string, message: string): void {
     this.popupTitle = title;
     this.popupMessage = message;
     this.showPopup = true;
+    
+    // Auto-close success messages after 2 seconds
+    if (title === 'Success') {
+      setTimeout(() => {
+        this.showPopup = false;
+      }, 2000);
+    }
   }
 
   closePopup(confirm: boolean = false): void {
