@@ -12,7 +12,7 @@ import { User } from '../models/user.model';
 export class AuthService {
 
   apiUrl:string=Api.apiUrlUser
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
   registerUser(user:User):Observable<User>{
     return this.http.post<User>(`${this.apiUrl}/registers`,user)
   }

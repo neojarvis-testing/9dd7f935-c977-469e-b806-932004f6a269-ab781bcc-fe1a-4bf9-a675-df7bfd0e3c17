@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
-import { CartService } from 'src/app/services/cart.service';
+
 
 import { ProductService } from 'src/app/services/product.service';
 
@@ -35,7 +35,9 @@ export class AdminaddproductComponent implements OnInit {
 
   backgroundUrl:string;
   ngOnInit(): void {
-    this.userId=+ localStorage.getItem('userId')
+    //this.userId=+ localStorage.getItem('userId')
+    const storedUserId = localStorage.getItem('userId');
+    this.userId = storedUserId ? parseInt(storedUserId, 10) : 0;
     this.selectedId=this.route.snapshot.params['id'];
     this.service.getProductById(this.selectedId).subscribe((data)=>{
       this.isEdited=true;

@@ -23,10 +23,10 @@ export class AdminviewproductComponent implements OnInit {
   isLoading: boolean = true;
 
   constructor(
-    private productService: ProductService, 
-    private router: Router, 
-    public authService: AuthService, 
-    private cartService: CartService
+    private readonly productService: ProductService, 
+    private readonly router: Router, 
+    public readonly authService: AuthService, 
+    private readonly cartService: CartService
   ) { }
 
   ngOnInit(): void {
