@@ -11,6 +11,9 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AdminviewproductComponent implements OnInit {
   products: any[] = [];
+  filteredProducts: any[] = [];
+  searchTerm: string = '';
+  selectedCategory: string = '';
   showPopup: boolean = false;
   popupTitle: string = '';
   popupMessage: string = '';
@@ -28,11 +31,19 @@ export class AdminviewproductComponent implements OnInit {
   getAllProducts(): void {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
+      this.filteredProducts = data;
     });
   }
 
   checkCartStatus(): void {
     this.isCartEmpty = this.cartService.getCartItems().length === 0;
+  }
+
+  filterProducts(): void {
+    this.filteredProducts = this.products.filter(product => 
+      product.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+      (this.selectedCategory === '' || product.category === this.selectedCategory)
+    );
   }
 
   editProduct(productId: number): void {
@@ -49,6 +60,7 @@ export class AdminviewproductComponent implements OnInit {
     if (this.productIdToDelete !== null) {
       this.productService.deleteProduct(this.productIdToDelete).subscribe(() => {
         this.products = this.products.filter(product => product.productId !== this.productIdToDelete);
+        this.filteredProducts = this.filteredProducts.filter(product => product.productId !== this.productIdToDelete);
         this.showPopupMsg('Success', 'Product deleted successfully!');
         this.getAllProducts();
       }, error => {

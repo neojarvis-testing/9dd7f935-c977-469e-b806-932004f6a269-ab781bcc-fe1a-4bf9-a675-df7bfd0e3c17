@@ -1,0 +1,36 @@
+<div class="background-wrapper">
+  <div class="container mt-5">
+    <h1 class="text-center">Your Cart</h1>
+    <div *ngIf="products.length === 0" class="text-center mt-5">
+      <h3 class="animated fadeIn">Your cart is empty</h3>
+      <button class="btn btn-primary mt-3" (click)="redirectToViewProducts()">View Products</button>
+    </div>
+    <div *ngFor="let product of products; let i = index;" class="animated fadeInUp">
+      <div class="card mb-3 product-card">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <div class="image-container">
+              <img [src]="product.photoImage" class="card-img" alt="{{ product.name }}">
+              <div class="overlay">
+                <div class="text">{{ product.description }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text"><strong>Category:</strong> {{ product.category }}</p>
+              <p class="card-text"><strong>Price:</strong> {{ product.price | currency: 'INR' }}</p>
+              <p class="card-text"><strong>Stock:</strong> {{ product.stock }}</p>
+              <button class="btn btn-danger" (click)="deleteProductFromCart(i)">Cancel product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="products.length > 0" class="text-center mt-3">
+      <button class="btn btn-success" (click)="redirectToCart()">Place Order</button>
+      <button class="btn btn-success" (click)="clearCart()">Clear Cart</button>
+    </div>
+  </div>
+</div>

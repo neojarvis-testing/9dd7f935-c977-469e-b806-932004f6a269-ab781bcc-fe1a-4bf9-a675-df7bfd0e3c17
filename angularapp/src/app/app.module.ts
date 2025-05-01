@@ -25,6 +25,7 @@ import { UserviewordersComponent } from './components/uservieworders/uservieword
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { UserviewcartComponent } from './userviewcart/userviewcart.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { AuthInterceptor } from './auth.interceptor';
     UserviewfeedbackComponent,
     UserviewordersComponent,
     UserviewproductComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserviewcartComponent
   ],
   imports: [
     BrowserModule,

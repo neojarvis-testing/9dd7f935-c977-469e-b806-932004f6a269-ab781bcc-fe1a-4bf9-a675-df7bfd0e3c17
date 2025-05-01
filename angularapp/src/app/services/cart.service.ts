@@ -5,17 +5,22 @@ import { Injectable } from '@angular/core';
 })
 export class CartService {
   product:any[]=[]
- constructor() { }
-addProductToCart(product: any): void {
-    this.product.push(product);
-    console.log('Product added:', product);
-  }
-deleteCart(id: number): void {
-    this.product = this.product.filter(item => item.id !== id);
-    console.log('Product removed:', id);
+  constructor() { }
+  addProductToCart(product: any): void {
+      this.product.push(product);
+      console.log('Product added:', product);
   }
 
- clearCart(): void {
+  deleteCart(index: number): void {
+    if (index >= 0 && index < this.product.length) {
+        const removedProduct = this.product.splice(index, 1);
+        console.log('Product removed:', removedProduct);
+    } else {
+        console.log('Invalid index:', index);
+    }
+  }
+
+  clearCart(): void {
     this.product = [];
     console.log('Cart cleared');
   }
