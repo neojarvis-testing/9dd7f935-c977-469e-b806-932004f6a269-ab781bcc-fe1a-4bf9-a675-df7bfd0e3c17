@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,DoCheck{
   userName: string;
   profilePic: string;
   showProfileSelector: boolean = false;
@@ -26,6 +26,10 @@ export class NavbarComponent implements OnInit {
     this.userName = localStorage.getItem('username') || 'User';
     this.profilePic = localStorage.getItem('profilePic') || this.availablePics[0];
   }
+  ngDoCheck(): void {
+    this.userName = localStorage.getItem('username') || 'User';
+    this.profilePic = localStorage.getItem('profilePic') || this.availablePics[0];
+}
 
   logout(): void {
     // Call your logout logic here, then navigate.
