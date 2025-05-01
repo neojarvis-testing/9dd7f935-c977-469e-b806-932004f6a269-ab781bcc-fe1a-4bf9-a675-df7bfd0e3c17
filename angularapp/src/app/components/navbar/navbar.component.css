@@ -1,24 +1,22 @@
-/* Navbar Container with a gradient background and blur effect */
+/* Navbar Container */
 .custom-navbar {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0.5)
-  );
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5));
   backdrop-filter: blur(8px);
-  padding: 10px 20px;
+  padding: 1rem;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Brand styling */
-.custom-navbar .navbar-brand {
+.navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ffffff;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
-.custom-navbar .navbar-brand:hover {
+
+.navbar-brand:hover {
   color: #ff5733;
+  transform: scale(1.05);
 }
 
 /* Home icon */
@@ -28,133 +26,166 @@
   margin-right: 8px;
   transition: transform 0.3s ease;
 }
+
 .home-icon:hover {
+  transform: rotate(360deg);
+}
+
+/* Cart Icon */
+.cart-icon {
+  position: relative;
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: #ff5733;
   transform: scale(1.1);
 }
 
-/* Toggler & Icon - Use a custom white icon */
-.navbar-toggler {
-  border: none;
-  outline: none;
-}
-.navbar-toggler-icon {
-  background-image: url(
-    "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"
-  );
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff5733;
+  color: white;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  animation: bounce 0.5s ease infinite;
 }
 
-/* Navigation Link styling with animated underline & hover lift */
+/* Navigation Links */
 .nav-link {
   position: relative;
   color: #ffffff;
   font-size: 1rem;
-  margin-right: 15px;
-  transition: color 0.3s, transform 0.3s;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
 }
+
 .nav-link:hover {
   color: #ff5733;
   transform: translateY(-2px);
 }
+
 .nav-link::after {
-  content: "";
+  content: '';
   position: absolute;
-  left: 50%;
+  left: 0;
   bottom: -4px;
-  transform: translateX(-50%) scaleX(0);
-  width: 0%;
-  height: 2px;
-  background: linear-gradient(90deg, #ff5733, #8a2be2);
-  transition: width 0.3s ease;
-}
-.nav-link:hover::after {
   width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5733, #ff8a65);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: right;
 }
 
-/* Profile Styling */
-.user-profile {
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Profile Button */
+.profile-button {
   display: flex;
   align-items: center;
-  margin-right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  margin-right: 1rem;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: all 0.3s ease;
 }
-.user-profile:hover {
+
+.profile-button:hover {
   transform: scale(1.05);
 }
-.profile-info {
-  margin-right: 8px;
-  color: #ffffff;
+
+.user-name {
+  margin-right: 0.5rem;
   font-weight: 500;
 }
+
 .profile-pic {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  border: 2px solid #ffffff;
-  object-fit: cover;
-  transition: border-color 0.3s, transform 0.3s;
+  border: 2px solid white;
+  transition: all 0.3s ease;
 }
+
 .profile-pic:hover {
   border-color: #ff5733;
-  transform: scale(1.1);
+  transform: rotate(360deg);
 }
 
-/* Profile Selector Modal */
-.profile-selector-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
+/* Modal Styling */
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
   align-items: center;
-  z-index: 1100;
+  justify-content: center;
 }
-.profile-selector-content {
-  background: #fff;
-  padding: 20px;
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
   border-radius: 8px;
-  width: 90%;
   max-width: 500px;
-  animation-duration: 0.5s;
+  width: 90%;
 }
-.profile-option {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
+
+.profile-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.profile-option-button {
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease;
 }
-.profile-option:hover {
+
+.profile-option-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Button Styling */
-.btn-outline-light {
-  border-color: #ffffff;
-  color: #ffffff;
-  transition: background 0.3s, color 0.3s;
-}
-.btn-outline-light:hover {
-  background: #ffffff;
-  color: #000000;
+.profile-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-/* Custom Slide-In Animation for Links if desired */
-.animated-link {
-  animation: slideIn 0.7s ease-in-out;
+/* Animations */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-nav {
+    margin-top: 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .nav-link {
+    margin: 0.5rem 0;
+  }
+  
+  .profile-button {
+    margin: 1rem 0;
   }
 }
