@@ -13,22 +13,25 @@ import { UserviewordersComponent } from './components/uservieworders/uservieword
 import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
 import { AdminviewordersComponent } from './components/adminvieworders/adminvieworders.component';
 import { UserviewcartComponent } from './userviewcart/userviewcart.component';
+import { LoggedInGuard } from './logged-in.guard';
+import { UserGuard } from './user.guard';
+import { AdminGuard } from './admin.guard';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegistrationComponent},
-  {path:'logout',component:LogoutComponent},
-  {path:'addproduct',component:AdminaddproductComponent},
-  {path:'addproduct/:id',component:AdminaddproductComponent},
-  {path:'viewproduct',component:AdminviewproductComponent},
-  {path:'add-feedback',component:UseraddfeedbackComponent},
-  {path:'my-feedbacks',component:UserviewfeedbackComponent},
-  {path:'view-feedbacks',component:AdminviewfeedbackComponent},
-  {path:'viewuserorders',component:UserviewordersComponent},
-  {path:'gotocart',component:UseraddcartComponent},
-  {path:'adminvieworders',component:AdminviewordersComponent},
-  {path:'viewusercart',component:UserviewcartComponent}
+  {path:'logout',component:LogoutComponent, canActivate:[LoggedInGuard]},
+  {path:'addproduct',component:AdminaddproductComponent, canActivate:[AdminGuard]},
+  {path:'addproduct/:id',component:AdminaddproductComponent, canActivate:[AdminGuard]},
+  {path:'viewproduct',component:AdminviewproductComponent, canActivate:[LoggedInGuard]},
+  {path:'add-feedback',component:UseraddfeedbackComponent, canActivate:[UserGuard]},
+  {path:'my-feedbacks',component:UserviewfeedbackComponent, canActivate:[UserGuard]},
+  {path:'view-feedbacks',component:AdminviewfeedbackComponent, canActivate:[AdminGuard]},
+  {path:'viewuserorders',component:UserviewordersComponent, canActivate:[UserGuard]},
+  {path:'gotocart',component:UseraddcartComponent, canActivate:[UserGuard]},
+  {path:'adminvieworders',component:AdminviewordersComponent, canActivate:[AdminGuard]},
+  {path:'viewusercart',component:UserviewcartComponent, canActivate:[UserGuard]}
 ];
 
 @NgModule({

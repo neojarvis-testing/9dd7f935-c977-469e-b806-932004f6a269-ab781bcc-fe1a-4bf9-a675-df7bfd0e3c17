@@ -13,7 +13,7 @@ public class ProductDTO {
     private Long productId;
 
     @NotBlank(message = "Name cannot be blank.") //Ensures name is not null or empty
-    @Size(max = 20, message = "Name must not exceed 20 characters.") //Limits description to 20 characters
+    @Size(max = 50, message = "Name must not exceed 50 characters.") //Limits description to 50 characters
     private String name;
 
     @NotBlank(message = "Description cannot be blank.") //Ensures description is not null or empty
@@ -29,7 +29,7 @@ public class ProductDTO {
     private Integer stock;
 
     @NotBlank(message = "Category cannot be blank.") //Ensures category is not null or empty
-    @Size(max = 20, message = "Category must not exceed 20 characters.") //Limits description to 20 characters
+    @Size(max = 100, message = "Category must not exceed 100 characters.") //Limits description to 100 characters
     private String category;
 
     @NotNull(message = "Photo URL cannot be blank.")
