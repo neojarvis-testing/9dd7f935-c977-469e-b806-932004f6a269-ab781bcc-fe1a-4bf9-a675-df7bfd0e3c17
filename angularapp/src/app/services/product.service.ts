@@ -10,7 +10,7 @@ import { Api } from 'src/api';
 export class ProductService {
 
   apiUrl:string=Api.apiUrlUser
-  constructor(private http : HttpClient) { }
+  constructor(private readonly http : HttpClient) { }
   createProduct(product : Product) : Observable<Product> {
     return this.http.post<Product>(`${this.apiUrl}/products/add-product`,product);
   }

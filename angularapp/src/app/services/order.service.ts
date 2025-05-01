@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class OrderService {
   apiUrl:string=Api.apiUrlUser
 
-  constructor(private http:HttpClient) { }
+  constructor(private readonly http:HttpClient) { }
   
   placeOrder(order:Order):Observable<Order>{
       return this.http.post<Order>(`${this.apiUrl}/orders/add`,order)
