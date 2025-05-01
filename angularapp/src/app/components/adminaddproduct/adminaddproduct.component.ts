@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
+import { CartService } from 'src/app/services/cart.service';
 
 import { ProductService } from 'src/app/services/product.service';
 
@@ -20,7 +21,7 @@ export class AdminaddproductComponent implements OnInit {
    popupMessage: string = ''
   selectedId:number;
   editedProduct:Product;
-  constructor(private service : ProductService, private fb : FormBuilder, private router : Router, private route : ActivatedRoute) {
+  constructor(private readonly service : ProductService, private readonly fb : FormBuilder, private readonly router : Router, private readonly route : ActivatedRoute){
     this.addProductForm = this.fb.group({
       name : ['',[Validators.required, Validators.pattern('^[a-zA-Z0-9 ]{3,20}$')]],
       description : ['',[Validators.required, Validators.pattern('[a-zA-Z0-9. ]{3,100}$')]],

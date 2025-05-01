@@ -19,6 +19,10 @@ export class CartService {
         console.log('Invalid index:', index);
     }
   }
+ addMultipleProductsToCart(products: any[]): void {
+    this.product = [...this.product, ...products]; // Merging arrays
+    console.log('Products added:', products);
+}
 
   clearCart(): void {
     this.product = [];

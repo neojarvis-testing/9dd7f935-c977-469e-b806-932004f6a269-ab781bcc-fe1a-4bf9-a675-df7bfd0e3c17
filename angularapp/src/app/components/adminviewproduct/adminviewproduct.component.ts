@@ -25,7 +25,16 @@ export class AdminviewproductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.setCart()
     this.checkCartStatus();
+    console.log(this.isCartEmpty)
+    
+  }
+  setCart(){
+    if(this.cartService.getCartItems().length===0){
+        this.cartService.addMultipleProductsToCart(JSON.parse(localStorage.getItem('cart') || '[]'))
+    }
+       
   }
 
   getAllProducts(): void {
@@ -36,7 +45,7 @@ export class AdminviewproductComponent implements OnInit {
   }
 
   checkCartStatus(): void {
-    this.isCartEmpty = this.cartService.getCartItems().length === 0;
+    this.isCartEmpty = this.cartService.getCartItems().length === 0 ? true:false;
   }
 
   filterProducts(): void {
