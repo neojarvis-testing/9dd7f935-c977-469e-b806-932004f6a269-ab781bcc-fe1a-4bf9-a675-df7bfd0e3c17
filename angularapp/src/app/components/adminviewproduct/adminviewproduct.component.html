@@ -1,8 +1,22 @@
-<!-- Full-page background wrapper -->
 <div class="background-wrapper">
   <div class="container mt-3">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <input type="text" class="form-control search-bar" placeholder="Search products by name.." [(ngModel)]="searchTerm" (input)="filterProducts()">
+      </div>
+      <div class="col-md-6">
+        <select class="form-control category-filter" [(ngModel)]="selectedCategory" (change)="filterProducts()">
+          <option value="">All Categories</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Frozen Foods">Frozen Foods</option>
+          <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+          <option value="Eggs, Meat & Fish">Eggs, Meat & Fish</option>
+          <option value="Bakery, Cakes & Dairy">Bakery, Cakes & Dairy</option>
+        </select>
+      </div>
+    </div>
     <div class="row">
-      <div class="col-md-3 mb-3" *ngFor="let product of products">
+      <div class="col-md-3 mb-3" *ngFor="let product of filteredProducts">
         <div class="card h-70" style="width: 250px; height: 350px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.8);">
           <img [src]="product.photoImage" class="card-img-top" alt="{{ product.name }}" style="height: 150px;">
           <div class="card-body p-2" style="text-align: center;">
@@ -13,32 +27,28 @@
             <p class="card-text mb-1"><strong>Stock:</strong> {{ product.stock }}</p>
           </div>
           <div class="card-footer d-flex justify-content-between p-2" *ngIf="authService.isAdmin()">
-            <button class="btn btn-primary btn-sm" (click)="editProduct(product.productId)" style="background-color: rgb(255, 123, 0); color: white;">Edit</button>
-            <button class="btn btn-danger btn-sm" (click)="confirmDeleteProduct(product.productId)">Delete</button>
+            <button class="btn btn-primary btn-sm button-pulse" (click)="editProduct(product.productId)" style="background-color: rgb(255, 123, 0); color: white;">Edit</button>
+            <button class="btn btn-danger btn-sm button-pulse" (click)="confirmDeleteProduct(product.productId)">Delete</button>
           </div>
           <div class="card-footer d-flex justify-content-center p-2" *ngIf="authService.isUser()">
             <button 
-              class="btn btn-primary btn-sm"  
+              class="btn btn-primary btn-sm button-pulse"  
               style="background-color: rgb(5, 100, 11); color: white;"  
               (click)="addToCart(product.productId)">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0  0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
               </svg>
-              Add To Cart
-            </button>
+              Add to Cart
+              </button>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="products.length === 0" class="alert alert-info no-products-alert" role="alert">
+    <div *ngIf="filteredProducts.length === 0" class="alert alert-info no-products-alert" role="alert">
       No products available.
     </div>
-    <div *ngIf="products.length > 0 && authService.isUser() && !isCartEmpty" class="place-order-container">
-      <button 
-        class="btn btn-sm place-order-btn" 
-        (click)="redirectToCart()">
-        Place Order
-      </button>
+    <div *ngIf="filteredProducts.length > 0 && authService.isUser() && !isCartEmpty" class="place-order-container">
+      <p style="color: orange; font-weight: bold; font-size: 1.5em; animation: textEffect 2s infinite;" class="animated textEffect hover-text" routerLink="/viewusercart">Check your cart to complete your purchase journey!!</p>
     </div>
     <!-- Custom Popup Overlay -->
     <div class="custom-popup" *ngIf="showPopup">

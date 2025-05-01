@@ -12,6 +12,7 @@ import { AdminviewproductComponent } from './components/adminviewproduct/adminvi
 import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
 import { UseraddcartComponent } from './components/useraddcart/useraddcart.component';
 import { AdminviewordersComponent } from './components/adminvieworders/adminvieworders.component';
+import { UserviewcartComponent } from './userviewcart/userviewcart.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -26,7 +27,8 @@ const routes: Routes = [
   {path:'view-feedbacks',component:AdminviewfeedbackComponent},
   {path:'viewuserorders',component:UserviewordersComponent},
   {path:'gotocart',component:UseraddcartComponent},
-  {path:'adminvieworders',component:AdminviewordersComponent}
+  {path:'adminvieworders',component:AdminviewordersComponent},
+  {path:'viewusercart',component:UserviewcartComponent}
 ];
 
 @NgModule({
