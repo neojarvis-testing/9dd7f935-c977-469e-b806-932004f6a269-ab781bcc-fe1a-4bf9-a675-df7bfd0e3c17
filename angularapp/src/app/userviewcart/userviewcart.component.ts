@@ -37,7 +37,7 @@ import { Subscription } from 'rxjs';
 export class UserviewcartComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   cartLoading: boolean = true;
-  private subscriptions: Subscription = new Subscription();
+  private readonly subscriptions: Subscription = new Subscription();
   totalAmount: number = 0;
 
   constructor(

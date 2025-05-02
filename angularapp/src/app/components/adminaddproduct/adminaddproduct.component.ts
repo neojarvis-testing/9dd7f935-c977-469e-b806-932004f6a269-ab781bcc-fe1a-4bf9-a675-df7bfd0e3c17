@@ -49,7 +49,6 @@ export class AdminaddproductComponent implements OnInit {
   createProduct() {
     // Attach the userId to the form value
     this.addProductForm.value.userId = this.userId;
-  
     if (!this.selectedId) {
       // Add Product Logic
       if (this.addProductForm.valid) {
@@ -57,37 +56,34 @@ export class AdminaddproductComponent implements OnInit {
           () => {
             console.log('Product added:', this.addProductForm.value);
             this.showPopupMsg("Success", "Product added successfully!!!");
-            this.addProductForm.reset(); // Clear the form after successful submission
+            this.addProductForm.reset();
           },
           (error) => {
             console.log('Error adding product:', JSON.stringify(error));
             this.showPopupMsg("Error", "Product failed to add!!!");
           }
         );
-      } else {
-        this.addProductForm.markAllAsTouched(); // Trigger validation messages if the form is invalid
-      }
+      } else 
+        this.addProductForm.markAllAsTouched();
     } else {
       // Edit Product Logic
       if (this.addProductForm.valid) {
         this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
           () => {
-            //this.addProductForm.patchValue(data);
             console.log('Product updated:', this.addProductForm.value);
             this.showPopupMsg("Success", "Product updated successfully!!!");
-            this.isEdited = false; // Reset edit mode
-            this.addProductForm.reset(); // Clear the form
-            this.router.navigate(['/viewproduct']); // Navigate back to the product list
+            this.isEdited = false;
+            this.addProductForm.reset();
+            this.router.navigate(['/viewproduct']);
           },
           (error) => {
             console.log('Error updating product:', JSON.stringify(error));
             this.showPopupMsg("Error", "Product failed to update!!!");
           }
         );
-      } else {
-        this.addProductForm.markAllAsTouched(); // Trigger validation messages if the form is invalid
-      }
-    }
+      } else 
+        this.addProductForm.markAllAsTouched();
+    }    
   }
  
   onFileChange(event: Event, fileType: string): void {

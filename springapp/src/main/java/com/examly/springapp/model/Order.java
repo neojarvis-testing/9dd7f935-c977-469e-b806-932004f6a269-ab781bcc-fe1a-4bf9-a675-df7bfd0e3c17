@@ -29,7 +29,6 @@ public class Order {
     private User user;
 
     @ManyToMany
-    @JsonManagedReference
     private List<Product> products;
 
     private String shippingAddress;
