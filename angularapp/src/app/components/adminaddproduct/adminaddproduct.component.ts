@@ -46,45 +46,51 @@ export class AdminaddproductComponent implements OnInit {
     })
   }
 
-  createProduct() {
+  createProduct(): void {
     // Attach the userId to the form value
     this.addProductForm.value.userId = this.userId;
-    if (!this.selectedId) {
-      // Add Product Logic
-      if (this.addProductForm.valid) {
-        this.service.createProduct(this.addProductForm.value).subscribe(
-          () => {
-            console.log('Product added:', this.addProductForm.value);
-            this.showPopupMsg("Success", "Product added successfully!!!");
-            this.addProductForm.reset();
-          },
-          (error) => {
-            console.log('Error adding product:', JSON.stringify(error));
-            this.showPopupMsg("Error", "Product failed to add!!!");
-          }
-        );
-      } else 
-        this.addProductForm.markAllAsTouched();
+  
+    if (this.addProductForm.valid) {
+      if (!this.selectedId) {
+        this.createProductAction();
+      } else {
+        this.updateProductAction();
+      }
     } else {
-      // Edit Product Logic
-      if (this.addProductForm.valid) {
-        this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
-          () => {
-            console.log('Product updated:', this.addProductForm.value);
-            this.showPopupMsg("Success", "Product updated successfully!!!");
-            this.isEdited = false;
-            this.addProductForm.reset();
-            this.router.navigate(['/viewproduct']);
-          },
-          (error) => {
-            console.log('Error updating product:', JSON.stringify(error));
-            this.showPopupMsg("Error", "Product failed to update!!!");
-          }
-        );
-      } else 
-        this.addProductForm.markAllAsTouched();
-    }    
+      this.addProductForm.markAllAsTouched();
+    }
   }
+  
+  private createProductAction(): void {
+    this.service.createProduct(this.addProductForm.value).subscribe(
+      () => {
+        console.log('Product added:', this.addProductForm.value);
+        this.showPopupMsg("Success", "Product added successfully!!!");
+        this.addProductForm.reset();
+      },
+      (error) => {
+        console.log('Error adding product:', JSON.stringify(error));
+        this.showPopupMsg("Error", "Product failed to add!!!");
+      }
+    );
+  }
+  
+  private updateProductAction(): void {
+    this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
+      () => {
+        console.log('Product updated:', this.addProductForm.value);
+        this.showPopupMsg("Success", "Product updated successfully!!!");
+        this.isEdited = false;
+        this.addProductForm.reset();
+        this.router.navigate(['/viewproduct']);
+      },
+      (error) => {
+        console.log('Error updating product:', JSON.stringify(error));
+        this.showPopupMsg("Error", "Product failed to update!!!");
+      }
+    );
+  }
+  
  
   onFileChange(event: Event, fileType: string): void {
     const input = event.target as HTMLInputElement;

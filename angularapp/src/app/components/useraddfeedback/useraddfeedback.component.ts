@@ -14,7 +14,8 @@ export class UseraddfeedbackComponent implements OnInit {
   errorMessage = '';
   stars: number[] = [1, 2, 3, 4, 5];
   userid!: number;
- 
+  private readonly INCREMENT = 1;
+
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly feedbackService: FeedbackService,
@@ -79,24 +80,29 @@ export class UseraddfeedbackComponent implements OnInit {
   }
  
   handleKeyDown(event: KeyboardEvent, index: number): void {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (this.isEnterOrSpace(event)) {
       event.preventDefault();
-      this.setRating(index + 1);
+      this.setRating(index + this.INCREMENT);
     }
   }
- 
+
   onStarClick(index: number): void {
-    this.setRating(index + 1);
+    this.setRating(index + this.INCREMENT);
   }
- 
+
   onStarKeyDown(event: KeyboardEvent, index: number): void {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (this.isEnterOrSpace(event)) {
       event.preventDefault();
-      this.setRating(index + 1);
+      this.setRating(index + this.INCREMENT);
     }
   }
+
+  private isEnterOrSpace(event: KeyboardEvent): boolean {
+    return event.key === 'Enter' || event.key === ' ';
+  }
+
  
   isStarActive(index: number): boolean {
-    return index < (this.feedbackForm.get('rating')?.value || 0);
+    return index < (this.feedbackForm.get('rating')?.value ?? 0);
   }
 }
