@@ -122,3 +122,23 @@
     padding: 20px;
   }
 }
+
+
+/* Styled Registration Link */
+.register-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #007bff; /* Primary blue */
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #007bff;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.register-link:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}

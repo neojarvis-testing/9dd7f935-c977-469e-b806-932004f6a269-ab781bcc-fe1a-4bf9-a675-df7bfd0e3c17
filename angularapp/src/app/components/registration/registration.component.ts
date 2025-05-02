@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   // Static full-screen background image URL
   backgroundUrl: string = 'https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg?t=st=1745824723~exp=1745828323~hmac=52082271ee07d43fbefa9c91f1c5d142c9317583b3b72227bece9c63f8d5b5f6&w=2000';
 
-  constructor(private readonly formBuilder: FormBuilder,private readonly router:Router,private readonly service:AuthService) {}
+  constructor(private readonly formBuilder: FormBuilder,private readonly service:AuthService) {}
 
   ngOnInit(): void {
     // Build the reactive form with validations
@@ -75,7 +74,7 @@ export class RegistrationComponent implements OnInit {
     this.showPopup = false;
     // If login was successful, navigate to the home page
     if (this.popupTitle === "Success") {
-      this.router.navigate(["/login"])
+        this.onReset()
     }
   }
 
