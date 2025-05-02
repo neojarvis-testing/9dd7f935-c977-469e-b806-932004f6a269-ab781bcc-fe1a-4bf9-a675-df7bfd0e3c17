@@ -70,4 +70,10 @@
     min-width: 320px;
     box-shadow: 0 0 15px rgba(202, 202, 202, 0.5);
   }
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
   
