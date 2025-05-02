@@ -89,7 +89,7 @@ export class AdminaddproductComponent implements OnInit {
       }
     }
   }
-  
+ 
   onFileChange(event: Event, fileType: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
