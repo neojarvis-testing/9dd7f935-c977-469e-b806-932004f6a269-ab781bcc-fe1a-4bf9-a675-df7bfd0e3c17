@@ -26,6 +26,7 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserviewcartComponent } from './userviewcart/userviewcart.component';
+import { ParticlesBackgroundComponent } from './components/particles-background/particles-background.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { UserviewcartComponent } from './userviewcart/userviewcart.component';
     UserviewordersComponent,
     UserviewproductComponent,
     LogoutComponent,
-    UserviewcartComponent
+    UserviewcartComponent,
+    ParticlesBackgroundComponent
   ],
   imports: [
     BrowserModule,
