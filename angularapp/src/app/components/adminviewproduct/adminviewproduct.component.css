@@ -597,8 +597,21 @@
   }
 }
 
-/* Caption on image (if required) */
-.caption {
+.product-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover img {
+  transform: scale(1.1);
+}
+
+.product-caption {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -608,11 +621,9 @@
   text-align: center;
   padding: 10px;
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(100%);
+  transition: opacity 0.3s ease;
 }
 
-.product-image:hover .caption {
+.product-image:hover .product-caption {
   opacity: 1;
-  transform: translateY(0);
 }

@@ -109,15 +109,10 @@
             addProductForm.controls.stock?.invalid &&
             (addProductForm.controls.stock?.touched ||
              addProductForm.controls.stock?.dirty)
-          "
-          class="text-danger"
-        >
-          <small *ngIf="addProductForm.controls.stock.errors?.required"
-            >Stock is required.</small
-          >
-          <small *ngIf="addProductForm.controls.stock.errors?.min"
-            >Stock cannot be negative.</small
-          >
+          "class="text-danger">
+          <small *ngIf="addProductForm.controls.stock.errors?.required">Stock is required.</small>
+          <small *ngIf="addProductForm.controls.stock.errors?.min">Stock cannot be negative.</small>
+          <small *ngIf="addProductForm.controls.stock.errors?.pattern">Stock can be only in digits.</small>
         </div>
       </div>
 

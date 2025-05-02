@@ -52,10 +52,10 @@
         <div class="product-card">
           <div class="product-image">
             <img [src]="product.photoImage" alt="{{ product.name }}">
+            <div class="product-caption">{{ product.description }}</div>
           </div>
           <div class="product-details">
             <h6 class="product-title">{{ product.name }}</h6>
-            <p class="product-description">{{ product.description }}</p>
             <p class="product-category"><span>Category:</span> {{ product.category }}</p>
             <p class="product-price"><span>Price:</span> {{ product.price | currency:'INR' }}</p>
             <p class="product-stock" [ngClass]="{'low-stock': product.stock < 10}">
