@@ -13,6 +13,7 @@ export class LogoutComponent implements OnInit {
   constructor(private readonly service:AuthService,private readonly route:Router) { }
   cart:any[]
   ngOnInit(): void {
+  
     if(confirm("Do you want to logout??"))
         this.service.loggedOut();
     this.route.navigate(["/"])

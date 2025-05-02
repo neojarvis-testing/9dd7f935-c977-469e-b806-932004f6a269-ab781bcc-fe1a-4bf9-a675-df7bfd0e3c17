@@ -34,30 +34,30 @@ public class OrderController {
     }
    // Handles GET requests to fetch all orders
     @GetMapping
-    public ResponseEntity<?> getAllOrders() {
+    public ResponseEntity<List<Order>> getAllOrders() {
         List<Order> list = service.getAllOrders();
         return ResponseEntity.status(200).body(list);
     }
     // Handles GET requests to fetch a order by its ID
     @GetMapping("/{orderId}")
-    public ResponseEntity<?> getOrderById(@PathVariable Long orderId) {
+    public ResponseEntity<Order> getOrderById(@PathVariable Long orderId) {
         Order order = service.getOrderById(orderId);
         return ResponseEntity.status(200).body(order);
     }
     // Handles DELETE requests to remove a order by its ID
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<?> deleteOrder(@PathVariable Long orderId) {
-        boolean result = service.deleteOrder(orderId);
+    public ResponseEntity<String> deleteOrder(@PathVariable Long orderId) {
+        service.deleteOrder(orderId);
         return ResponseEntity.status(200).body(null);
     }
     @PutMapping("/{orderId}")
-    public ResponseEntity<?>updateOrder(@PathVariable Long orderId, @RequestBody String status){
+    public ResponseEntity<Order>updateOrder(@PathVariable Long orderId, @RequestBody String status){
         Order order=service.updateOrderStatus(orderId,status);
         return ResponseEntity.status(200).body(order);
 
     }
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getOrdersByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
         List<Order>list= service.getOrdersByUserId(userId);
         return ResponseEntity.status(200).body(list);
     }

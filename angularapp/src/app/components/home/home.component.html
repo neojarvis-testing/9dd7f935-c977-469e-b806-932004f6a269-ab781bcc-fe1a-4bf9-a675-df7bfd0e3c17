@@ -1,153 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smart Mart - Buy Smart, Be Smart!</title>
-  <!-- External CSS File -->
-  <link rel="stylesheet" href="home.component.css">
-</head>
-<body>
-  <!-- HEADER -->
+<div class="home-container">
+  <!-- HEADER SECTION -->
   <header class="site-header">
-    <div class="header-left">
-      <img src="https://img.freepik.com/free-vector/shopping-cart-supermarket-logo-template_23-2148470295.jpg?t=st=1745903084~exp=1745906684~hmac=211b4a951d681c70dabc8325c302955126258484fe5f3b172f30b095137c02e1&w=900" 
-           alt="Smart Mart Logo" class="header-logo">
-      <div class="header-text">
-        <h1>Smart Mart</h1>
-        <h2>Buy smart, be smart!</h2>
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="https://img.freepik.com/free-vector/shopping-cart-supermarket-logo-template_23-2148470295.jpg" 
+             alt="Smart Mart Logo" class="logo">
+        <div class="brand-text">
+          <h1>Smart Mart</h1>
+          <p>Buy smart, be smart!</p>
+        </div>
       </div>
-    </div>
-    <div>
-      <button class="btn btn-getstarted" (click)="viewAll()">Get Started</button>
+      <button class="cta-button" (click)="viewAll()">Get Started</button>
     </div>
   </header>
-  `
-  <!-- MAIN CONTENT -->
-  <main>
-    <!-- Promo Section: Why Choose Us -->
-    <section class="promo">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 promo-item">
-            <h3>Cheap Groceries</h3>
-            <p>Enjoy unbeatable prices on your daily essentials.</p>
-          </div>
-          <div class="col-md-4 promo-item">
-            <h3>Faster Delivery</h3>
-            <p>Order now and experience super-fast doorstep delivery.</p>
-          </div>
-          <div class="col-md-4 promo-item">
-            <h3>Vast Variety</h3>
-            <p>Explore a wide selection ranging from fresh produce to pantry staples.</p>
+
+  <!-- FEATURES SECTION -->
+  <section class="features">
+    <!-- Best Prices card with click event to trigger animation -->
+    <div class="feature-card" (click)="triggerAnimation()">
+      <img src="https://images.pexels.com/photos/1602726/pexels-photo-1602726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Best Prices">
+      <h3>Best Prices</h3>
+      <p>Unbeatable deals on daily essentials</p>
+    </div>
+    <div class="feature-card">
+      <img src="https://images.pexels.com/photos/3683206/pexels-photo-3683206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Fast Delivery">
+      <h3>Fast Delivery</h3>
+      <p>Same day delivery available</p>
+    </div>
+    <div class="feature-card">
+      <img src="https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Premium Quality">
+      <h3>Premium Quality</h3>
+      <p>100% quality guaranteed</p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="products">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <button class="view-all" (click)="view()">View All Products</button>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://as2.ftcdn.net/v2/jpg/05/37/04/61/1000_F_537046123_s8JVn2NrClPQDOryhSm8jonYZPfIzPRX.webp" alt="Fresh Vegetables">
+        <h3>Fresh Vegetables</h3>
+        <p>Farm fresh vegetables daily</p>
+      </div>
+      <div class="product-card">
+        <img src="https://as2.ftcdn.net/v2/jpg/00/70/94/63/1000_F_70946377_VJXdpJqld6XOsOTO6lt95ieZSxGO0faM.jpg" alt="Organic Fruits">
+        <h3>Organic Fruits</h3>
+        <p>100% organic certified</p>
+      </div>
+      <div class="product-card">
+        <img src="https://as1.ftcdn.net/v2/jpg/01/57/03/60/1000_F_157036026_9tMnjyVOQ3kjAoQtx8wStEHZVuii1Tq1.jpg" alt="Dairy Products">
+        <h3>Dairy Products</h3>
+        <p>Fresh dairy products</p>
+      </div>
+      <div class="product-card">
+        <img src="https://as1.ftcdn.net/v2/jpg/01/94/67/46/1000_F_194674604_ljLHejiSLubzErvpKQleLptz8RTAspIT.jpg" alt="Bakery Items">
+        <h3>Bakery Items</h3>
+        <p>Freshly baked daily</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDES SECTION -->
+  <section class="guides">
+    <div class="container">
+      <div class="section-header">
+        <h2>Helpful Guides</h2>
+      </div>
+      <div class="guides-container">
+        <div *ngFor="let guide of guides" class="guide-card">
+          <button 
+            (click)="toggleGuide(guide.id)"
+            class="guide-button"
+            [ngClass]="{'active': openGuide === guide.id}">
+            {{ guide.title }}
+            <span class="icon">
+              <!-- Show ChevronUp if open, otherwise ChevronDown -->
+              <svg *ngIf="openGuide === guide.id" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
+              <svg *ngIf="openGuide !== guide.id" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="guide-content" [ngClass]="{'open': openGuide === guide.id}">
+            <p>{{ guide.content }}</p>
           </div>
         </div>
       </div>
-    </section>
-    
-    <!-- Featured Products Section -->
-    <section class="featured-products">
-      <div class="container">
-        <div class="section-header">
-          <h2>Featured Products</h2>
-          <button class="btn btn-getstarted" (click)="view()">View All products</button>
-        </div>
-        <div class="row">
-          <div class="col-md-3 mb-4">
-            <div class="card">
-              <img src="https://as2.ftcdn.net/v2/jpg/05/37/04/61/1000_F_537046123_s8JVn2NrClPQDOryhSm8jonYZPfIzPRX.webp" class="card-img-top" alt="Fresh Vegetables">
-              <div class="card-body text-center">
-                <p class="card-text">Fresh Vegetables</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="card">
-              <img src="https://as2.ftcdn.net/v2/jpg/00/70/94/63/1000_F_70946377_VJXdpJqld6XOsOTO6lt95ieZSxGO0faM.jpg" class="card-img-top" alt="Organic Fruits">
-              <div class="card-body text-center">
-                <p class="card-text">Organic Fruits</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="card">
-              <img src="https://as1.ftcdn.net/v2/jpg/01/57/03/60/1000_F_157036026_9tMnjyVOQ3kjAoQtx8wStEHZVuii1Tq1.jpg" class="card-img-top" alt="Dairy Products">
-              <div class="card-body text-center">
-                <p class="card-text">Dairy Products</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 mb-4">
-            <div class="card">
-              <img src="https://as1.ftcdn.net/v2/jpg/01/94/67/46/1000_F_194674604_ljLHejiSLubzErvpKQleLptz8RTAspIT.jpg" class="card-img-top" alt="Bakery Items">
-              <div class="card-body text-center">
-                <p class="card-text">Bakery Items</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Guides Section as Accordion Dropdowns -->
-    <section class="guides">
-      <div class="container">
-        <div class="section-header">
-          <h2>Helpful Guides</h2>
-        </div>
-        <div class="accordion" id="guidesAccordion">
-          <!-- Guide 1 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingFreshProduce">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFreshProduce" aria-expanded="true" aria-controls="collapseFreshProduce">
-                Guide to Fresh Produce
-              </button>
-            </h2>
-            <div id="collapseFreshProduce" class="accordion-collapse collapse show" aria-labelledby="headingFreshProduce" data-bs-parent="#guidesAccordion">
-              <div class="accordion-body">
-                <p>Learn how to select the freshest produce by checking for vibrant colors, firmness, and aroma. Discover seasonal tips and storage techniques to maximize shelf life and nutrition.</p>
-              </div>
-            </div>
-          </div>
-          <!-- Guide 2 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingBudgetShopping">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBudgetShopping" aria-expanded="false" aria-controls="collapseBudgetShopping">
-                Budget Shopping
-              </button>
-            </h2>
-            <div id="collapseBudgetShopping" class="accordion-collapse collapse" aria-labelledby="headingBudgetShopping" data-bs-parent="#guidesAccordion">
-              <div class="accordion-body">
-                <p>Discover savvy tips for saving money on groceries. Learn how to compare prices, shop seasonal items, and make the most of bulk buying to stick to your budget.</p>
-              </div>
-            </div>
-          </div>
-          <!-- Guide 3 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingHealthyEating">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHealthyEating" aria-expanded="false" aria-controls="collapseHealthyEating">
-                Healthy Eating
-              </button>
-            </h2>
-            <div id="collapseHealthyEating" class="accordion-collapse collapse" aria-labelledby="headingHealthyEating" data-bs-parent="#guidesAccordion">
-              <div class="accordion-body">
-                <p>Explore nutritional insights and meal planning advice for a balanced lifestyle. Learn how to incorporate a variety of food groups and maintain healthy eating habits with Smart Mart's offerings.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-  </main>
-  
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2025 Smart Mart. All rights reserved.</p>
-    </div>
+    <p>&copy; 2025 Smart Mart. All rights reserved.</p>
   </footer>
-  
-  <!-- Bootstrap JS (including Popper.js) -->
-</body>
-</html>
+
+  <!-- CUSTOM POPUP MODAL -->
+  <div class="popup-overlay" *ngIf="showPopup">
+    <div class="popup">
+      <p>Please login first.</p>
+      <button class="close-button" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <!-- ANIMATION OVERLAY (Triggered on Best Prices click) -->
+  <section class="girl-with-cart-animation" *ngIf="showAnimation">
+    <img
+      src="https://example.com/girl-with-cart.png"
+      alt="Girl with a cart" class="animated-cart"
+    />
+  </section>
+</div>
