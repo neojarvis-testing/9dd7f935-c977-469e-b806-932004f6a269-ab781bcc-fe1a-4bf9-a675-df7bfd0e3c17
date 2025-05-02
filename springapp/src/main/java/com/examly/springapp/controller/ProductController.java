@@ -63,6 +63,8 @@ public class ProductController {
         productDTO = service.editProduct(productId,productDTO);
         return ResponseEntity.status(200).body(productDTO);
     }
+   
+
     // Handles DELETE requests to remove a product by its ID
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {

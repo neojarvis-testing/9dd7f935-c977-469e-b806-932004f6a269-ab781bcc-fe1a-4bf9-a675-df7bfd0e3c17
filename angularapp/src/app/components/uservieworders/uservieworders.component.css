@@ -169,3 +169,12 @@
   color: blue;
   font-weight: bold;
 }
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pagination-controls .ngx-pagination {
+  display: flex;
+  justify-content: center;
+}

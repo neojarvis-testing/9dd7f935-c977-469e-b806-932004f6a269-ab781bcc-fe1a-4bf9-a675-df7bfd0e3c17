@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of orders">
+          <tr *ngFor="let order of orders | paginate: { itemsPerPage: 2, currentPage: page }">
             <td>{{ order.orderId }}</td>
             <td>{{ order.shippingAddress }}</td>
             <td [ngClass]="{
@@ -40,6 +40,9 @@
           </tr>
         </tbody>
       </table>
+      <div class="d-flex justify-content-center">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
     </div>
     <ng-template #noOrders>
       <div class="no-data text-center animated fadeIn">
@@ -89,4 +92,5 @@
     </div>
   </div>
 </div>
+
 
