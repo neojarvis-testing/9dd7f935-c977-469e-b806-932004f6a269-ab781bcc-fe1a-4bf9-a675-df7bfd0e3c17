@@ -78,5 +78,4 @@ export class UserviewfeedbackComponent implements OnInit {
     }
     return '';
   }
-  
 }
