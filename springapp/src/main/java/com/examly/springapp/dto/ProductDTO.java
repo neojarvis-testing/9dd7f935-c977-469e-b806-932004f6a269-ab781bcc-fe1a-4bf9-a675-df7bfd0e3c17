@@ -2,7 +2,7 @@ package com.examly.springapp.dto;
 
 import java.time.LocalDate;
 
-
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -30,8 +30,8 @@ public class ProductDTO {
     @NotBlank(message = "Category cannot be blank.") //Ensures category is not null or empty
     @Size(max = 100, message = "Category must not exceed 100 characters.") //Limits description to 100 characters
     private String category;
-
-    @NotNull(message = "Photo URL cannot be blank.")
+    
+    @Lob
     private String photoImage;
 
     private Long userId;

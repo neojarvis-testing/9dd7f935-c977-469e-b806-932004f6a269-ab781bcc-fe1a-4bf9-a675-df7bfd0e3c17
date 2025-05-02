@@ -22,7 +22,6 @@ import { UseraddfeedbackComponent } from './components/useraddfeedback/useraddfe
 import { UsernavbarComponent } from './components/usernavbar/usernavbar.component';
 import { UserviewfeedbackComponent } from './components/userviewfeedback/userviewfeedback.component';
 import { UserviewordersComponent } from './components/uservieworders/uservieworders.component';
-import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserviewcartComponent } from './userviewcart/userviewcart.component';
@@ -50,7 +49,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UsernavbarComponent,
     UserviewfeedbackComponent,
     UserviewordersComponent,
-    UserviewproductComponent,
     LogoutComponent,
     UserviewcartComponent,
     ParticlesBackgroundComponent

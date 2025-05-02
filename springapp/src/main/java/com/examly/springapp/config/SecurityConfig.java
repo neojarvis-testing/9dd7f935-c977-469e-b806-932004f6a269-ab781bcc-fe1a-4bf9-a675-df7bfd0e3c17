@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/register", "/api/login", "/api/registers", "/api/logins").permitAll()
                 .requestMatchers(HttpMethod.GET, productIdPath, "/api/products/category/{category}", "/api/products").hasAnyRole(ADMIN, USER)
                 .requestMatchers(HttpMethod.GET, "/api/user", "/api/feedback", "/api/orders").hasRole(ADMIN)
-                .requestMatchers(HttpMethod.PUT, orderIdPath, productIdPath).hasRole(ADMIN)
+                .requestMatchers(HttpMethod.PUT, orderIdPath, "/api/products/edit-product/{productId}",productIdPath).hasRole(ADMIN)
                 .requestMatchers(HttpMethod.POST, "/api/products", "/api/products/add-product").hasRole(ADMIN)
                 .requestMatchers(HttpMethod.DELETE, "/api/user/{userId}", productIdPath).hasRole(ADMIN)
                 .requestMatchers(HttpMethod.GET, "/api/orders/user/{userId}", orderIdPath, "/api/feedback/user/{userId}", "/api/products/user/{userId}").hasRole(USER)
