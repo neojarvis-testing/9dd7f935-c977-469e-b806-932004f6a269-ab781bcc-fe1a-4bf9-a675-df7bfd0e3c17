@@ -10,11 +10,9 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private readonly service:AuthService,private readonly route:Router, private readonly cartService:CartService) { }
+  constructor(private readonly service:AuthService,private readonly route:Router) { }
   cart:any[]
   ngOnInit(): void {
-    this.cart=this.cartService.getCartItems()
-    localStorage.setItem("cart",JSON.stringify(this.cart))
     if(confirm("Do you want to logout??"))
         this.service.loggedOut();
     this.route.navigate(["/"])

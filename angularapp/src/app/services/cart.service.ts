@@ -4,32 +4,48 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CartService {
-  product:any[]=[]
-  constructor() { }
+  private products: any[] = [];
+
+  constructor() {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      this.products = JSON.parse(storedCart);
+    }
+  }
+
+  private updateStorage(): void {
+    localStorage.setItem('cart', JSON.stringify(this.products));
+  }
+
   addProductToCart(product: any): void {
-      this.product.push(product);
-      console.log('Product added:', product);
+    this.products.push(product);
+    this.updateStorage();
+    console.log('Product added:', product);
   }
 
   deleteCart(index: number): void {
-    if (index >= 0 && index < this.product.length) {
-        const removedProduct = this.product.splice(index, 1);
-        console.log('Product removed:', removedProduct);
+    if (index >= 0 && index < this.products.length) {
+      const removedProduct = this.products.splice(index, 1);
+      this.updateStorage();
+      console.log('Product removed:', removedProduct);
     } else {
-        console.log('Invalid index:', index);
+      console.log('Invalid index:', index);
     }
   }
- addMultipleProductsToCart(products: any[]): void {
-    this.product = [...this.product, ...products]; // Merging arrays
+
+  addMultipleProductsToCart(products: any[]): void {
+    this.products = [...this.products, ...products];
+    this.updateStorage();
     console.log('Products added:', products);
-}
+  }
 
   clearCart(): void {
-    this.product = [];
+    this.products = [];
+    localStorage.removeItem('cart');
     console.log('Cart cleared');
   }
 
   getCartItems(): any[] {
-    return this.product;
+    return this.products;
   }
 }

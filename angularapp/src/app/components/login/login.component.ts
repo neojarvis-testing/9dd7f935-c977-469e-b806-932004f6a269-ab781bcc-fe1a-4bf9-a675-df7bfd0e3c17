@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   // Use a single, static background image URL (customize as needed)
   backgroundUrl: string = 'https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg?t=st=1745824723~exp=1745828323~hmac=52082271ee07d43fbefa9c91f1c5d142c9317583b3b72227bece9c63f8d5b5f6&w=2000';
 
-  constructor(private readonly formBuilder: FormBuilder,private readonly router:Router,private readonly service:AuthService,private readonly cartService:CartService) {}
+  constructor(private readonly formBuilder: FormBuilder,private readonly router:Router,private readonly service:AuthService) {}
 
   ngOnInit(): void {
     // Initialize reactive form:
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['',[Validators.required,Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$')]]
     });
-    this.cart = JSON.parse(localStorage.getItem('cart') || '[]')
-    this.cartService.addMultipleProductsToCart(this.cart)
   }
   
 
