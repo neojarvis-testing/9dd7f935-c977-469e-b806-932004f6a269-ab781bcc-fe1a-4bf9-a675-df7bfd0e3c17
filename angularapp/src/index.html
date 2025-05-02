@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ShopCart - Your Shopping Cart</title>
+    <title>SmartMart - Your Shopping Cart</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://media-hosting.imagekit.io/d240336c5d4a419f/food.png?Expires=1840772165&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=JPHWlauqhlJg~OJdD87QL8Upd18osbZOV9URrTmEJ-DvXdSGPmKOaZg2FReO~8JcMND~1EWIE2XqF4Zc-2jOk~eARQiS2M9R7-xNv6N56T9F-v5Cnu3ivdMb8zQF6r0~kcaF3eFjjRC4-guL3s9CbbIVcIsRWuV2PD2x6pccqNbKaxuAOpdC4tx24ljAISmy4HapDPLFDsmGsmZcUTfRdS5Qc5bPU8ezRddGJlDD2ziMsIwyPndwlnJHL4yJDMaA1C5PZ5dARLphkwULApUrYu3SgMWwHZU9Rkz2rrdoUCESz4sKN5SIosiG-LSmr2wxDyo5uKyGxDuGvbMuxvJKdw__">
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
       * {
@@ -27,6 +30,13 @@
         justify-content: center;
         height: 100vh;
         background-color: #f8f9fa;
+      }
+      
+      /* Logo styles */
+      .logo {
+        width: 80px;    /* Adjust width as needed */
+        height: auto;
+        margin-bottom: 16px;
       }
       
       .loading-spinner {
@@ -53,8 +63,14 @@
   <body>
     <app-root>
       <div class="loading-app">
+        <!-- Logo image -->
+        <img
+          class="logo"
+          src="https://media-hosting.imagekit.io/d240336c5d4a419f/food.png?Expires=1840772165&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=JPHWlauqhlJg~OJdD87QL8Upd18osbZOV9URrTmEJ-DvXdSGPmKOaZg2FReO~8JcMND~1EWIE2XqF4Zc-2jOk~eARQiS2M9R7-xNv6N56T9F-v5Cnu3ivdMb8zQF6r0~kcaF3eFjjRC4-guL3s9CbbIVcIsRWuV2PD2x6pccqNbKaxuAOpdC4tx24ljAISmy4HapDPLFDsmGsmZcUTfRdS5Qc5bPU8ezRddGJlDD2ziMsIwyPndwlnJHL4yJDMaA1C5PZ5dARLphkwULApUrYu3SgMWwHZU9Rkz2rrdoUCESz4sKN5SIosiG-LSmr2wxDyo5uKyGxDuGvbMuxvJKdw__"
+          alt="SmartMart Logo">
         <div class="loading-spinner"></div>
-        <p class="loading-text">Loading ShopCart...</p>
+        <!-- Updated text to include the full title -->
+        <p class="loading-text">Loading SmartMart - Your Shopping Cart</p>
       </div>
     </app-root>
   </body>
