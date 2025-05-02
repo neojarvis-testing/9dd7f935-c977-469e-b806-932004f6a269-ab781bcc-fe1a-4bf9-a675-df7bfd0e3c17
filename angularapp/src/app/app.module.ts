@@ -27,6 +27,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { UserviewcartComponent } from './userviewcart/userviewcart.component';
 import { ParticlesBackgroundComponent } from './components/particles-background/particles-background.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { ParticlesBackgroundComponent } from './components/particles-background/
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     HttpClientModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

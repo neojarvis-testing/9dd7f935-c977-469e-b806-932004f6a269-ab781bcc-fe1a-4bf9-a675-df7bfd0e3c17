@@ -21,6 +21,8 @@ export class AdminviewproductComponent implements OnInit {
   productIdToDelete: number | null = null;
   isCartEmpty: boolean = true;
   isLoading: boolean = true;
+  currentPage: number = 1;
+  itemsPerPage: number = 8; // Number of products per page
 
   constructor(
     private readonly productService: ProductService, 
@@ -33,6 +35,9 @@ export class AdminviewproductComponent implements OnInit {
     this.getAllProducts();
     this.setCart();
     this.checkCartStatus();
+  }
+  onPageChange(page: number): void {
+    this.currentPage = page;
   }
 
   setCart() {
