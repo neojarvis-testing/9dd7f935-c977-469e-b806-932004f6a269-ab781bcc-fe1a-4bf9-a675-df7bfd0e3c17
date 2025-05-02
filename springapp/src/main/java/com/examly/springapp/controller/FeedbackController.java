@@ -86,7 +86,7 @@ public class FeedbackController {
      * otherwise returns an error message with a 404 status.
      */
     @DeleteMapping("/{feedbackId}")
-    public ResponseEntity<?> deleteFeedback(@PathVariable Long feedbackId) {
+    public ResponseEntity<String> deleteFeedback(@PathVariable Long feedbackId) {
         boolean result = service.deleteFeedback(feedbackId);
         if (result)
             return ResponseEntity.status(200).body(null);
@@ -100,7 +100,7 @@ public class FeedbackController {
      * Returns the saved feedback with a 201 status.
      */
     @PostMapping
-    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback) {
+    public ResponseEntity<Feedback> createFeedback(@RequestBody Feedback feedback) {
         return ResponseEntity.status(201).body(service.createFeedback(feedback));
     }
 }

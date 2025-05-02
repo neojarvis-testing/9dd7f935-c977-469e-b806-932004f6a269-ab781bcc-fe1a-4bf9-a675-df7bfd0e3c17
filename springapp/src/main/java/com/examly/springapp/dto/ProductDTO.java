@@ -2,8 +2,7 @@ package com.examly.springapp.dto;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
+
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -33,7 +32,6 @@ public class ProductDTO {
     private String category;
 
     @NotNull(message = "Photo URL cannot be blank.")
-   // @Lob
     private String photoImage;
 
     private Long userId;

@@ -112,16 +112,24 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public Order updateOrderStatus(Long orderId, String order) {
-       logger.info("Method UpdateOrder started...");
+        logger.info("Method UpdateOrder started...");
         Order existingOrder = orderRepo.findById(orderId).orElse(null);
-        if(existingOrder != null && order.equals("ACCEPTED")) {
-            existingOrder.setStatus(OrderStatus.SHIPPED);
+    
+        if (existingOrder != null) {
+            if ("ACCEPTED".equals(order)) {
+                existingOrder.setStatus(OrderStatus.SHIPPED);
+            } else {
+                existingOrder.setStatus(OrderStatus.REJECTED);
+            }
+            existingOrder.setOrderId(orderId);
+            return orderRepo.save(existingOrder);
         } else {
-            existingOrder.setStatus(OrderStatus.REJECTED);
+            // Handle the case where existingOrder is null
+            logger.warn("Order with ID {} not found.", orderId);
+            return null; // or throw an exception, depending on your use case
         }
-        existingOrder.setOrderId(orderId);
-        return orderRepo.save(existingOrder);
     }
+    
 
     public List<Order> getOrdersByUserId(Long userId) {
         logger.info("Method getOrdersByUserId started...");
