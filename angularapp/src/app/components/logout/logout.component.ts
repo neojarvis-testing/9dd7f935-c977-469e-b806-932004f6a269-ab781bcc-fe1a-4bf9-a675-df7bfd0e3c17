@@ -10,14 +10,34 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private readonly service:AuthService,private readonly route:Router, private readonly cartService:CartService) { }
-  cart:any[]
+  cart: any[];
+  displayPopup: boolean = false; // controls the popup visibility
+
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router,
+    private readonly cartService: CartService
+  ) { }
+
   ngOnInit(): void {
-    this.cart=this.cartService.getCartItems()
-    localStorage.setItem("cart",JSON.stringify(this.cart))
-    if(confirm("Do you want to logout??"))
-        this.service.loggedOut();
-    this.route.navigate(["/"])
+    // Save cart items to localStorage before logout
+    this.cart = this.cartService.getCartItems();
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+
+    // Display the custom confirmation popup
+    this.displayPopup = true;
   }
 
+  onConfirm(): void {
+    // Logout the user and navigate home when confirmed
+    this.authService.loggedOut();
+    this.displayPopup = false;
+    this.router.navigate(['/']);
+  }
+
+  onCancel(): void {
+    // Simply hide popup and navigate home if cancelled
+    this.displayPopup = false;
+    this.router.navigate(['/']);
+  }
 }
