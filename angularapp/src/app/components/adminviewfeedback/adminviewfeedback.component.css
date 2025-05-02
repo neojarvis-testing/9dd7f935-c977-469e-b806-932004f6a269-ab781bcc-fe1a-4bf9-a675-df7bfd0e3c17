@@ -115,13 +115,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   color: #1B5E20;
-  margin: 0 15px;
-}
-/* Page Number Styling */
-.current-page {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #e0dece; /* Gold color for visibility */
+  color: #e0dece;
   margin: 0 15px;
 }
 

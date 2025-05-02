@@ -13,7 +13,7 @@ interface GuideItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnDestroy {
   // Custom popup flag for non‑logged‑in users
   showPopup = false;
   
@@ -49,8 +49,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly router: Router, 
     private readonly authService: AuthService
   ) { }
-
-  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     if (this.animationTimer) {

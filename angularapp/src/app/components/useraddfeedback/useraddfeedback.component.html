@@ -29,16 +29,14 @@
       <div class="form-group mb-3">
         <label for="rating">Rating:</label>
         <div class="stars">
-          <button
-          *ngFor="let star of stars; let i = index"
-          tabindex="0"
-          (click)="onStarClick(i)"
-          (keydown)="onStarKeyDown($event, i)"
-          [class.selected]="isStarActive(i)"
-        >
-          ★
-        </button>
-        
+          <span
+            *ngFor="let star of stars; let i = index"
+            (click)="onStarClick(i)"
+            (keydown)="onStarKeyDown($event, i)"
+            [class.selected]="isStarActive(i)"
+          >
+            ★
+          </span>
         </div>
         
         <div
