@@ -45,18 +45,19 @@
       <p>Loading products...</p>
     </div>
 
-    <!-- Product Cards -->
+    <!-- Product Cards (Using Pagination) -->
     <div class="row" *ngIf="!isLoading">
-      <div class="col-md-3 mb-4" *ngFor="let product of filteredProducts">
+      <div class="col-md-3 mb-4" 
+           *ngFor="let product of filteredProducts | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
         <div class="product-card">
           <div class="product-image">
             <img [src]="product.photoImage" alt="{{ product.name }}">
+            <div class="product-caption">{{ product.description }}</div>
           </div>
           <div class="product-details">
             <h6 class="product-title">{{ product.name }}</h6>
-            <p class="product-description">{{ product.description }}</p>
             <p class="product-category"><span>Category:</span> {{ product.category }}</p>
-            <p class="product-price"><span>Price:</span> {{ product.price | currency : 'INR' }}</p>
+            <p class="product-price"><span>Price:</span> {{ product.price | currency:'INR' }}</p>
             <p class="product-stock" [ngClass]="{'low-stock': product.stock < 10}">
               <span>Stock:</span> {{ product.stock }}
             </p>
@@ -74,12 +75,24 @@
       </div>
     </div>
 
+    <!-- Pagination Controls -->
+    <div class="row">
+      <div class="col-12 text-center mt-4">
+        <pagination-controls 
+          [autoHide]="false" 
+          [directionLinks]="true"
+          [previousLabel]="'Previous'" 
+          [nextLabel]="'Next'" 
+          (pageChange)="currentPage = $event">
+        </pagination-controls>
+      </div>
+    </div>    
+
     <!-- No Products Message -->
     <div *ngIf="filteredProducts.length === 0 && !isLoading" class="no-products-alert">
       <i class="bi bi-emoji-frown"></i>
       <p>No products available matching your criteria.</p>
-      <button class="btn-reset" *ngIf="searchTerm || selectedCategory" 
-        (click)="searchTerm = ''; selectedCategory = ''; filterProducts()">
+      <button class="btn-reset" *ngIf="searchTerm || selectedCategory" (click)="resetFilters()">
         Reset Filters
       </button>
     </div>
@@ -105,5 +118,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>

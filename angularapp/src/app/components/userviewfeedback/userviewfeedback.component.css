@@ -1,29 +1,92 @@
-/* Overall container with the provided background image and some padding */
+/* Professional Page Styling with Background Image */
 .user-feedback-container {
-  min-height: 100vh; /* full viewport height */
-  padding: 20px;
-  background: url('https://img.freepik.com/free-vector/feedback-survey-concept-illustration_114360-15500.jpg?t=st=1745989899~exp=1745993499~hmac=99400d76d0f824b2f17918a18c218eb14ae534025eb0212a03f1589af41bd9e0&w=1380')
-    no-repeat center center;
+  min-height: 100vh;
+  padding: 40px;
+  background: linear-gradient(to right, rgba(200, 230, 201, 0.85), rgba(165, 214, 167, 0.85)), 
+    url('https://i.pinimg.com/736x/98/2b/fb/982bfb2c3894f29c9bed4d13d7b0488d.jpg') no-repeat center center fixed;
   background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Simple table fade-in animation */
+/* Remove Blur Overlay */
+.user-feedback-container::before {
+  display: none; /* No blur or transparency */
+}
+
+/* Main Heading Styling */
+.feedback-main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1B5E20; /* Deep green */
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Refined Table Styling - Green Theme */
 .feedback-table {
   animation: fadeInTable 1s ease-in-out;
+  background: linear-gradient(to right, #A5D6A7, #81C784); /* Soft green blend */
+  color: #212121;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  transition: all 0.3s ease-in-out;
 }
 
-@keyframes fadeInTable {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Table Headers - Elegant Dark Green */
+.feedback-table th {
+  background-color: #2E7D32; /* Rich forest green */
+  color: white;
+  font-weight: bold;
+  padding: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #388E3C;
 }
 
-/* Custom modal overlay (darkened backdrop) */
+/* Table Cells */
+.feedback-table td {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.95); /* Light mint green */
+  border-bottom: 2px solid #81C784;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.feedback-table tbody tr:hover {
+  background-color: rgba(165, 214, 167, 0.6); /* Soft green hover */
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Dynamic Colors for Stars Based on Rating */
+.feedback-table .stars {
+  font-size: 1.5rem;
+  color: lightgray;
+}
+
+/* Color-coded Stars */
+.feedback-table .stars .selected.one { color: #D50000; } /* Bright Red */
+.feedback-table .stars .selected.two { color: #E53935; } /* Soft Red */
+.feedback-table .stars .selected.three { color: #FFD700; } /* Gold */
+.feedback-table .stars .selected.four { color: #76FF03; } /* Light Green */
+.feedback-table .stars .selected.five { color: #1B5E20; } /* Deep Green */
+
+/* Smooth transition effect */
+.feedback-table .stars .selected {
+  transition: color 0.3s ease;
+}
+
+/* Elegant Modal Styling */
 .custom-modal {
   position: fixed;
   top: 0;
@@ -34,31 +97,61 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeInModal 0.5s;
+  animation: fadeInModal 0.5s ease-in-out;
+}
+
+.modal-content {
+  background-color: #A5D6A7; /* Soft pastel green */
+  padding: 24px;
+  border-radius: 15px;
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth Fade-in Animations */
+@keyframes fadeInTable {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInModal {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* Existing container and table styles remain unchanged */
+
+/* Delete Confirmation Modal Styles */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensure modal appears above other content */
 }
 
-/* Modal content with a light green background theme */
 .modal-content {
-  background-color: #e8f5e9;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   width: 90%;
   max-width: 400px;
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Spacing inside modal */
-.modal-actions button {
-  margin: 10px;
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal-buttons button {
+  width: 45%;
 }

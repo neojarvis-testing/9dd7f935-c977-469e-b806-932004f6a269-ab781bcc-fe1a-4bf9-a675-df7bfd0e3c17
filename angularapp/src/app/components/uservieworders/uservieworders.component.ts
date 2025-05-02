@@ -9,6 +9,7 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./uservieworders.component.css']
 })
 export class UserviewordersComponent implements OnInit {
+  page: number = 1;
   orders: Order[] = [];
   selectedOrder: Order;
   userId:any;

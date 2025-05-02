@@ -11,74 +11,71 @@ export class UserviewfeedbackComponent implements OnInit {
   feedbacks: Feedback[] = [];
   userId: any;
   errorMessage: any;
-
-  // Modal state variables
   showDeleteModal: boolean = false;
-  showResultModal: boolean = false;
-  selectedFeedbackId: number | null = null;
-  resultModalTitle: string = '';
-  resultModalMessage: string = '';
+  selectedFeedbackId!: number;
+  stars = [1, 2, 3, 4, 5];
+  feedbackForm: any;
 
   constructor(private readonly feedbackService: FeedbackService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
     this.loadFeedbacks();
   }
 
-  loadFeedbacks() {
-    this.feedbackService.getFeedbackByUserId(this.userId).subscribe(
-      (data) => {
+  loadFeedbacks(): void {
+    this.feedbackService.getFeedbackByUserId(this.userId).subscribe({
+      next: (data) => {
         this.feedbacks = data;
       },
-      (error) => {
-        // Check for the 404 error or other specifics in the error response
-        if (error.status === 404 || (error.error && error.error.data === "No feedback found")) {
-          this.feedbacks = [];
-          this.errorMessage = "No feedbacks available.";
-        } else {
-          this.errorMessage = "Error loading feedbacks.";
-        }
+      error: () => {
+        this.errorMessage = "Error loading feedbacks.";
       }
-    );
+    });
   }
 
-  // Open the custom delete confirmation modal
-  openDeleteModal(feedbackId: number) {
+  openDeleteModal(feedbackId: number): void {
     this.selectedFeedbackId = feedbackId;
     this.showDeleteModal = true;
   }
 
-  // Close the delete modal
-  closeDeleteModal() {
+  closeDeleteModal(): void {
     this.showDeleteModal = false;
-    this.selectedFeedbackId = null;
+    this.selectedFeedbackId = 0;
   }
 
-  // On confirming deletion, attempt to delete and show result modal.
-  confirmDelete() {
-    if (this.selectedFeedbackId !== null) {
-      this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe(
-        (data) => {
-          this.resultModalTitle = "Success";
-          this.resultModalMessage = "Feedback Deleted Successfully.";
-          this.showResultModal = true;
+  confirmDelete(): void {
+    if (this.selectedFeedbackId) {
+      this.feedbackService.deleteFeedback(this.selectedFeedbackId).subscribe({
+        next: () => {
           this.loadFeedbacks();
+          this.closeDeleteModal();
         },
-        (error) => {
-          this.resultModalTitle = "Error";
-          this.resultModalMessage =
-            "There was an error deleting the feedback.";
-          this.showResultModal = true;
+        error: () => {
+          this.errorMessage = "Error deleting feedback.";
+          this.closeDeleteModal();
         }
-      );
+      });
     }
-    this.closeDeleteModal();
   }
 
-  // Close the results modal
-  closeResultModal() {
-    this.showResultModal = false;
+  isStarActive(index: number, rating: number): string {
+    if (index < rating) {
+      switch (rating) {
+        case 1:
+          return 'selected one';
+        case 2:
+          return 'selected two';
+        case 3:
+          return 'selected three';
+        case 4:
+          return 'selected four';
+        case 5:
+          return 'selected five';
+        default:
+          return 'selected';
+      }
+    }
+    return '';
   }
-
 }

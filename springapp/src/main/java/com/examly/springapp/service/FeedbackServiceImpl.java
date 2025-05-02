@@ -17,7 +17,7 @@ import com.examly.springapp.repository.FeedbackRepo;
 // This class defines the business logic for feedback operations.
 // It handles tasks like adding feedback, fetching feedback, and deleting feedback.
 @Service
-public class FeedbackServiceImpl {
+public class FeedbackServiceImpl implements FeedbackService{
  
     // Used to log messages and track application flow for debugging purposes.
     Logger logger = LoggerFactory.getLogger(FeedbackServiceImpl.class);
@@ -146,7 +146,7 @@ public class FeedbackServiceImpl {
     /**
      * Dummy method to create and save feedback entries using the repository.
      */
-    public Object createFeedback(Feedback feedback) {
+    public Feedback createFeedback(Feedback feedback) {
         return feedbackRepo.save(feedback);
     }
 }

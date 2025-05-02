@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: url('https://img.freepik.com/free-vector/feedback-survey-concept-illustration_114360-15500.jpg?t=st=1745989899~exp=1745993499~hmac=99400d76d0f824b2f17918a18c218eb14ae534025eb0212a03f1589af41bd9e0&w=1380')
+  background: url('https://cdn.pixabay.com/photo/2022/05/18/07/08/feedback-7204547_640.jpg')
     no-repeat center center;
   background-size: cover;
   overflow: auto;
@@ -82,7 +82,81 @@
   font-weight: bold;
   color: #ffffff;
   margin: 20px 0;
-  background-color: rgba(46, 125, 50, 0.7); /* Light-green overlay for contrast */
+  background-color: rgba(255, 255, 255, 0.7); /* Light-green overlay for contrast */
   padding: 10px;
   border-radius: 5px;
+}
+/* Center Pagination Controls */
+.pagination-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Pagination Buttons */
+.pagination-controls button {
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  background-color: #cc254f; /* Forest Green */
+  color: white;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #A5D6A7; /* Light Green */
+  cursor: not-allowed;
+}
+
+/* Page Number Styling */
+.current-page {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1B5E20;
+  margin: 0 15px;
+}
+/* Page Number Styling */
+.current-page {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e0dece; /* Gold color for visibility */
+  margin: 0 15px;
+}
+
+/* Dynamic Colors for Stars Based on Rating */
+.stars {
+  font-size: 1.5rem;
+  color: lightgray; /* Default star color */
+}
+
+/* Bright red for 1-star */
+.stars .selected.rating-1 {
+  color: #D50000; /* Bright Red */
+}
+
+/* Normal red for 2-star */
+.stars .selected.rating-2 {
+  color: #E53935; /* Soft Red */
+}
+
+/* Blue for 3-star */
+.stars .selected.rating-3 {
+  color: #1E88E5; /* Blue */
+}
+
+/* Yellow for 4-star */
+.stars .selected.rating-4 {
+  color: #ffd900; /* Gold */
+}
+
+/* Green for 5-star */
+.stars .selected.rating-5 {
+  color: #1B5E20; /* Deep Green */
+}
+
+/* Smooth transition effect */
+.stars .selected {
+  transition: color 0.3s ease;
 }

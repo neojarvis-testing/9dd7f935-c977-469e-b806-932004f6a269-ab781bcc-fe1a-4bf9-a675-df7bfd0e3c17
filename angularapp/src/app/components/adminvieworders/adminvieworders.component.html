@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of orders">
+        <tr *ngFor="let order of orders | paginate: { itemsPerPage: 2, currentPage: page }">
           <td class="text-center">{{ order.orderId }}</td>
           <td class="text-center">{{ order.user.userId }}</td>
           <td>{{ order.shippingAddress }}</td>
@@ -38,8 +38,34 @@
           </td>
         </tr>
       </tbody>
+      
+      <!-- <tbody>
+        <tr *ngFor="let order of orders">
+          <td class="text-center">{{ order.orderId }}</td>
+          <td class="text-center">{{ order.user.userId }}</td>
+          <td>{{ order.shippingAddress }}</td>
+          <td class="fw-bold" [ngClass]="{
+                'text-success': order.status === 'ACCEPTED',
+                'text-danger': order.status === 'REJECTED',
+                'text-warning': order.status === 'PENDING'
+              }">
+            {{ order.status }}
+          </td>
+          <td class="text-center">
+            <button [disabled]="order.status !== 'PENDING'" class="btn btn-success btn-sm me-2" (click)="openConfirmationPopup(order.orderId, 'ACCEPTED')">
+              Accept
+            </button>
+            <button [disabled]="order.status !== 'PENDING'" class="btn btn-danger btn-sm" (click)="openConfirmationPopup(order.orderId, 'REJECTED')">
+              Reject
+            </button>
+          </td>
+        </tr>
+      </tbody> -->
     </table>
-  </div>
+    <div class="d-flex justify-content-center">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+    </div>
   
   <!-- Template to show when there are no orders -->
   <ng-template #noOrdersTemplate>
@@ -115,3 +141,5 @@
     </div>
   </div>
 </div>
+
+

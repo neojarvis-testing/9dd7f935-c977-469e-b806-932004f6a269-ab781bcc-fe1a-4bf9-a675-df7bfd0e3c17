@@ -26,7 +26,7 @@ export class AdminaddproductComponent implements OnInit {
       name : ['',[Validators.required, Validators.pattern('^[a-zA-Z0-9 ]{3,20}$')]],
       description : ['',[Validators.required, Validators.pattern('[a-zA-Z0-9. ]{3,100}$')]],
       price : ['',[Validators.required, Validators.min(1)]],
-      stock : ['',[Validators.required, Validators.min(0)]],
+      stock : ['',[Validators.required, Validators.min(0),Validators.pattern('^[0-9]+$')]],
       category : ['',[Validators.required]],
       photoImage : [''],
       userId : [0]
@@ -69,11 +69,10 @@ export class AdminaddproductComponent implements OnInit {
       }
     } else {
       // Edit Product Logic
-      this.addProductForm.value.id = this.selectedId; // Set the ID for update
-  
       if (this.addProductForm.valid) {
         this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
           () => {
+            //this.addProductForm.patchValue(data);
             console.log('Product updated:', this.addProductForm.value);
             this.showPopupMsg("Success", "Product updated successfully!!!");
             this.isEdited = false; // Reset edit mode
@@ -90,7 +89,7 @@ export class AdminaddproductComponent implements OnInit {
       }
     }
   }
-  
+ 
   onFileChange(event: Event, fileType: string): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {

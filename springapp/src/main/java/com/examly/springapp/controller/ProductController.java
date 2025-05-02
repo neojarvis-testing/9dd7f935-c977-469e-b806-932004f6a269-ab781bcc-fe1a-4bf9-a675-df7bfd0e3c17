@@ -63,22 +63,24 @@ public class ProductController {
         productDTO = service.editProduct(productId,productDTO);
         return ResponseEntity.status(200).body(productDTO);
     }
+   
+
     // Handles DELETE requests to remove a product by its ID
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
-        boolean result = service.deleteProduct(productId);
+        service.deleteProduct(productId);
         return ResponseEntity.status(200).body(null);
     }
 
 
     //Dummy controller...
     @PostMapping
-    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         Product createdProduct = service.addProduct(product);
         return ResponseEntity.status(201).body(createdProduct);
     }
     @PutMapping("/{productId}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long productId,@RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable Long productId, @RequestBody Product product) {
         Product updatedProduct = service.updateProduct(productId, product);
         return ResponseEntity.status(200).body(updatedProduct);
     }
