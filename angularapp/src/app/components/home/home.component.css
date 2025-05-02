@@ -1,19 +1,80 @@
-/* HOME CONTAINER */
+/* Parent container holds both slides and content */
 .home-container {
+  position: relative;
   min-height: 100vh;
-  /* Use a stable background image with a dark overlay for legibility */
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url('https://images.pexels.com/photos/4935599/pexels-photo-4935599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')
-    no-repeat center center/cover;
-  transition: background 1s ease-in-out;
+  overflow: hidden;
+  background-color: #ECEFCA; /* fallback to off-white */
 }
 
-/* HEADER */
+/* Background slides */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  /* Smooth transition with ease-in-out */
+  animation: fade 12s ease-in-out infinite;
+}
+
+/* First background image (visible at 0s) */
+.slide:nth-child(1) {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('https://images.pexels.com/photos/4935599/pexels-photo-4935599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  animation-delay: 0s;
+}
+
+/* Second background image (visible after 4s) */
+.slide:nth-child(2) {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('https://images.pexels.com/photos/8561761/pexels-photo-8561761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  animation-delay: 4s;
+}
+
+/* Third background image (visible after 8s) */
+.slide:nth-child(3) {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('https://images.pexels.com/photos/8250269/pexels-photo-8250269.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  animation-delay: 8s;
+}
+
+/* Updated keyframes for a smooth crossfade */
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Wrap your main content to ensure it appears above the background slides */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ----------------------------------------- */
+/* Header */
+/* ----------------------------------------- */
 .site-header {
-  background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+  background: linear-gradient(135deg, #213448, #547792);
   padding: 20px;
-  color: white;
+  color: #ECEFCA;
 }
 
 .header-content {
@@ -49,22 +110,24 @@
 }
 
 .cta-button {
-  background-color: #2e7d32;
-  color: white;
+  background-color: #547792;
+  color: #ECEFCA;
   border: none;
   padding: 12px 30px;
   border-radius: 25px;
   font-size: 1.1em;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .cta-button:hover {
   transform: translateY(-2px);
-  background-color: #388e3c;
+  background-color: #213448;
 }
 
-/* FEATURES SECTION - Transparent */
+/* ----------------------------------------- */
+/* Features Section */
+/* ----------------------------------------- */
 .features {
   display: flex;
   justify-content: space-around;
@@ -82,7 +145,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(236, 239, 202, 0.7); /* using off-white (#ECEFCA) as a soft background */
   border-radius: 12px;
   text-align: center;
   box-shadow: none;
@@ -106,16 +169,18 @@
 .feature-card h3 {
   margin: 10px 0;
   font-size: 1.5em;
-  color: #d32f2f;
+  color: #213448;
 }
 
 .feature-card p {
   margin: 0;
   font-size: 1em;
-  color: #666;
+  color: #547792;
 }
 
-/* PRODUCTS */
+/* ----------------------------------------- */
+/* Products Section */
+/* ----------------------------------------- */
 .products {
   max-width: 1200px;
   margin: 40px auto;
@@ -130,17 +195,22 @@
 }
 
 .section-header h2 {
-  color: #d32f2f;
+  color: #213448;
   font-size: 2em;
 }
 
 .view-all {
-  background-color: #2e7d32;
-  color: white;
+  background-color: #547792;
+  color: #ECEFCA;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-all:hover {
+  background-color: #213448;
 }
 
 .product-grid {
@@ -150,7 +220,7 @@
 }
 
 .product-card {
-  background: white;
+  background: #ECEFCA;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -168,16 +238,18 @@
 }
 
 .product-card h3 {
-  color: #d32f2f;
+  color: #213448;
   margin: 15px;
 }
 
 .product-card p {
-  color: #666;
+  color: #547792;
   margin: 0 15px 15px;
 }
 
-/* GUIDES SECTION - Transparent with Red Theme */
+/* ----------------------------------------- */
+/* Guides Section */
+/* ----------------------------------------- */
 .guides {
   padding: 60px 0;
   background-color: transparent;
@@ -188,13 +260,13 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  border-bottom: 2px solid #d32f2f;
+  border-bottom: 2px solid #213448;
   padding-bottom: 10px;
 }
 
 .guides h2 {
   font-weight: 700;
-  color: #d32f2f;
+  color: #213448;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0;
@@ -207,7 +279,7 @@
 
 .guide-card {
   margin-bottom: 16px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(236, 239, 202, 0.7);
   border-radius: 8px;
   box-shadow: none;
   overflow: hidden;
@@ -220,7 +292,7 @@
   padding: 16px;
   font-size: 1rem;
   font-weight: 500;
-  color: #2e7d32;
+  color: #213448;
   border: none;
   display: flex;
   justify-content: space-between;
@@ -230,8 +302,8 @@
 }
 
 .guide-button.active {
-  background-color: rgba(255, 229, 229, 0.7);
-  color: #d32f2f;
+  background-color: rgba(84, 119, 146, 0.7); /* using adjusted version of #547792 with transparency */
+  color: #ECEFCA;
 }
 
 .icon {
@@ -252,16 +324,20 @@
   padding: 16px;
 }
 
-/* FOOTER */
+/* ----------------------------------------- */
+/* Footer */
+/* ----------------------------------------- */
 .site-footer {
-  background-color: #d32f2f;
-  color: white;
+  background-color: #213448;
+  color: #ECEFCA;
   text-align: center;
   padding: 20px;
   margin-top: 40px;
 }
 
-/* CUSTOM POPUP MODAL */
+/* ----------------------------------------- */
+/* Custom Popup Modal */
+/* ----------------------------------------- */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -276,7 +352,7 @@
 }
 
 .popup {
-  background-color: #fff;
+  background-color: #ECEFCA;
   padding: 20px 30px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -285,19 +361,22 @@
 
 .close-button {
   margin-top: 20px;
-  background-color: #d32f2f;
-  color: white;
+  background-color: #547792;
+  color: #ECEFCA;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .close-button:hover {
-  background-color: #c62828;
+  background-color: #213448;
 }
 
-/* ANIMATION OVERLAY - Girl with Cart */
+/* ----------------------------------------- */
+/* Animation Overlay - Girl with Cart */
+/* ----------------------------------------- */
 .girl-with-cart-animation {
   position: fixed;
   top: 0;
@@ -324,7 +403,9 @@
   100% { left: 100%; }
 }
 
-/* RESPONSIVE ADJUSTMENTS */
+/* ----------------------------------------- */
+/* Responsive Adjustments */
+/* ----------------------------------------- */
 @media (max-width: 768px) {
   .header-content, .logo-section {
     flex-direction: column;
