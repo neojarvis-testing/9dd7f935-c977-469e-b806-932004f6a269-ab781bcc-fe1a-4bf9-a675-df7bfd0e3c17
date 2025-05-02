@@ -2,7 +2,8 @@ package com.examly.springapp.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,6 +29,7 @@ public class Order {
     private User user;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Product> products;
 
     private String shippingAddress;
