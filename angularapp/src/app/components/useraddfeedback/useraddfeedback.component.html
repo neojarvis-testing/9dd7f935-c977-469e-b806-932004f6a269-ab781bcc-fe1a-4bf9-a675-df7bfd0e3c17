@@ -31,6 +31,7 @@
         <div class="stars">
           <span
             *ngFor="let star of stars; let i = index"
+            tabindex="0"
             (click)="onStarClick(i)"
             (keydown)="onStarKeyDown($event, i)"
             [class.selected]="isStarActive(i)"
