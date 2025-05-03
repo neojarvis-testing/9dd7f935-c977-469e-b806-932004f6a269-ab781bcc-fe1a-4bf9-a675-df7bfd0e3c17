@@ -59,14 +59,15 @@
     </form>
   </div>
 
-  <!-- Custom Success Popup Modal -->
-  <div *ngIf="successMessage" class="custom-modal">
-    <div class="modal-content">
-      <h3>Success</h3>
-      <p>{{ successMessage }}</p>
-      <button class="btn btn-primary" (click)="finishSuccess()">OK</button>
-    </div>
+<!-- Success Popup Modal -->
+<div *ngIf="successMessage" class="custom-modal">
+  <div class="modal-content">
+    <h3>Success</h3>
+    <p>{{ successMessage }}</p>
+    <button class="btn btn-primary" (click)="finishSuccess()">OK</button>
   </div>
+</div>
+
 
   <!-- Custom Error Popup Modal -->
   <div *ngIf="errorMessage" class="custom-modal">

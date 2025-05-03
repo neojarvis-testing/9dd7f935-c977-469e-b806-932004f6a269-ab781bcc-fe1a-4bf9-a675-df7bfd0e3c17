@@ -31,7 +31,7 @@ export class UseraddfeedbackComponent implements OnInit {
     this.feedbackForm = this.formBuilder.group({
       userId: [null, Validators.required],
       message: ['', [Validators.required, Validators.minLength(10)]],
-      rating: [1, [Validators.required, Validators.min(1), Validators.max(5)]]
+      rating: [null, [Validators.required, Validators.min(1), Validators.max(5)]]
     });
   }
 
@@ -44,27 +44,25 @@ export class UseraddfeedbackComponent implements OnInit {
       console.warn('User ID not found in local storage');
     }
   }
-
   addFeedback(): void {
     if (!this.feedbackForm.valid) {
       this.errorMessage = 'Please fill all required fields correctly.';
-      console.log(this.feedbackForm.status, this.feedbackForm.errors);
       return;
     }
-
+  
     this.feedbackForm.patchValue({ userId: this.userid });
-
+  
     this.feedbackService.createFeedback(this.feedbackForm.value).subscribe({
       next: () => {
-        this.successMessage = 'Feedback added successfully.';
-        setTimeout(() => this.finishSuccess(), 2000); // Auto-close success message
+        this.successMessage = 'Feedback added successfully!';
+        setTimeout(() => this.finishSuccess(), 2000); // Auto-close success popup
       },
-      error: (error) => {
+      error: () => {
         this.errorMessage = 'Error submitting feedback. Please try again.';
-        console.error('Feedback submission error:', error);
       }
     });
   }
+  
 
   setRating(rating: number): void {
     if (rating >= 1 && rating <= 5) {
