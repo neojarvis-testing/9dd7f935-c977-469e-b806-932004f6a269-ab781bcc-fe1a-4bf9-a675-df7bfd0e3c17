@@ -46,50 +46,57 @@ export class AdminaddproductComponent implements OnInit {
     })
   }
 
-  createProduct(): void {
+  createProduct() {
     // Attach the userId to the form value
     this.addProductForm.value.userId = this.userId;
   
+    if (!this.selectedId) {
+      // Add Product Logic
+      this.handleProductCreation();
+    } else {
+      // Edit Product Logic
+      this.handleProductUpdate();
+    }
+  }
+  
+  handleProductCreation() {
     if (this.addProductForm.valid) {
-      if (!this.selectedId) {
-        this.createProductAction();
-      } else {
-        this.updateProductAction();
-      }
+      this.service.createProduct(this.addProductForm.value).subscribe(
+        () => {
+          console.log('Product added:', this.addProductForm.value);
+          this.showPopupMsg("Success", "Product added successfully!!!");
+          this.addProductForm.reset();
+        },
+        (error) => {
+          console.error('Error adding product:', error);
+          this.showPopupMsg("Error", "Product failed to add!!!");
+        }
+      );
     } else {
       this.addProductForm.markAllAsTouched();
     }
   }
   
-  private createProductAction(): void {
-    this.service.createProduct(this.addProductForm.value).subscribe(
-      () => {
-        console.log('Product added:', this.addProductForm.value);
-        this.showPopupMsg("Success", "Product added successfully!!!");
-        this.addProductForm.reset();
-      },
-      (error) => {
-        console.log('Error adding product:', JSON.stringify(error));
-        this.showPopupMsg("Error", "Product failed to add!!!");
-      }
-    );
+  handleProductUpdate() {
+    if (this.addProductForm.valid) {
+      this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
+        () => {
+          console.log('Product updated:', this.addProductForm.value);
+          this.showPopupMsg("Success", "Product updated successfully!!!");
+          this.isEdited = false;
+          this.addProductForm.reset();
+          this.router.navigate(['/viewproduct']);
+        },
+        (error) => {
+          console.error('Error updating product:', error);
+          this.showPopupMsg("Error", "Product failed to update!!!");
+        }
+      );
+    } else {
+      this.addProductForm.markAllAsTouched();
+    }
   }
   
-  private updateProductAction(): void {
-    this.service.updateProduct(this.selectedId, this.addProductForm.value).subscribe(
-      () => {
-        console.log('Product updated:', this.addProductForm.value);
-        this.showPopupMsg("Success", "Product updated successfully!!!");
-        this.isEdited = false;
-        this.addProductForm.reset();
-        this.router.navigate(['/viewproduct']);
-      },
-      (error) => {
-        console.log('Error updating product:', JSON.stringify(error));
-        this.showPopupMsg("Error", "Product failed to update!!!");
-      }
-    );
-  }
   
  
   onFileChange(event: Event, fileType: string): void {
