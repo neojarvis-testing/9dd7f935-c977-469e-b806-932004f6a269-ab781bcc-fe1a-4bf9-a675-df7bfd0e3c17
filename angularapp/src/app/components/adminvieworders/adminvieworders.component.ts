@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -23,7 +24,7 @@ export class AdminviewordersComponent implements OnInit, OnDestroy {
   newStatusForUpdate!: string;
   page: number = 1;
 
-  constructor(private readonly orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService,private readonly route:Router) {}
 
   ngOnInit(): void {
     this.setBackgroundImage();
@@ -104,5 +105,6 @@ export class AdminviewordersComponent implements OnInit, OnDestroy {
 
   closeErrorPopup(): void {
     this.showErrorPopup = false;
+    this.route.navigate(['/viewproduct'])
   }
 }

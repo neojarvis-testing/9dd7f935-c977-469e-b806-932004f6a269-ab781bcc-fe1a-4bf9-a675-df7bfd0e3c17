@@ -39,6 +39,9 @@ public class Product {
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    @ManyToMany(mappedBy = "products",cascade=CascadeType.ALL)
+    @JsonBackReference
+    List<Order>orders;
 
     @ManyToOne
     private User user;

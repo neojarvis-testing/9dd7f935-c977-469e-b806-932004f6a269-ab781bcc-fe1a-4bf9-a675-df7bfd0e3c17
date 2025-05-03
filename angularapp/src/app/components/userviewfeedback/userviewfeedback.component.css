@@ -2,8 +2,8 @@
 .user-feedback-container {
   min-height: 100vh;
   padding: 40px;
-  background: linear-gradient(to right, rgba(200, 230, 201, 0.85), rgba(165, 214, 167, 0.85)), 
-    url('https://i.pinimg.com/736x/98/2b/fb/982bfb2c3894f29c9bed4d13d7b0488d.jpg') no-repeat center center fixed;
+  background:  
+    url('https://media-hosting.imagekit.io/af66ad46d40d4b76/aquatint%20print%20of%20a%20%20board%20with%20feedbacks%20written_%2003-05-2025%20at%2015-09-16.jpeg?Expires=1840873235&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=p5iRiJaSnyF-tlbkO1VL6AyqfFzKYnNTiiszWs26F2RwmWspKPQ1sVGuYDeddy7PwdOOqy-NWdgGNHO3fU5v47N9hmar006Y2gaexVMnAthreW-AgfP~O~VSrPHvGcg4-NlPLD7u1a0HFHmVuXedWUIo9sigTMmk3cWiXQ6oTSPShdwPYcQA2saFImFKfbWLEoJWRKOEu1rZhaagTpfawW9qU2d~VDylHgCpNGGfxpRbGXnN8dMVv82J~n7DosfzShoef5RY9~BnkV4SRn9xqAaIc63Sr5HDSXH8lQHzUjI0N~XkVbcKBZ51QskRkJ5uXELXRN7I6WZAx5ZGca4ZfA__') no-repeat center center fixed;
   background-size: cover;
   position: relative;
   display: flex;
@@ -20,18 +20,19 @@
 .feedback-main-title {
   font-size: 3rem;
   font-weight: bold;
-  color: #1B5E20; /* Deep green */
+  color: #1b1a1a; /* Rustic brown */
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cinzel', serif; /* Vintage serif font */
   margin-bottom: 40px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
 
-/* Refined Table Styling - Green Theme */
+
+/* Refined Table Styling - Rustic Brown Theme */
 .feedback-table {
   animation: fadeInTable 1s ease-in-out;
-  background: linear-gradient(to right, #A5D6A7, #81C784); /* Soft green blend */
+  background: linear-gradient(to right, #8B4513, #A0522D); /* Rustic brown blend */
   color: #212121;
   border-radius: 15px;
   overflow: hidden;
@@ -40,29 +41,29 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Table Headers - Elegant Dark Green */
+/* Table Headers - Dark Brown */
 .feedback-table th {
-  background-color: #2E7D32; /* Rich forest green */
+  background-color: #5C4033; /* Dark brown */
   color: white;
   font-weight: bold;
   padding: 18px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-bottom: 3px solid #388E3C;
+  border-bottom: 3px solid #8B4513;
 }
 
 /* Table Cells */
 .feedback-table td {
   padding: 16px;
-  background: rgba(255, 255, 255, 0.95); /* Light mint green */
-  border-bottom: 2px solid #81C784;
+  background: rgba(245, 222, 179, 0.95); /* Light brown */
+  border-bottom: 2px solid #A0522D;
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
 }
 
 /* Hover Effect */
 .feedback-table tbody tr:hover {
-  background-color: rgba(165, 214, 167, 0.6); /* Soft green hover */
+  background-color: rgba(210, 180, 140, 0.6); /* Soft brown hover */
   transform: scale(1.02);
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
@@ -96,50 +97,48 @@
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
 }
-:root {
-  --modal-overlay-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
-  --modal-bg-color: #fff;
-  --modal-padding: 20px;
-  --modal-border-radius: 8px;
-  --modal-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
- 
+
+/* Modal Styling */
 .custom-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--modal-overlay-color);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Ensure modal appears above other content */
+  z-index: 1000;
+  animation: fadeInModal 0.5s ease-in-out;
 }
- 
+
 .modal-content {
-  background-color: var(--modal-bg-color);
-  padding: var(--modal-padding);
-  border-radius: var(--modal-border-radius);
+  background-color: #fff; /* White background for modal content */
+  padding: 20px;
+  border-radius: 8px;
   width: 90%;
   max-width: 400px;
   text-align: center;
-  box-shadow: var(--modal-box-shadow);
-  animation: fadeInModal 0.5s ease-in-out;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.5); /* Green shadow */
 }
- 
+
 .modal-buttons {
   margin-top: 20px;
   display: flex;
   justify-content: space-around;
 }
- 
+
 .modal-buttons button {
   width: 45%;
 }
- 
-/* Smooth Fade-in Animation */
-@keyframes fadeInModal {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+
+/* Smooth Fade-in Animation for Overlay */
+@keyframes fadeInOverlay {
+  to { opacity: 1; }
+}
+
+/* Slide-in Animation for Modal Content */
+@keyframes slideInModal {
+  to { transform: translateY(0); }
 }
