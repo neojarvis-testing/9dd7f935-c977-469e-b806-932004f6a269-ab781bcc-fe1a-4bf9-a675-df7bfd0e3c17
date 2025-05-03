@@ -78,13 +78,6 @@ export class UseraddfeedbackComponent implements OnInit {
   closeErrorModal(): void {
     this.errorMessage = '';
   }
- 
-  handleKeyDown(event: KeyboardEvent, index: number): void {
-    if (this.isEnterOrSpace(event)) {
-      event.preventDefault();
-      this.setRating(index + this.INCREMENT);
-    }
-  }
 
   onStarClick(index: number): void {
     this.setRating(index + this.INCREMENT);
